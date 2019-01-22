@@ -2,8 +2,8 @@ package tw.com.skl.invest;
 
 public class FormulaIF extends Expression {
 	
-	public static final String formulaRegex = "(IF|if)\\(";
-	public static final String name = "IF";
+	public static final String FORMULA_REGEX = "(IF|if)\\(";
+	public static final String NAME = "IF";
 	
 	private String operater;
 	private String trueResult;
@@ -11,7 +11,7 @@ public class FormulaIF extends Expression {
 	
 	@Override
 	public String interpret(String statement) {
-		print("p " + name + " : " + statement);
+		print("p " + NAME + " : " + statement);
 		String[] statements = this.splitComman(statement);
 		if (statements.length == 3) {
 			this.operater = statements[0];
@@ -20,6 +20,6 @@ public class FormulaIF extends Expression {
 		}
 		
 		print("p if " + this.operater + "," + this.trueResult + "," + this.falseResult);
-		return name + "_Result";
+		return NAME + "_Result";
 	}
 }

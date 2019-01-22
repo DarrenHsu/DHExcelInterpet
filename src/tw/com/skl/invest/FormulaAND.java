@@ -2,14 +2,14 @@ package tw.com.skl.invest;
 
 public class FormulaAND extends Expression {
 	
-	public static final String formulaRegex = "(AND|and)\\(";
-	public static final String name = "AND";
+	public static final String FORMULA_REGEX = "(AND|and)\\(";
+	public static final String NAME = "AND";
 	
 	private String[] operaters;
 	
 	@Override
 	public String interpret(String statement) {
-		print("p " + name + " : " + statement);
+		print("p " + NAME + " : " + statement);
 		this.operaters = this.splitComman(statement);
 		
 		String msg = "p ";
@@ -19,6 +19,6 @@ public class FormulaAND extends Expression {
 		}
 		print(msg.substring(0, msg.length() - 2));
 
-		return name + "_Result";
+		return NAME + "_Result";
 	}
 }

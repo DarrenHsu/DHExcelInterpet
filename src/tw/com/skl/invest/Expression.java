@@ -1,8 +1,9 @@
 package tw.com.skl.invest;
 
 public abstract class Expression {
-	static String formulaRegex = "";
-	static String name = "";
+	
+	static String FORMULA_REGEX = "";
+	static String NAME = "";
 	
 	public abstract String interpret(String statement);
 	

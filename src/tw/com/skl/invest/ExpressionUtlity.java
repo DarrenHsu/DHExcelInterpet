@@ -25,9 +25,9 @@ public class ExpressionUtlity {
 	}
 	
 	public String getAllFormulaString() {
-		return "(" + FormulaIF.name + "|" +
-				FormulaAND.name + "|" +
-				FormulaMOD.name + 
+		return "(" + FormulaIF.NAME + "|" +
+				FormulaAND.NAME + "|" +
+				FormulaMOD.NAME + 
 				")\\(";
 	}
 	
@@ -52,12 +52,12 @@ public class ExpressionUtlity {
 	
 	public String convertToRegex(String formula) {
 		switch(formula) {
-		case FormulaIF.name:
-			return FormulaIF.formulaRegex;
-		case FormulaAND.name:
-			return FormulaAND.formulaRegex;
-		case FormulaMOD.name:
-			return FormulaMOD.formulaRegex;
+		case FormulaIF.NAME:
+			return FormulaIF.FORMULA_REGEX;
+		case FormulaAND.NAME:
+			return FormulaAND.FORMULA_REGEX;
+		case FormulaMOD.NAME:
+			return FormulaMOD.FORMULA_REGEX;
 		default:
 			break;
 		}
@@ -67,11 +67,11 @@ public class ExpressionUtlity {
 	
 	public String process(StatementResult sr) {
 				switch(sr.getLastOperater()) {
-		case FormulaIF.name:
+		case FormulaIF.NAME:
 			return new FormulaIF().interpret(sr.getStatement());
-		case FormulaAND.name:
+		case FormulaAND.NAME:
 			return new FormulaAND().interpret(sr.getStatement());
-		case FormulaMOD.name:
+		case FormulaMOD.NAME:
 			return new FormulaMOD().interpret(sr.getStatement());
 		default:
 			return null;
