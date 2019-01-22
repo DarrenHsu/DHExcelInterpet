@@ -64,7 +64,7 @@ public class ExpressionUtlity {
 	}
 	
 	public String process(StatementResult sr) {
-		switch(sr.getLastOperater()) {
+		switch(sr.getLastOperator()) {
 		case FormulaIF.NAME:
 			return new FormulaIF().interpret(sr.getStatement());
 		case FormulaAND.NAME:
@@ -83,8 +83,8 @@ public class ExpressionUtlity {
 			this.interpret(sr, regex);
 			this.interpretFormula(sr);
 		} else {
-			String lastOperater = sr.getLastOperater();
-			if (lastOperater == null) {
+			String lastOperator = sr.getLastOperator();
+			if (lastOperator == null) {
 				print("Result");
 				return;
 			}
@@ -107,7 +107,7 @@ public class ExpressionUtlity {
 		Pattern p = Pattern.compile(regex);
 		Matcher m = p.matcher(sr.getStatement());
 		if (m.find()) {
-			String operater = m.group().substring(0, m.group().length() - 1);
+			String operator = m.group().substring(0, m.group().length() - 1);
 			String statement = sr.getStatement().substring(m.end());
 			
 			char[] cs = statement.toCharArray();
@@ -124,7 +124,7 @@ public class ExpressionUtlity {
 				}
 			}
 			
-			sr.setOperaterAndStatement(operater, statement);
+			sr.setOperatorAndStatement(operator, statement);
 			sr.setStatement(statement);
 		}
 		return sr;

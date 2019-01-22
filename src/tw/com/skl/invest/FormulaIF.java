@@ -5,7 +5,7 @@ public class FormulaIF extends Expression {
 	public static final String FORMULA_REGEX = "(IF|if)\\(";
 	public static final String NAME = "IF";
 	
-	private String operater;
+	private String operand;
 	private String trueResult;
 	private String falseResult;
 	
@@ -14,12 +14,12 @@ public class FormulaIF extends Expression {
 		print("p " + NAME + " : " + statement);
 		String[] statements = this.splitComman(statement);
 		if (statements.length == 3) {
-			this.operater = statements[0];
+			this.operand = statements[0];
 			this.trueResult = statements[1];
 			this.falseResult = statements[2];
 		}
 		
-		print("p if " + this.operater + "," + this.trueResult + "," + this.falseResult);
+		print("p if " + this.operand + "," + this.trueResult + "," + this.falseResult);
 		return NAME + "_Result";
 	}
 }

@@ -3,7 +3,7 @@ package tw.com.skl.invest;
 import java.util.ArrayList;
 
 public class StatementResult {
-	private ArrayList<String> operaters;
+	private ArrayList<String> operators;
 	private ArrayList<String> statements;
 	private String orignalStatement;
 	private String statement;
@@ -13,13 +13,13 @@ public class StatementResult {
 	public StatementResult(String orignalStatement) {
 		this.orignalStatement = orignalStatement;
 		this.statement = orignalStatement;
-		this.operaters = new ArrayList<>();
+		this.operators = new ArrayList<>();
 		this.statements = new ArrayList<>();
 	}
 	
-	public void setOperaterAndStatement(String o, String s) {
+	public void setOperatorAndStatement(String o, String s) {
 		this.statements.add(s);
-		this.operaters.add(o);
+		this.operators.add(o);
 	}
 	
 	public String getOrignalStatement() {
@@ -39,23 +39,23 @@ public class StatementResult {
 	}
 
 	public String getLastFullStatement() {
-		if (this.operaters.size() == 0 && this.operaters.size() == 0) {
+		if (this.operators.size() == 0 && this.operators.size() == 0) {
 			return this.statement;
 		}
-		String o = this.operaters.get(this.operaters.size() - 1);
+		String o = this.operators.get(this.operators.size() - 1);
 		String s = this.statements.get(this.statements.size() - 1);
 		return o + "(" + s + ")";
 	}
 	
-	public String getLastOperater() {
-		if (this.operaters.size() == 0) 
+	public String getLastOperator() {
+		if (this.operators.size() == 0) 
 			return null;
 		
-		return this.operaters.get(this.operaters.size() - 1);
+		return this.operators.get(this.operators.size() - 1);
 	}
 	
 	public String getLastStatement() {
-		if (this.operaters.size() == 0) 
+		if (this.operators.size() == 0) 
 			return null;
 		
 		return this.statements.get(this.statements.size() - 1);
@@ -69,7 +69,7 @@ public class StatementResult {
 		
 		for (int i = 0 ; i < this.statements.size() ; i++) {
 			String s = this.statements.get(i);
-			String o = this.operaters.get(i);
+			String o = this.operators.get(i);
 			str += "a " + o + " : " + s + "\n";
 		}
 		str += "-----------------------------------";

@@ -5,18 +5,19 @@ public class FormulaAND extends Expression {
 	public static final String FORMULA_REGEX = "(AND|and)\\(";
 	public static final String NAME = "AND";
 	
-	private String[] operaters;
+	private String[] operands;
 	
 	@Override
 	public String interpret(String statement) {
 		print("p " + NAME + " : " + statement);
-		this.operaters = this.splitComman(statement);
+		this.operands = this.splitComman(statement);
 		
 		String msg = "p ";
-		for(int i  = 0 ; i < this.operaters.length ; i++) {
-			String o = this.operaters[i];
+		for(int i  = 0 ; i < this.operands.length ; i++) {
+			String o = this.operands[i];
+			this.splitOperand(o);
 			msg += o + " & ";
-		}		
+		}
 		print(msg.substring(0, msg.length() - 2));
 		
 		return NAME + "_Result";
