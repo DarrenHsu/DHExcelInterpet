@@ -1,8 +1,17 @@
 package tw.com.skl.invest;
 
-public interface Expression {
+public abstract class Expression {
 	static String formulaRegex = "";
 	static String name = "";
 	
-	String interpret(String statement);
+	public abstract String interpret(String statement);
+	
+	public static void print(String msg) {
+		System.out.println(msg);
+	}
+	
+	public String[] splitComman(String str) {
+		String[] splitStr = str.split(",");
+		return splitStr;
+	}
 }

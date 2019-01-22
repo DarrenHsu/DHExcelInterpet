@@ -10,10 +10,10 @@ public class ExpressionUtlity {
 	}
 	
 	public static void main(String[] args) {
-		String str = "";
-//		str = "IF(B3<>\"\",IF(B3=1,保險費,IF(B3<=13,IF(AND(MOD(B3,(12/繳法別))=1,B3<=繳交年限*12),定期定額續期保險費,0),+IF(AND(MOD(B3,(12/繳法別))=1,B3<=繳交年限*12),定期定額續期保險費,0))),\"\")";
+		String str = null;
+		str = "IF(B3<>\"\",IF(B3=1,保險費,IF(B3<=13,IF(AND(MOD(B3,(12/繳法別))=1,B3<=繳交年限*12),定期定額續期保險費,B5>5/B2+1),+IF(AND(MOD(B3,(12/繳法別))=1,B3<=繳交年限*12),定期定額續期保險費,0))),\"\")";
 //		str = "IF(B3<>\"\",IF(B3=1,保險費,IF(B3<=13,IF(AND(MOD(B3,(12/繳法別))=1,B3<=繳交年限*12),定期定額續期保險費,0),+IF(AND(MOD(B3,(12/繳法別))>1,MOD(B4,(12/繳法別))<3),定期定額續期保險費,0))),\"\")";
-		str = "AND(MOD(B3,(12/繳法別))>1,MOD(B4,(12/繳法別))<3)";
+//		str = "AND(MOD(B3,(12/繳法別))>1,MOD(B4,(12/繳法別))<3)";
 //		str = "B3<>\\\"\\\"";
 //		str = "IF(B3<>\"\",IF(AND(B3<>1,Q2=0),0,IF(AND(A3>=提領年度,A3<=結束提領年度,B3=12*A3,(J3-$K3)*(1+R$1)^(1/12)-部分提領>0),部分提領,0)),\"\")";
 //		str = "AND(MOD(B3,(12/繳法別))=1,B3<=繳交年限*12)";
@@ -130,17 +130,5 @@ public class ExpressionUtlity {
 			sr.setStatement(statement);
 		}
 		return sr;
-	}
-	
-	public String[] splitComman(String str) {
-		String[] splitStr = str.split(",");
-		for (String s : splitStr) {
-			print(s);
-		}
-		return splitStr;
-	}
-	
-	public boolean isClearOperater(String str) {
-		return true;
 	}
 }
