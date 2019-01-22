@@ -16,9 +16,9 @@ public class FormulaAND extends Expression {
 		for(int i  = 0 ; i < this.operaters.length ; i++) {
 			String o = this.operaters[i];
 			msg += o + " & ";
-		}
+		}		
 		print(msg.substring(0, msg.length() - 2));
-
+		
 		return NAME + "_Result";
 	}
 }
