@@ -18,6 +18,9 @@ public abstract class Expression {
 	public static final String S_MORE_THAN_EUQAL 	= ">=";
 	public static final String S_LASS_THAN_EQUAL 	= "<=";
 	public static final String S_NOT_EUQAL 			= "<>";
+	public static final String S_EUQAL 				= "=";
+	public static final String S_LEFT_PARENTHESIS	= "(";
+	public static final String S_RIGHT_PARENTHESIS	= ")";
 
 	public static String FORMULA_REGEX = "";
 	public static String NAME = "";
@@ -60,19 +63,50 @@ public abstract class Expression {
 				"\\" + S_REMAINDER + "|" +
 				"\\" + S_ADDTION + "|" +
 				"\\" + S_SUBTRATION + "|" +
+				"\\" + S_EUQAL + "|" +
+				"\\" + S_LEFT_PARENTHESIS + "|" +
+				"\\" + S_RIGHT_PARENTHESIS + "|" +
 				"(" + S_NOT_EUQAL + "|" +
 				S_MORE_THAN_EUQAL + "|" + S_LASS_THAN_EQUAL +  "|" +
 				S_MORE_THAN + "|" + S_LASS_THAN + ")" + ")";
 	}
 	
+	protected String[] splitOperater(String statement) {
+		return this.splitOperandOrOperater(statement, true);
+	}
+	
 	protected String[] splitOperand(String statement) {
+		return this.splitOperandOrOperater(statement, false);
+	}
+	
+	protected String[] splitOperandOrOperater(String statement, boolean isOperater) {
 		Pattern p = Pattern.compile(this.getExpressionOperatorRegex());
 		Matcher m = p.matcher(statement);
-		ArrayList<String> operands = new ArrayList<>();
+		ArrayList<String> os = new ArrayList<>();
+		int start = 0, end = 0;
 		while (m.find()) {
-			String operator = m.group();
-			print(operator);
+			if (isOperater) {
+				String operator = m.group();
+				print("operator:" + operator);
+				os.add(operator);
+			}else {
+				String operand = statement.substring(start, m.start());
+				if (!operand.isEmpty()) { 
+					print("operand:" + operand);
+				}
+				os.add(operand);
+			}
+			
+			start = m.end();
+			end = m.end();
 		}
-		return operands.toArray(new String[operands.size()]);
+		
+		if (!isOperater && end < statement.length()) {
+			String operand = statement.substring(end);
+			print("operand:" + operand);
+			os.add(operand);
+		}
+		
+		return os.toArray(new String[os.size()]);
 	}
 }
