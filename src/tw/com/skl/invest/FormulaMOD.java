@@ -15,6 +15,9 @@ public class FormulaMOD extends Expression {
 		if (statements.length == 2) {
 			this.divisor = statements[0];
 			this.dividend = statements[1];
+			
+			this.splitAll(this.divisor);
+			this.splitAll(this.dividend);
 		}
 		
 		print("p " + this.divisor + " % " + this.dividend);

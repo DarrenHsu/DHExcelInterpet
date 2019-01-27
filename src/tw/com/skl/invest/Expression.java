@@ -72,36 +72,54 @@ public abstract class Expression {
 	}
 	
 	protected String[] splitOperater(String statement) {
-		return this.splitOperandOrOperater(statement, true);
+		return this.splitOperandOrOperater(statement, 1);
 	}
 	
 	protected String[] splitOperand(String statement) {
-		return this.splitOperandOrOperater(statement, false);
+		return this.splitOperandOrOperater(statement, 2);
 	}
 	
-	protected String[] splitOperandOrOperater(String statement, boolean isOperater) {
+	protected String[] splitAll(String statemnt) {
+		return this.splitOperandOrOperater(statemnt, 3);
+	}
+	
+	protected String[] splitOperandOrOperater(String statement, int mode) {
 		Pattern p = Pattern.compile(this.getExpressionOperatorRegex());
 		Matcher m = p.matcher(statement);
 		ArrayList<String> os = new ArrayList<>();
 		int start = 0, end = 0;
 		while (m.find()) {
-			if (isOperater) {
+			switch (mode) {
+			case 1: {
 				String operator = m.group();
 				print("operator:" + operator);
 				os.add(operator);
-			}else {
+			} break;
+			case 2: {
 				String operand = statement.substring(start, m.start());
 				if (!operand.isEmpty()) { 
 					print("operand:" + operand);
 				}
 				os.add(operand);
+			} break;
+			default: {
+				String operand = statement.substring(start, m.start());
+				if (!operand.isEmpty()) { 
+					print("operand:" + operand);
+				}
+				os.add(operand);
+				
+				String operator = m.group();
+				print("operator:" + operator);
+				os.add(operator);
+			} break;
 			}
 			
 			start = m.end();
 			end = m.end();
 		}
 		
-		if (!isOperater && end < statement.length()) {
+		if (mode >= 2 && end < statement.length()) {
 			String operand = statement.substring(end);
 			print("operand:" + operand);
 			os.add(operand);

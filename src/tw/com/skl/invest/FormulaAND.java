@@ -15,8 +15,7 @@ public class FormulaAND extends Expression {
 		String msg = "p ";
 		for(int i  = 0 ; i < this.operands.length ; i++) {
 			String o = this.operands[i];
-			String[] operands = this.splitOperand(o);
-			String[] operaters = this.splitOperater(o);
+			String[] ops = this.splitAll(o);
 			msg += o + " & ";
 		}
 		print(msg.substring(0, msg.length() - 2));
