@@ -14,7 +14,7 @@ public class MoreThanEqual extends Expression {
 	
 	@Override
 	public String interpret() {
-		print("cel: " + this.left.interpret() + SYMBOL + this.right.interpret());
+		print("cel: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
 		return "MoreThanEqualResult";
 	}
 }

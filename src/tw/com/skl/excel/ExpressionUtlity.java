@@ -13,23 +13,29 @@ public class ExpressionUtlity {
 		String str = null;
 		str = "IF(B3<>\"\",IF(B3=1,保險費,IF(B3<=13,IF(AND(MOD(B3,(12/繳法別))=1,B3<=繳交年限*12),定期定額續期保險費,B5>5/B2+1),+IF(AND(MOD(B3,(12/繳法別))=1,B3<=繳交年限*12),定期定額續期保險費,0))),\"\")";
 		str = "IF(B3<>\"\",IF(AND(B3<>1,Q2=0),0,IF(AND(A3>=提領年度,A3<=結束提領年度,B3=12*A3,(J3-$K3)*(1+R$1)^(1/12)-部分提領>0),部分提領,0)),\"\")";
-//		str = "IF(B3<>\"\",IF(B3=1,保險費,IF(B3<=13,IF(AND(MOD(B3,(12/繳法別))=1,B3<=繳交年限*12),定期定額續期保險費,0),+IF(AND(MOD(B3,(12/繳法別))>1,MOD(B4,(12/繳法別))<3),定期定額續期保險費,0))),\"\")";
-//		str = "AND(MOD(B3,(12/繳法別))>1,MOD(B4,(12/繳法別))<3)";
-//		str = "B3<>\\\"\\\"";
-//		str = "AND(MOD(B3,(12/繳法別))=1,B3<=繳交年限*12)";
+		str = "IF(B3<>\"\",IF(B3=1,保險費,IF(B3<=13,IF(AND(MOD(B3,(12/繳法別))=1,B3<=繳交年限*12),定期定額續期保險費,0),+IF(AND(MOD(B3,(12/繳法別))>1,MOD(B4,(12/繳法別))<3),定期定額續期保險費,0))),\"\")";
+		str = "AND(MOD(B3,(12/繳法別))>1,MOD(B4,(12/繳法別))<3)";
+		str = "B3<>\\\"\\\"";
+		str = "AND(MOD(B3,(12/繳法別))=1,B3<=繳交年限*12)";
 		str = "IF(B3<>\"\",SUM($E$3:E3),\"\")";
+		str = "=IF(B3<>\"\",IF((J3-$K3-M3)*(1+R$1)^(1/12)<0,0,(J3-$K3-M3)*(1+R$1)^(1/12)-O3),\"\")";
+		str = "IF(ROW()=3,1,IF(OR(B3=\"\",B3>12*(年金給付年齡-投保年齡)),\"\",B3+1))";
 		ExpressionUtlity ex = new ExpressionUtlity();
+		StatementResult sr = new StatementResult(str);
+
 		print(str);
 		print("------------- interpreter start -------------");
-		StatementResult sr = new StatementResult(str);
 		ex.interpretFormula(sr);
 	}
 	
 	public String getAllFormulaString() {
-		return "(" + FormulaIF.NAME + "|" +
+		return "(" + 
+				FormulaIF.NAME + "|" +
 				FormulaAND.NAME + "|" +
 				FormulaMOD.NAME + "|" +
-				FormulaSUM.NAME + 
+				FormulaSUM.NAME + "|" +
+				FormulaOR.NAME + "|" +
+				FormulaROW.NAME + "|" +
 				")\\(";
 	}
 	
@@ -62,8 +68,12 @@ public class ExpressionUtlity {
 			return FormulaMOD.FORMULA_REGEX;
 		case FormulaSUM.NAME:
 			return FormulaSUM.FORMULA_REGEX;
+		case FormulaOR.NAME:
+			return FormulaOR.FORMULA_REGEX;
+		case FormulaROW.NAME:
+			return FormulaROW.FORMULA_REGEX;
 		default:
-			return null;
+			return formula;
 		}
 	}
 	
@@ -77,6 +87,10 @@ public class ExpressionUtlity {
 			return new FormulaMOD().interpret(sr.getStatement());
 		case FormulaSUM.NAME:
 			return new FormulaSUM().interpret(sr.getStatement());
+		case FormulaOR.NAME:
+			return new FormulaOR().interpret(sr.getStatement());
+		case FormulaROW.NAME:
+			return new FormulaROW().interpret(sr.getStatement());
 		default:
 			return null;
 		}
@@ -84,7 +98,7 @@ public class ExpressionUtlity {
 	
 	public void interpretFormula(StatementResult sr) {
 		String formula = this.getFormula(sr);
-		if (formula != null) {
+		if (formula != null && !formula.isEmpty()) {
 			String regex = this.convertToRegex(formula);
 			this.interpret(sr, regex);
 			this.interpretFormula(sr);
@@ -98,7 +112,7 @@ public class ExpressionUtlity {
 			String lastFullStepment = sr.getLastFullStatement();
 			String result = this.process(sr);
 			String orignalStatement = sr.getOrignalStatement().replace(lastFullStepment, result);
-			print(orignalStatement);
+			print("\n" + orignalStatement);
 			
 			sr = new StatementResult(orignalStatement);
 			if (this.isHasFormula(sr)) {

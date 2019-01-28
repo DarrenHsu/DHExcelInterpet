@@ -11,6 +11,7 @@ public class FormulaMOD extends Expression {
 	@Override
 	public String interpret(String statement) {
 		print("p " + NAME + " : " + statement);
+		
 		String[] statements = this.splitComman(statement);
 		if (statements.length == 2) {
 			this.divisor = statements[0];
@@ -20,7 +21,6 @@ public class FormulaMOD extends Expression {
 			this.splitStatement(this.dividend);
 		}
 		
-		print("p " + this.divisor + " % " + this.dividend);
 		return NAME + "_Result";
 	}
 }

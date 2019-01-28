@@ -12,6 +12,7 @@ public class FormulaIF extends Expression {
 	@Override
 	public String interpret(String statement) {
 		print("p " + NAME + " : " + statement);
+		
 		String[] statements = this.splitComman(statement);
 		if (statements.length == 3) {
 			this.operand = statements[0];
@@ -23,7 +24,6 @@ public class FormulaIF extends Expression {
 			this.splitStatement(this.falseResult);
 		}
 		
-		print("p if " + this.operand + "," + this.trueResult + "," + this.falseResult);
 		return NAME + "_Result";
 	}
 }

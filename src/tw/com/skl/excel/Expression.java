@@ -38,6 +38,23 @@ public abstract class Expression {
 		String[] splitStr = str.split(",");
 		return splitStr;
 	}
+	
+	protected String getExpressionOperatorRegex() {
+		return "(\\" + Power.SYMBOL + "|" +
+				"\\" + Multiplication.SYMBOL + "|" +
+				"\\" + Division.SYMBOL + "|" +
+				"\\" + DivisionInteger.SYMBOL + "|" +
+				"\\" + Remainder.SYMBOL + "|" +
+				"\\" + Addtion.SYMBOL + "|" +
+				"\\" + Subtration.SYMBOL + "|" +
+				"\\" + Colon.SYMBOL + "|" +
+				"\\" + Equal.SYMBOL + "|" +
+				"\\" + S_LEFT_PARENTHESIS + "|" +
+				"\\" + S_RIGHT_PARENTHESIS + "|" +
+				"(" + NotEqual.SYMBOL + "|" +
+				MoreThan.SYMBOL + "|" + LassThan.SYMBOL +  "|" +
+				MoreThanEqual.SYMBOL + "|" + LassThanEqual.SYMBOL + ")" + ")";
+	}
 
 	protected int getExpressionOperatorPriority(String c) {
 		switch (c) {
@@ -62,21 +79,39 @@ public abstract class Expression {
 		}
 	}
 	
-	protected String getExpressionOperatorRegex() {
-		return "(\\" + Power.SYMBOL + "|" +
-				"\\" + Multiplication.SYMBOL + "|" +
-				"\\" + Division.SYMBOL + "|" +
-				"\\" + DivisionInteger.SYMBOL + "|" +
-				"\\" + Remainder.SYMBOL + "|" +
-				"\\" + Addtion.SYMBOL + "|" +
-				"\\" + Subtration.SYMBOL + "|" +
-				"\\" + Colon.SYMBOL + "|" +
-				"\\" + Equal.SYMBOL + "|" +
-				"\\" + S_LEFT_PARENTHESIS + "|" +
-				"\\" + S_RIGHT_PARENTHESIS + "|" +
-				"(" + NotEqual.SYMBOL + "|" +
-				MoreThan.SYMBOL + "|" + LassThan.SYMBOL +  "|" +
-				MoreThanEqual.SYMBOL + "|" + LassThanEqual.SYMBOL + ")" + ")";
+	private String cal(String operator, String numA, String numB) {
+		switch (operator) {
+		case Power.SYMBOL:
+			return new Power(new Number(numA), new Number(numB)).interpret();
+		case Multiplication.SYMBOL:
+			return new Multiplication(new Number(numA), new Number(numB)).interpret();
+		case Division.SYMBOL:
+			return new Division(new Number(numA), new Number(numB)).interpret();
+		case DivisionInteger.SYMBOL:
+			return new DivisionInteger(new Number(numA), new Number(numB)).interpret();
+		case Remainder.SYMBOL:
+			return new Remainder(new Number(numA), new Number(numB)).interpret();
+		case Addtion.SYMBOL:
+			return new Addtion(new Number(numA), new Number(numB)).interpret();
+		case Subtration.SYMBOL:
+			return new Subtration(new Number(numA), new Number(numB)).interpret();
+		case Colon.SYMBOL:
+			return new Colon(new Number(numA), new Number(numB)).interpret();
+		case MoreThan.SYMBOL:
+			return new MoreThan(new Number(numA), new Number(numB)).interpret();
+		case LassThan.SYMBOL:
+			return new LassThan(new Number(numA), new Number(numB)).interpret();
+		case MoreThanEqual.SYMBOL:
+			return new MoreThanEqual(new Number(numA), new Number(numB)).interpret();
+		case LassThanEqual.SYMBOL:
+			return new LassThanEqual(new Number(numA), new Number(numB)).interpret();
+		case Equal.SYMBOL:
+			return new Equal(new Number(numA), new Number(numB)).interpret();
+		case NotEqual.SYMBOL:
+			return new NotEqual(new Number(numA), new Number(numB)).interpret();
+		default:
+			return null;
+		}
 	}
 	
 	protected String[] splitOperater(String statement) {
@@ -149,12 +184,12 @@ public abstract class Expression {
 		while (m.find()) {
 			String operand = statement.substring(start, m.start());
 			if (!operand.isEmpty()) { 
-				print("operand:" + operand);
+//				print("operand:" + operand);
 				opStack.add(operand);
 			}
 			
 			String operator = m.group();
-			print("operator:" + operator);
+//			print("operator:" + operator);
 			switch(operator) {
 			case toStack: {
 				stack.add(operator);
@@ -183,7 +218,7 @@ public abstract class Expression {
 		
 		if (end < statement.length()) {
 			String operand = statement.substring(end);
-			print("operand:" + operand);
+//			print("operand:" + operand);
 			opStack.add(operand);
 		}
 		
@@ -239,40 +274,5 @@ public abstract class Expression {
 	    }
 		
 		this.calPostfix(stack);
-	}
-	
-	private String cal(String operator, String numA, String numB) {
-		switch (operator) {
-		case Power.SYMBOL:
-			return new Power(new Number(numA), new Number(numB)).interpret();
-		case Multiplication.SYMBOL:
-			return new Multiplication(new Number(numA), new Number(numB)).interpret();
-		case Division.SYMBOL:
-			return new Division(new Number(numA), new Number(numB)).interpret();
-		case DivisionInteger.SYMBOL:
-			return new DivisionInteger(new Number(numA), new Number(numB)).interpret();
-		case Remainder.SYMBOL:
-			return new Remainder(new Number(numA), new Number(numB)).interpret();
-		case Addtion.SYMBOL:
-			return new Addtion(new Number(numA), new Number(numB)).interpret();
-		case Subtration.SYMBOL:
-			return new Subtration(new Number(numA), new Number(numB)).interpret();
-		case Colon.SYMBOL:
-			return new Colon(new Number(numA), new Number(numB)).interpret();
-		case MoreThan.SYMBOL:
-			return new MoreThan(new Number(numA), new Number(numB)).interpret();
-		case LassThan.SYMBOL:
-			return new LassThan(new Number(numA), new Number(numB)).interpret();
-		case MoreThanEqual.SYMBOL:
-			return new MoreThanEqual(new Number(numA), new Number(numB)).interpret();
-		case LassThanEqual.SYMBOL:
-			return new LassThanEqual(new Number(numA), new Number(numB)).interpret();
-		case Equal.SYMBOL:
-			return new Equal(new Number(numA), new Number(numB)).interpret();
-		case NotEqual.SYMBOL:
-			return new NotEqual(new Number(numA), new Number(numB)).interpret();
-		default:
-			return null;
-		}
 	}
 }
