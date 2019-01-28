@@ -75,6 +75,4 @@ public class StatementResult {
 		str += "-----------------------------------";
 		return str;
 	}
-	
-	
 }
