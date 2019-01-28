@@ -1,4 +1,4 @@
-package tw.com.skl.invest;
+package tw.com.skl.excel;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -17,8 +17,8 @@ public abstract class Expression {
 	public static final String S_LASS_THAN 			= "<";
 	public static final String S_MORE_THAN_EUQAL 	= ">=";
 	public static final String S_LASS_THAN_EQUAL 	= "<=";
-	public static final String S_NOT_EUQAL 			= "<>";
-	public static final String S_EUQAL 				= "=";
+	public static final String S_NOT_EQUAL 			= "<>";
+	public static final String S_EQUAL 				= "=";
 	public static final String S_LEFT_PARENTHESIS	= "(";
 	public static final String S_RIGHT_PARENTHESIS	= ")";
 
@@ -50,7 +50,7 @@ public abstract class Expression {
 			return 5;
 		case S_MORE_THAN: case S_LASS_THAN: case S_MORE_THAN_EUQAL: case S_LASS_THAN_EQUAL:
 			return 6;
-		case S_EUQAL: case S_NOT_EUQAL:
+		case S_EQUAL: case S_NOT_EQUAL:
 			return 7;
 		default:
 			return 99;
@@ -65,10 +65,10 @@ public abstract class Expression {
 				"\\" + S_REMAINDER + "|" +
 				"\\" + S_ADDTION + "|" +
 				"\\" + S_SUBTRATION + "|" +
-				"\\" + S_EUQAL + "|" +
+				"\\" + S_EQUAL + "|" +
 				"\\" + S_LEFT_PARENTHESIS + "|" +
 				"\\" + S_RIGHT_PARENTHESIS + "|" +
-				"(" + S_NOT_EUQAL + "|" +
+				"(" + S_NOT_EQUAL + "|" +
 				S_MORE_THAN_EUQAL + "|" + S_LASS_THAN_EQUAL +  "|" +
 				S_MORE_THAN + "|" + S_LASS_THAN + ")" + ")";
 	}
@@ -250,11 +250,11 @@ public abstract class Expression {
 	    		case S_LASS_THAN_EQUAL:
 	    			print("cal: " + numA + S_LASS_THAN_EQUAL + numB);
 	    			break;
-	    		case S_EUQAL:
-	    			print("cal: " + numA + S_EUQAL + numB);
+	    		case S_EQUAL:
+	    			print("cal: " + numA + S_EQUAL + numB);
 	    			break;
-	    		case S_NOT_EUQAL:
-	    			print("cal: " + numA + S_NOT_EUQAL + numB);
+	    		case S_NOT_EQUAL:
+	    			print("cal: " + numA + S_NOT_EQUAL + numB);
 	    			break;
 	    		default:
 	    			break;
