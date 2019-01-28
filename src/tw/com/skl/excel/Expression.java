@@ -237,9 +237,8 @@ public abstract class Expression {
 	}
 	
 	protected void calPostfix(ArrayList<String> stack) {
-		if (stack.size() < 3) {
+		if (stack.size() < 3) 
 			return;
-		}
 		
 		int numAIndex = 0, numBIndex = 0, opIndex = 0;
 		boolean isCalculator = false;
