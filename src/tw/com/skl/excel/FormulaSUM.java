@@ -14,7 +14,7 @@ public class FormulaSUM extends Expression {
 		
 		for(int i  = 0 ; i < this.operands.length ; i++) {
 			String o = this.operands[i];
-			String[] ops = this.splitStatement(o);
+			this.calPostfix(this.convertToPostfix(o));
 		}
 		
 		return NAME + "_Result";

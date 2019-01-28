@@ -175,7 +175,7 @@ public abstract class Expression {
 		return this.getExpressionOperatorPriority(c) != 99;
 	}
 	
-	protected String[] splitStatement(String statement) {
+	protected ArrayList<String> convertToPostfix(String statement) {
 		Pattern p = Pattern.compile(this.getExpressionOperatorRegex());
 		Matcher m = p.matcher(statement);
 		ArrayList<String> opStack = new ArrayList<>(), stack = new ArrayList<>();
@@ -230,10 +230,7 @@ public abstract class Expression {
 		
 		print("postfix: " + opStack.toString());
 		
-		ArrayList<String> ss = new ArrayList<>(opStack);
-		this.calPostfix(ss);
-		
-		return opStack.toArray(new String[opStack.size()]);
+		return opStack;
 	}
 	
 	protected void calPostfix(ArrayList<String> stack) {

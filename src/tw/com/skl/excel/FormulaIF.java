@@ -1,5 +1,7 @@
 package tw.com.skl.excel;
 
+import java.util.ArrayList;
+
 public class FormulaIF extends Expression {
 	
 	public static final String FORMULA_REGEX = "(IF|if)\\(";
@@ -19,9 +21,9 @@ public class FormulaIF extends Expression {
 			this.trueResult = statements[1];
 			this.falseResult = statements[2];
 			
-			this.splitStatement(this.operand);
-			this.splitStatement(this.trueResult);
-			this.splitStatement(this.falseResult);
+			this.calPostfix(this.convertToPostfix(this.operand));
+			this.calPostfix(this.convertToPostfix(this.trueResult));
+			this.calPostfix(this.convertToPostfix(this.falseResult));
 		}
 		
 		return NAME + "_Result";

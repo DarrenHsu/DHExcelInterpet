@@ -17,8 +17,8 @@ public class FormulaMOD extends Expression {
 			this.divisor = statements[0];
 			this.dividend = statements[1];
 			
-			this.splitStatement(this.divisor);
-			this.splitStatement(this.dividend);
+			this.calPostfix(this.convertToPostfix(this.divisor));
+			this.calPostfix(this.convertToPostfix(this.dividend));
 		}
 		
 		return NAME + "_Result";

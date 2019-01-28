@@ -1,5 +1,7 @@
 package tw.com.skl.excel;
 
+import java.util.ArrayList;
+
 public class FormulaAND extends Expression {
 	
 	public static final String FORMULA_REGEX = "(AND|and)\\(";
@@ -15,7 +17,7 @@ public class FormulaAND extends Expression {
 		String msg = "p ";
 		for(int i  = 0 ; i < this.operands.length ; i++) {
 			String o = this.operands[i];
-			String[] ops = this.splitStatement(o);
+			this.calPostfix(this.convertToPostfix(o));
 			msg += o + " & ";
 		}
 
