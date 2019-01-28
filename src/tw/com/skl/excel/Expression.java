@@ -251,50 +251,35 @@ public abstract class Expression {
 	}
 	
 	private String cal(String operator, String numA, String numB) {
-		String result = null;
 		switch (operator) {
 		case S_POWER:
-			result = new Power(new Number(numA), new Number(numB)).interpret();
-			break;
+			return new Power(new Number(numA), new Number(numB)).interpret();
 		case S_MULTIPLICATION:
-			result = new Multiplication(new Number(numA), new Number(numB)).interpret();
-			break;
+			return new Multiplication(new Number(numA), new Number(numB)).interpret();
 		case S_DIVISION:
-			result = new Division(new Number(numA), new Number(numB)).interpret();
-			break;
+			return new Division(new Number(numA), new Number(numB)).interpret();
 		case S_DIVISION_INTEGER:
-			result = new DivisionInteger(new Number(numA), new Number(numB)).interpret();
-			break;
+			return new DivisionInteger(new Number(numA), new Number(numB)).interpret();
 		case S_REMAINDER:
-			result = new Remainder(new Number(numA), new Number(numB)).interpret();
-			break;
+			return new Remainder(new Number(numA), new Number(numB)).interpret();
 		case S_ADDTION:
-			result = new Addtion(new Number(numA), new Number(numB)).interpret();
-			break;
+			return new Addtion(new Number(numA), new Number(numB)).interpret();
 		case S_SUBTRATION:
-			result = new Subtration(new Number(numA), new Number(numB)).interpret();
-			break;
+			return new Subtration(new Number(numA), new Number(numB)).interpret();
 		case S_MORE_THAN:
-			result = new MoreThan(new Number(numA), new Number(numB)).interpret();
-			break;
+			return new MoreThan(new Number(numA), new Number(numB)).interpret();
 		case S_LASS_THAN:
-			result = new LassThan(new Number(numA), new Number(numB)).interpret();
-			break;
+			return new LassThan(new Number(numA), new Number(numB)).interpret();
 		case S_MORE_THAN_EUQAL:
-			result = new MoreThanEqual(new Number(numA), new Number(numB)).interpret();
-			break;
+			return new MoreThanEqual(new Number(numA), new Number(numB)).interpret();
 		case S_LASS_THAN_EQUAL:
-			result = new LassThanEqual(new Number(numA), new Number(numB)).interpret();
-			break;
+			return new LassThanEqual(new Number(numA), new Number(numB)).interpret();
 		case S_EQUAL:
-			result = new Equal(new Number(numA), new Number(numB)).interpret();
-			break;
+			return new Equal(new Number(numA), new Number(numB)).interpret();
 		case S_NOT_EQUAL:
-			result = new NotEqual(new Number(numA), new Number(numB)).interpret();
-			break;
+			return new NotEqual(new Number(numA), new Number(numB)).interpret();
 		default:
-			break;
+			return null;
 		}
-		return result;
 	}
 }
