@@ -18,9 +18,9 @@ public class FormulaIF extends Expression {
 			this.trueResult = statements[1];
 			this.falseResult = statements[2];
 			
-			this.splitAll(this.operand);
-			this.splitAll(this.trueResult);
-			this.splitAll(this.falseResult);
+			this.splitStatement(this.operand);
+			this.splitStatement(this.trueResult);
+			this.splitStatement(this.falseResult);
 		}
 		
 		print("p if " + this.operand + "," + this.trueResult + "," + this.falseResult);

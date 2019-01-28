@@ -127,4 +127,59 @@ public abstract class Expression {
 		
 		return os.toArray(new String[os.size()]);
 	}
+	
+	protected String[] splitStatement(String statement) {
+		Pattern p = Pattern.compile(this.getExpressionOperatorRegex());
+		Matcher m = p.matcher(statement);
+		ArrayList<String> opStack = new ArrayList<>(), stack = new ArrayList<>();
+		String toStack = "(", toOutput = ")";
+		int start = 0, end = 0;
+		while (m.find()) {
+			String operand = statement.substring(start, m.start());
+			if (!operand.isEmpty()) { 
+				print("operand:" + operand);
+				opStack.add(operand);
+			}
+			
+			String operator = m.group();
+			print("operator:" + operator);
+			if (operator.equals(toStack)) {
+				stack.add(operator);
+			} else if (operator.equals(toOutput)) {
+				while(stack.size() != 0 && !stack.get(stack.size() - 1).equals(toStack)) {
+					String lastObj = stack.get(stack.size() - 1);
+					opStack.add(lastObj);
+					stack.remove(stack.size() - 1);
+				}
+				stack.remove(stack.size() - 1);
+			} else {
+				while(stack.size() != 0 && this.getExpressionOperatorPriority(stack.get(stack.size() - 1)) <= this.getExpressionOperatorPriority(operator)) {
+					String lastObj = stack.get(stack.size() - 1);
+					opStack.add(lastObj);
+					stack.remove(stack.size() - 1);
+				}
+				stack.add(operator);
+			}
+			
+			start = m.end();
+			end = m.end();
+		}
+		
+		if (end < statement.length()) {
+			String operand = statement.substring(end);
+			print("operand:" + operand);
+			opStack.add(operand);
+		}
+		
+		while(stack.size() != 0) {
+			String lastObj = stack.get(stack.size() - 1);
+			opStack.add(lastObj);
+			stack.remove(stack.size() - 1);
+		}
+		
+		print("postfix: " + opStack.toString());
+		return opStack.toArray(new String[opStack.size()]);
+	}
+	
+	
 }
