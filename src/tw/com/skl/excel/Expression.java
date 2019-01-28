@@ -4,6 +4,21 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import tw.com.skl.invest.operator.Addtion;
+import tw.com.skl.invest.operator.Division;
+import tw.com.skl.invest.operator.DivisionInteger;
+import tw.com.skl.invest.operator.Equal;
+import tw.com.skl.invest.operator.LassThan;
+import tw.com.skl.invest.operator.LassThanEqual;
+import tw.com.skl.invest.operator.MoreThan;
+import tw.com.skl.invest.operator.MoreThanEqual;
+import tw.com.skl.invest.operator.Multiplication;
+import tw.com.skl.invest.operator.NotEqual;
+import tw.com.skl.invest.operator.Number;
+import tw.com.skl.invest.operator.Power;
+import tw.com.skl.invest.operator.Remainder;
+import tw.com.skl.invest.operator.Subtration;
+
 public abstract class Expression {
 
 	public static final String S_POWER 				= "^";
@@ -202,63 +217,21 @@ public abstract class Expression {
 		
 		int numAIndex = 0, numBIndex = 0, opIndex = 0;
 		boolean isCalculator = false;
-		
+		String result = null;
 		for (int i = 0 ; i < stack.size() ; i++) {
-			String s = stack.get(i);
-			if (this.isOperator(s)) {
-				opIndex = i;
-				if (opIndex < 2) 
+			String operator = stack.get(i);
+			if (this.isOperator(operator)) {
+				if (i < 2)
 					return;
-	            
+				
+				opIndex = i;
 	            numAIndex = i - 2;
 	            numBIndex = i - 1;
 	            
 	            String numA = stack.get(i - 2);
 	            String numB = stack.get(i - 1);
 	            
-	            switch (s) {
-	    		case S_POWER:
-	    			print("cal: " + numA + S_POWER + numB);
-	    			break;
-	    		case S_MULTIPLICATION:
-	    			print("cal: " + numA + S_MULTIPLICATION + numB);
-	    			break;
-	    		case S_DIVISION:
-	    			print("cal: " + numA + S_POWER + numB);
-	    			break;
-	    		case S_DIVISION_INTEGER:
-	    			print("cal: " + numA + S_DIVISION_INTEGER + numB);
-	    			break;
-	    		case S_REMAINDER:
-	    			print("cal: " + numA + S_REMAINDER + numB);
-	    			break;
-	    		case S_ADDTION:
-	    			print("cal: " + numA + S_ADDTION + numB);
-	    			break;
-	    		case S_SUBTRATION:
-	    			print("cal: " + numA + S_SUBTRATION + numB);
-	    			break;
-	    		case S_MORE_THAN:
-	    			print("cal: " + numA + S_MORE_THAN + numB);
-	    			break;
-	    		case S_LASS_THAN:
-	    			print("cal: " + numA + S_LASS_THAN + numB);
-	    			break;
-	    		case S_MORE_THAN_EUQAL:
-	    			print("cal: " + numA + S_MORE_THAN_EUQAL + numB);
-	    			break;
-	    		case S_LASS_THAN_EQUAL:
-	    			print("cal: " + numA + S_LASS_THAN_EQUAL + numB);
-	    			break;
-	    		case S_EQUAL:
-	    			print("cal: " + numA + S_EQUAL + numB);
-	    			break;
-	    		case S_NOT_EQUAL:
-	    			print("cal: " + numA + S_NOT_EQUAL + numB);
-	    			break;
-	    		default:
-	    			break;
-	    		}
+	            result = cal(operator, numA, numB);
 	            
 	            isCalculator = true;
 	            break;
@@ -270,9 +243,58 @@ public abstract class Expression {
 			stack.remove(numBIndex - 1);
 			stack.remove(opIndex - 2);
 
-			stack.add(numAIndex, "Result");
+			if (result != null) 
+				stack.add(numAIndex, result);
 	    }
 		
 		this.calPostfix(stack);
+	}
+	
+	private String cal(String operator, String numA, String numB) {
+		String result = null;
+		switch (operator) {
+		case S_POWER:
+			result = new Power(new Number(numA), new Number(numB)).interpret();
+			break;
+		case S_MULTIPLICATION:
+			result = new Multiplication(new Number(numA), new Number(numB)).interpret();
+			break;
+		case S_DIVISION:
+			result = new Division(new Number(numA), new Number(numB)).interpret();
+			break;
+		case S_DIVISION_INTEGER:
+			result = new DivisionInteger(new Number(numA), new Number(numB)).interpret();
+			break;
+		case S_REMAINDER:
+			result = new Remainder(new Number(numA), new Number(numB)).interpret();
+			break;
+		case S_ADDTION:
+			result = new Addtion(new Number(numA), new Number(numB)).interpret();
+			break;
+		case S_SUBTRATION:
+			result = new Subtration(new Number(numA), new Number(numB)).interpret();
+			break;
+		case S_MORE_THAN:
+			result = new MoreThan(new Number(numA), new Number(numB)).interpret();
+			break;
+		case S_LASS_THAN:
+			result = new LassThan(new Number(numA), new Number(numB)).interpret();
+			break;
+		case S_MORE_THAN_EUQAL:
+			result = new MoreThanEqual(new Number(numA), new Number(numB)).interpret();
+			break;
+		case S_LASS_THAN_EQUAL:
+			result = new LassThanEqual(new Number(numA), new Number(numB)).interpret();
+			break;
+		case S_EQUAL:
+			result = new Equal(new Number(numA), new Number(numB)).interpret();
+			break;
+		case S_NOT_EQUAL:
+			result = new NotEqual(new Number(numA), new Number(numB)).interpret();
+			break;
+		default:
+			break;
+		}
+		return result;
 	}
 }

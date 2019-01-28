@@ -12,7 +12,7 @@ public class Power extends Expression {
 	
 	@Override
 	public String interpret() {
-		print(this.left.interpret() + " ^ " + this.right.interpret());
+		print("cel: " + this.left.interpret() + " ^ " + this.right.interpret());
 		return "PowerResult";
 	}
 }
