@@ -17,6 +17,7 @@ public class ExpressionUtlity {
 //		str = "AND(MOD(B3,(12/繳法別))>1,MOD(B4,(12/繳法別))<3)";
 //		str = "B3<>\\\"\\\"";
 //		str = "AND(MOD(B3,(12/繳法別))=1,B3<=繳交年限*12)";
+		str = "IF(B3<>\"\",SUM($E$3:E3),\"\")";
 		ExpressionUtlity ex = new ExpressionUtlity();
 		print(str);
 		print("------------- interpreter start -------------");
@@ -27,7 +28,8 @@ public class ExpressionUtlity {
 	public String getAllFormulaString() {
 		return "(" + FormulaIF.NAME + "|" +
 				FormulaAND.NAME + "|" +
-				FormulaMOD.NAME + 
+				FormulaMOD.NAME + "|" +
+				FormulaSUM.NAME + 
 				")\\(";
 	}
 	
@@ -58,6 +60,8 @@ public class ExpressionUtlity {
 			return FormulaAND.FORMULA_REGEX;
 		case FormulaMOD.NAME:
 			return FormulaMOD.FORMULA_REGEX;
+		case FormulaSUM.NAME:
+			return FormulaSUM.FORMULA_REGEX;
 		default:
 			return null;
 		}
@@ -71,6 +75,8 @@ public class ExpressionUtlity {
 			return new FormulaAND().interpret(sr.getStatement());
 		case FormulaMOD.NAME:
 			return new FormulaMOD().interpret(sr.getStatement());
+		case FormulaSUM.NAME:
+			return new FormulaSUM().interpret(sr.getStatement());
 		default:
 			return null;
 		}

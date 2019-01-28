@@ -1,6 +1,9 @@
 package tw.com.skl.invest.operator;
 
 public class Multiplication extends Expression {
+
+	public static final String SYMBOL = "*";
+	
 	private Expression left;
 	private Expression right;
 	
@@ -11,7 +14,7 @@ public class Multiplication extends Expression {
 	
 	@Override
 	public String interpret() {
-		print("cel: " + this.left.interpret() + " * " + this.right.interpret());
+		print("cel: " + this.left.interpret() + SYMBOL + this.right.interpret());
 		return "MultiplicationResult";
 	}
 }

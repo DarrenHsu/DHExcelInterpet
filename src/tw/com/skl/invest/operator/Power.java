@@ -2,6 +2,8 @@ package tw.com.skl.invest.operator;
 
 public class Power extends Expression {
 	
+	public static final String SYMBOL = "^";
+	
 	private Expression left;
 	private Expression right;
 	
@@ -12,7 +14,7 @@ public class Power extends Expression {
 	
 	@Override
 	public String interpret() {
-		print("cel: " + this.left.interpret() + " ^ " + this.right.interpret());
+		print("cel: " + this.left.interpret() + SYMBOL + this.right.interpret());
 		return "PowerResult";
 	}
 }
