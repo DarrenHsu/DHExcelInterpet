@@ -2,22 +2,18 @@ package tw.com.skl.excel;
 
 public class FormulaMOD extends Expression {
 	
-	public static final String FORMULA_REGEX = "(MOD|mod)\\(";
-	public static final String NAME = "MOD";
+	public static final String FORMULA_REGEX = "(INT|int)\\(";
+	public static final String NAME = "INT";
 	
-	private String divisor;
-	private String dividend;
+	private String number;
 	
 	@Override
 	public String interpret(String statement) {
 		print("p " + NAME + " : " + statement);
 		
-		String[] statements = this.splitComman(statement);
-		this.divisor = statements[0];
-		this.dividend = statements[1];
+		this.number = statement;
 		
-		this.calPostfix(this.convertToPostfix(this.divisor));
-		this.calPostfix(this.convertToPostfix(this.dividend));
+		this.calPostfix(this.convertToPostfix(this.number));
 		
 		return NAME + "_Result";
 	}

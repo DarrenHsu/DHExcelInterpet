@@ -6,10 +6,11 @@ import tw.com.skl.excel.ExpressionUtlity;
 import tw.com.skl.excel.StatementResult;
 
 public class TestClass {
-	public static void main(String[] args) {
-		ExpressionUtlity utility = new ExpressionUtlity();
-		
-		HashMap<String, String> map = new HashMap<>();
+	private HashMap<String, String> map = new HashMap<>();
+	private ExpressionUtlity utility = new ExpressionUtlity();
+	private String[] statements;
+	
+	public TestClass() {
 		map.put("投保年齡", "1");
 		map.put("年金給付年齡", "70");
 		map.put("保險費", "300000");
@@ -27,10 +28,9 @@ public class TestClass {
 		map.put("結束提領年度", "30");
 		map.put("部分提領", "5000");
 		map.put("費用表!$H$1", "5");
-		map.put("費用表!$G$2", "1");
 		map.put("加值給付開始年度", "5");
 		
-		String[] statements = new String[]{
+		statements = new String[]{
 			"IF(B3<>\"\",INT((B3-1)/12)+1,\"\")",
 			"IF(ROW()=3,1,IF(OR(B2=\"\",B2>12*(年金給付年齡-投保年齡)),\"\",B2+1))",
 			"IF(A3<>\"\",投保年齡+A3-1,\"\")",
@@ -53,7 +53,19 @@ public class TestClass {
 			"IF(AND(A3>=加值給付開始年度,C3<年金給付年齡,MOD(B3,12)=1),AVERAGE(#REF!)*VLOOKUP(IF(A3<11,A3,11),費用表!$J$3:$K$13,2,0),0)",
 			"IF(B3<>\"\",IF((J3-$K3-M3)*(1+R$1)^(1/12)<0,0,(J3-$K3-M3)*(1+R$1)^(1/12)-O3),\"\")"
 		};
-		
-		utility.parseStatement(statements[18]);
+	}
+	
+	public static void main(String[] args) {
+		TestClass test = new TestClass();
+		String statement = test.statements[0];
+		statement = test.replaceNumber(statement);
+		test.utility.parseStatement(statement);
+	}
+	
+	public String replaceNumber(String statement) {
+		for(String key : map.keySet()) {
+			statement = statement.replaceAll(key, map.get(key));
+		}
+		return statement;
 	}
 }

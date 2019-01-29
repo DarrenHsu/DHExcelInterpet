@@ -28,7 +28,8 @@ public class ExpressionUtlity {
 				FormulaROW.NAME + "|" +
 				FormulaROUND.NAME + "|" +
 				FormulaAVERAGE.NAME + "|" +
-				FormulaVLOOKUP.NAME +
+				FormulaVLOOKUP.NAME + "|" +
+				FormulaINT.NAME + 
 				")\\(";
 	}
 	
@@ -71,6 +72,8 @@ public class ExpressionUtlity {
 			return FormulaAVERAGE.FORMULA_REGEX;
 		case FormulaVLOOKUP.NAME:
 			return FormulaVLOOKUP.FORMULA_REGEX;
+		case FormulaINT.NAME:
+			return FormulaINT.FORMULA_REGEX;
 		default:
 			return formula;
 		}
@@ -96,6 +99,8 @@ public class ExpressionUtlity {
 			return new FormulaAVERAGE().interpret(sr.getStatement());
 		case FormulaVLOOKUP.NAME:
 			return new FormulaVLOOKUP().interpret(sr.getStatement());
+		case FormulaINT.NAME:
+			return new FormulaINT().interpret(sr.getStatement());
 		default:
 			return null;
 		}
