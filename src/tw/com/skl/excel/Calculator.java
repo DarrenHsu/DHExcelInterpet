@@ -14,7 +14,7 @@ public class Calculator {
 	}
 	
 	public void parseStatement(String statement) {
-		StatementResult sr = new StatementResult(statement);
+		StatementData sr = new StatementData(statement);
 
 		Log.d(statement);
 		Log.d("------------- interpreter start -------------");
@@ -37,14 +37,14 @@ public class Calculator {
 				")\\(";
 	}
 	
-	private boolean isHasFormula(StatementResult sr) {
+	private boolean isHasFormula(StatementData sr) {
 		String regex = this.getAllFormulaString();
 		Pattern p = Pattern.compile(regex);
 		Matcher m = p.matcher(sr.getStatement());
 		return m.find();
 	}
 	
-	private String getFormula(StatementResult sr) {
+	private String getFormula(StatementData sr) {
 		String regex = this.getAllFormulaString();
 		Pattern p = Pattern.compile(regex);
 		Matcher m = p.matcher(sr.getStatement());
@@ -83,7 +83,7 @@ public class Calculator {
 		}
 	}
 	
-	private String process(StatementResult sr) {
+	private String process(StatementData sr) {
 		switch(sr.getLastOperator()) {
 		case FormulaIF.NAME:
 			return new FormulaIF(this.excelData).interpret(sr.getStatement());
@@ -110,7 +110,7 @@ public class Calculator {
 		}
 	}
 	
-	private void interpretFormula(StatementResult sr) {
+	private void interpretFormula(StatementData sr) {
 		String formula = this.getFormula(sr);
 		if (formula != null && !formula.isEmpty()) {
 			String regex = this.convertToRegex(formula);
@@ -129,7 +129,7 @@ public class Calculator {
 			
 			Log.d("\n" + orignalStatement);
 			
-			sr = new StatementResult(orignalStatement);
+			sr = new StatementData(orignalStatement);
 			if (this.isHasFormula(sr)) {
 				Log.d("------------- interpreter start --------------");
 				this.interpretFormula(sr);
@@ -138,7 +138,7 @@ public class Calculator {
 		}
 	}
 	
-	private StatementResult interpret(StatementResult sr, String regex) {
+	private StatementData interpret(StatementData sr, String regex) {
 		Pattern p = Pattern.compile(regex);
 		Matcher m = p.matcher(sr.getStatement());
 		if (m.find()) {

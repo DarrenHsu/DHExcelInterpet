@@ -2,15 +2,15 @@ package tw.com.skl.excel;
 
 import java.util.ArrayList;
 
-public class StatementResult {
+public class StatementData {
 	private ArrayList<String> operators;
 	private ArrayList<String> statements;
 	private String orignalStatement;
 	private String statement;
 	
-	public StatementResult() {}
+	public StatementData() {}
 	
-	public StatementResult(String orignalStatement) {
+	public StatementData(String orignalStatement) {
 		this.orignalStatement = orignalStatement;
 		this.statement = orignalStatement;
 		this.operators = new ArrayList<>();
