@@ -22,6 +22,14 @@ import tw.com.skl.invest.operator.Subtration;
 
 public abstract class Expression {
 
+	public enum ColumnType {
+		NONE,				//ex: Value
+		RELATIVE_ALL,		//ex: A3
+		RELATIVE_ROW,		//ex: $A3
+		RELATIVE_CELL,		//ex: A$3
+		ABSOLUTE_COLUMN		//ex: $A$3
+	}
+
 	public static final String S_LEFT_PARENTHESIS	= "(";
 	public static final String S_RIGHT_PARENTHESIS	= ")";
 	
@@ -82,6 +90,9 @@ public abstract class Expression {
 	}
 	
 	private String cal(String operator, String numA, String numB) {
+		ColumnType typeA = this.getColumnType(numA);
+		ColumnType typeB = this.getColumnType(numB);
+		
 		switch (operator) {
 		case Power.SYMBOL:
 			return new Power(new Number(numA), new Number(numB)).interpret();
@@ -114,63 +125,6 @@ public abstract class Expression {
 		default:
 			return null;
 		}
-	}
-	
-	protected String[] splitOperater(String statement) {
-		return this.splitOperandOrOperater(statement, 1);
-	}
-	
-	protected String[] splitOperand(String statement) {
-		return this.splitOperandOrOperater(statement, 2);
-	}
-	
-	protected String[] splitAll(String statemnt) {
-		return this.splitOperandOrOperater(statemnt, 3);
-	}
-	
-	protected String[] splitOperandOrOperater(String statement, int mode) {
-		Pattern p = Pattern.compile(this.getExpressionOperatorRegex());
-		Matcher m = p.matcher(statement);
-		ArrayList<String> os = new ArrayList<>();
-		int start = 0, end = 0;
-		while (m.find()) {
-			switch (mode) {
-			case 1: {
-				String operator = m.group();
-				print("operator:" + operator);
-				os.add(operator);
-			} break;
-			case 2: {
-				String operand = statement.substring(start, m.start());
-				if (!operand.isEmpty()) { 
-					print("operand:" + operand);
-				}
-				os.add(operand);
-			} break;
-			default: {
-				String operand = statement.substring(start, m.start());
-				if (!operand.isEmpty()) { 
-					print("operand:" + operand);
-				}
-				os.add(operand);
-				
-				String operator = m.group();
-				print("operator:" + operator);
-				os.add(operator);
-			} break;
-			}
-			
-			start = m.end();
-			end = m.end();
-		}
-		
-		if (mode >= 2 && end < statement.length()) {
-			String operand = statement.substring(end);
-			print("operand:" + operand);
-			os.add(operand);
-		}
-		
-		return os.toArray(new String[os.size()]);
 	}
 	
 	protected boolean isOperator(String c) {
@@ -272,5 +226,25 @@ public abstract class Expression {
 	    }
 		
 		this.calPostfix(stack);
+	}
+	
+	private ColumnType getColumnType(String val) {
+		Pattern p = Pattern.compile("\\$?[A-Z]\\$?\\d");
+		Matcher m = p.matcher(val);
+		if (m.find()) {
+			String v = m.group();
+			if (v.length() == 4) 
+				return ColumnType.ABSOLUTE_COLUMN;
+			else if (v.length() == 3) {
+				if (v.startsWith("$")) {
+					return ColumnType.RELATIVE_ROW;
+				}else {
+					return ColumnType.RELATIVE_CELL;
+				}
+			}else {
+				return ColumnType.RELATIVE_ALL;
+			}
+		}
+		return ColumnType.NONE;
 	}
 }
