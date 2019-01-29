@@ -92,6 +92,8 @@ public abstract class Expression {
 	private String cal(String operator, String numA, String numB) {
 		ColumnType typeA = this.getColumnType(numA);
 		ColumnType typeB = this.getColumnType(numB);
+		this.getColumnValue(numA);
+		this.getColumnValue(numB);
 		
 		switch (operator) {
 		case Power.SYMBOL:
@@ -228,6 +230,43 @@ public abstract class Expression {
 		this.calPostfix(stack);
 	}
 	
+	private String getColumnValue(String val) {
+		ColumnType type = this.getColumnType(val);
+		switch(type) {
+		case RELATIVE_ALL: {
+			String cNum = val.substring(0, 1);
+			String rNum = val.substring(1);
+			
+			print("cc " + cNum + "," + rNum);
+			
+		} break;
+		case RELATIVE_ROW: {
+			String cNum = val.substring(1, 2);
+			String rNum = val.substring(2);
+			
+			print("cc " + cNum + "," + rNum);
+			
+		} break;
+		case RELATIVE_CELL: {
+			String cNum = val.substring(0, 1);
+			String rNum = val.substring(2);
+			
+			print("cc " + cNum + "," + rNum);
+			
+		} break;
+		case ABSOLUTE_COLUMN: {
+			String cNum = val.substring(1, 2);
+			String rNum = val.substring(3, 4);
+			
+			print("cc " + cNum + "," + rNum);
+			
+		} break;
+		default:
+			return val;
+		}
+		return null;
+	}
+	
 	private ColumnType getColumnType(String val) {
 		Pattern p = Pattern.compile("\\$?[A-Z]\\$?\\d");
 		Matcher m = p.matcher(val);
@@ -237,11 +276,7 @@ public abstract class Expression {
 			case 4:
 				return ColumnType.ABSOLUTE_COLUMN;
 			case 3:
-				if (v.startsWith("$")) {
-					return ColumnType.RELATIVE_ROW;
-				}else {
-					return ColumnType.RELATIVE_CELL;
-				}
+				return v.startsWith("$") ? ColumnType.RELATIVE_ROW : ColumnType.RELATIVE_CELL;
 			default:
 				return ColumnType.RELATIVE_ALL;
 			}
