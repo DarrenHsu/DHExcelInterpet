@@ -60,10 +60,10 @@ public abstract class Expression {
 				"\\" + Colon.SYMBOL + "|" +
 				"\\" + S_LEFT_PARENTHESIS + "|" +
 				"\\" + S_RIGHT_PARENTHESIS + "|" +
-				"(" + NotEqual.SYMBOL + "|" +
+				NotEqual.SYMBOL + "|" +
 				MoreThanEqual.SYMBOL + "|" + LassThanEqual.SYMBOL + "|" +
 				MoreThan.SYMBOL + "|" + LassThan.SYMBOL +  "|" +
-				Equal.SYMBOL + ")" + ")";
+				Equal.SYMBOL + ")";
 	}
 
 	protected int getExpressionOperatorPriority(String c) {

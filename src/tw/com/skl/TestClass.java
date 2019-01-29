@@ -11,7 +11,7 @@ public class TestClass {
 	 
 	public static void main(String[] args) {
 		TestClass test = new TestClass();
-		String statement = test.excelData.statements[20];
+		String statement = test.excelData.statements[14];
 		
 		statement = test.replaceNumber(statement);
 		test.utility.parseStatement(statement);
