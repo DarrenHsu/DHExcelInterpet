@@ -27,9 +27,11 @@ public abstract class Expression {
 	
 	public static String FORMULA_REGEX = "";
 	public static String NAME = "";
-
+	
+	protected ExcelData excelData;
+	
 	public abstract String interpret(String statement);
-
+	
 	protected static void print(String msg) {
 		System.out.println(msg);
 	}

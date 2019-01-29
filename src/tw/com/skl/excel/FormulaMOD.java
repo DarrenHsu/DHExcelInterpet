@@ -7,6 +7,10 @@ public class FormulaMOD extends Expression {
 	
 	private String number;
 	
+	public FormulaMOD(ExcelData excelData) {
+		this.excelData = excelData;
+	}
+	
 	@Override
 	public String interpret(String statement) {
 		print("p " + NAME + " : " + statement);

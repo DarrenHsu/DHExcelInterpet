@@ -2,15 +2,32 @@ package tw.com.skl;
 
 import java.util.HashMap;
 
+import tw.com.skl.excel.ExcelData;
 import tw.com.skl.excel.ExpressionUtlity;
-import tw.com.skl.excel.StatementResult;
 
 public class TestClass {
-	private HashMap<String, String> map = new HashMap<>();
-	private ExpressionUtlity utility = new ExpressionUtlity();
-	private String[] statements;
+	ExpressionUtlity utility;
+	ExcelData excelData;
+	 
+	public static void main(String[] args) {
+		TestClass test = new TestClass();
+		String statement = test.excelData.statements[3];
+		
+		statement = test.replaceNumber(statement);
+		test.utility.parseStatement(statement);
+		
+//		System.out.println("\n<================ table ====================>");
+//		for(int i = 0 ; i < test.excelData.table.length ; i++) {
+//			for(int j = 0 ; j < test.excelData.table[0].length ; j ++) {
+//				System.out.print(test.excelData.table[i][j] + (j == test.excelData.table[i].length - 1 ? "" : ","));
+//			}
+//			System.out.print("\n");
+//		}
+//		System.out.println("<================ table ====================>");
+	}
 	
 	public TestClass() {
+		HashMap<String, String> map = new HashMap<>();
 		map.put("投保年齡", "1");
 		map.put("年金給付年齡", "70");
 		map.put("保險費", "300000");
@@ -30,8 +47,8 @@ public class TestClass {
 		map.put("部分提領", "5000");
 		map.put("費用表!$H$1", "5");
 		map.put("加值給付開始年度", "5");
-		
-		statements = new String[]{
+	
+		String[] statements = new String[]{
 			"IF(B3<>\"\",INT((B3-1)/12)+1,\"\")",
 			"IF(ROW()=3,1,IF(OR(B2=\"\",B2>12*(年金給付年齡-投保年齡)),\"\",B2+1))",
 			"IF(A3<>\"\",投保年齡+A3-1,\"\")",
@@ -54,18 +71,19 @@ public class TestClass {
 			"IF(AND(A3>=加值給付開始年度,C3<年金給付年齡,MOD(B3,12)=1),AVERAGE(#REF!)*VLOOKUP(IF(A3<11,A3,11),費用表!$J$3:$K$13,2,0),0)",
 			"IF(B3<>\"\",IF((J3-$K3-M3)*(1+R$1)^(1/12)<0,0,(J3-$K3-M3)*(1+R$1)^(1/12)-O3),\"\")"
 		};
-	}
-	
-	public static void main(String[] args) {
-		TestClass test = new TestClass();
-		String statement = test.statements[3];
-		statement = test.replaceNumber(statement);
-		test.utility.parseStatement(statement);
+		
+		int months = 69 * 12 + 1 + 2;
+		int columns = statements.length;
+		
+		String[][] table = new String[months][columns];
+		
+		this.excelData = new ExcelData(table, statements, map, 3);
+		this.utility = new ExpressionUtlity(this.excelData);
 	}
 	
 	public String replaceNumber(String statement) {
-		for(String key : map.keySet()) {
-			statement = statement.replaceAll(key, map.get(key));
+		for(String key : this.excelData.map.keySet()) {
+			statement = statement.replaceAll(key, this.excelData.map.get(key));
 		}
 		return statement;
 	}

@@ -4,14 +4,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ExpressionUtlity {
+	private ExcelData excelData;
+	
+	public ExpressionUtlity(ExcelData excelData) {
+		this.excelData = excelData;
+	}
+	
 	public void parseStatement(String statement) {
-		ExpressionUtlity ex = new ExpressionUtlity();
 		StatementResult sr = new StatementResult(statement);
 
 		print(statement);
 		print("------------- interpreter start -------------");
 		
-		ex.interpretFormula(sr);
+		this.interpretFormula(sr);
 	}
 	
 	private static void print(String msg) {
@@ -82,25 +87,25 @@ public class ExpressionUtlity {
 	private String process(StatementResult sr) {
 		switch(sr.getLastOperator()) {
 		case FormulaIF.NAME:
-			return new FormulaIF().interpret(sr.getStatement());
+			return new FormulaIF(this.excelData).interpret(sr.getStatement());
 		case FormulaAND.NAME:
-			return new FormulaAND().interpret(sr.getStatement());
+			return new FormulaAND(this.excelData).interpret(sr.getStatement());
 		case FormulaMOD.NAME:
-			return new FormulaMOD().interpret(sr.getStatement());
+			return new FormulaMOD(this.excelData).interpret(sr.getStatement());
 		case FormulaSUM.NAME:
-			return new FormulaSUM().interpret(sr.getStatement());
+			return new FormulaSUM(this.excelData).interpret(sr.getStatement());
 		case FormulaOR.NAME:
-			return new FormulaOR().interpret(sr.getStatement());
+			return new FormulaOR(this.excelData).interpret(sr.getStatement());
 		case FormulaROW.NAME:
-			return new FormulaROW().interpret(sr.getStatement());
+			return new FormulaROW(this.excelData).interpret(sr.getStatement());
 		case FormulaROUND.NAME:
-			return new FormulaROUND().interpret(sr.getStatement());
+			return new FormulaROUND(this.excelData).interpret(sr.getStatement());
 		case FormulaAVERAGE.NAME:
-			return new FormulaAVERAGE().interpret(sr.getStatement());
+			return new FormulaAVERAGE(this.excelData).interpret(sr.getStatement());
 		case FormulaVLOOKUP.NAME:
-			return new FormulaVLOOKUP().interpret(sr.getStatement());
+			return new FormulaVLOOKUP(this.excelData).interpret(sr.getStatement());
 		case FormulaINT.NAME:
-			return new FormulaINT().interpret(sr.getStatement());
+			return new FormulaINT(this.excelData).interpret(sr.getStatement());
 		default:
 			return null;
 		}

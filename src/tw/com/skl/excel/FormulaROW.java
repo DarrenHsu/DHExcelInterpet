@@ -7,6 +7,10 @@ public class FormulaROW extends Expression {
 	
 	private String number;
 	
+	public FormulaROW(ExcelData excelData) {
+		this.excelData = excelData;
+	}
+	
 	@Override
 	public String interpret(String statement) {
 		print("p " + NAME + " : " + statement);

@@ -7,6 +7,10 @@ public class FormulaOR extends Expression {
 	
 	private String[] logicalS;
 	
+	public FormulaOR(ExcelData excelData) {
+		this.excelData = excelData;
+	}
+	
 	@Override
 	public String interpret(String statement) {
 		print("p " + NAME + " : " + statement);

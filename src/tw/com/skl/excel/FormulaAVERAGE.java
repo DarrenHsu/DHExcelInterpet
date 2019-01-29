@@ -7,6 +7,10 @@ public class FormulaAVERAGE extends Expression {
 	
 	private String[] numbers;
 	
+	public FormulaAVERAGE(ExcelData excelData) {
+		this.excelData = excelData;
+	}
+	
 	@Override
 	public String interpret(String statement) {
 		print("p " + NAME + " : " + statement);

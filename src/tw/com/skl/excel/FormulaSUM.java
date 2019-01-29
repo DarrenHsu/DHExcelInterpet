@@ -7,6 +7,10 @@ public class FormulaSUM extends Expression {
 	
 	private String[] numbers;
 	
+	public FormulaSUM(ExcelData excelData) {
+		this.excelData = excelData;
+	}
+	
 	@Override
 	public String interpret(String statement) {
 		print("p " + NAME + " : " + statement);

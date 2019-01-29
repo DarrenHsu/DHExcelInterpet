@@ -10,6 +10,10 @@ public class FormulaVLOOKUP extends Expression {
 	private String colIndex;
 	private String rangeLookup;
 	
+	public FormulaVLOOKUP(ExcelData excelData) {
+		this.excelData = excelData;
+	}
+	
 	@Override
 	public String interpret(String statement) {
 		print("p " + NAME + " : " + statement);

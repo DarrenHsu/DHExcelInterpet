@@ -9,6 +9,10 @@ public class FormulaIF extends Expression {
 	private String trueResult;
 	private String falseResult;
 	
+	public FormulaIF(ExcelData excelData) {
+		this.excelData = excelData;
+	}
+	
 	@Override
 	public String interpret(String statement) {
 		print("p " + NAME + " : " + statement);

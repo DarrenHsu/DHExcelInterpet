@@ -8,6 +8,10 @@ public class FormulaINT extends Expression {
 	private String divisor;
 	private String dividend;
 	
+	public FormulaINT(ExcelData excelData) {
+		this.excelData = excelData;
+	}
+	
 	@Override
 	public String interpret(String statement) {
 		print("p " + NAME + " : " + statement);

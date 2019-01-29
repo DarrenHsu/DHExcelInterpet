@@ -8,6 +8,10 @@ public class FormulaROUND extends Expression {
 	private String number;
 	private String digits;
 	
+	public FormulaROUND(ExcelData excelData) {
+		this.excelData = excelData;
+	}
+	
 	@Override
 	public String interpret(String statement) {
 		print("p " + NAME + " : " + statement);
