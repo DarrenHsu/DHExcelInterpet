@@ -4,21 +4,22 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import tw.com.skl.invest.operator.Addtion;
-import tw.com.skl.invest.operator.Colon;
-import tw.com.skl.invest.operator.Division;
-import tw.com.skl.invest.operator.DivisionInteger;
-import tw.com.skl.invest.operator.Equal;
-import tw.com.skl.invest.operator.LassThan;
-import tw.com.skl.invest.operator.LassThanEqual;
-import tw.com.skl.invest.operator.MoreThan;
-import tw.com.skl.invest.operator.MoreThanEqual;
-import tw.com.skl.invest.operator.Multiplication;
-import tw.com.skl.invest.operator.NotEqual;
-import tw.com.skl.invest.operator.Number;
-import tw.com.skl.invest.operator.Power;
-import tw.com.skl.invest.operator.Remainder;
-import tw.com.skl.invest.operator.Subtration;
+import tw.com.skl.operator.Addtion;
+import tw.com.skl.operator.Colon;
+import tw.com.skl.operator.Division;
+import tw.com.skl.operator.DivisionInteger;
+import tw.com.skl.operator.Equal;
+import tw.com.skl.operator.LassThan;
+import tw.com.skl.operator.LassThanEqual;
+import tw.com.skl.operator.MoreThan;
+import tw.com.skl.operator.MoreThanEqual;
+import tw.com.skl.operator.Multiplication;
+import tw.com.skl.operator.NotEqual;
+import tw.com.skl.operator.Number;
+import tw.com.skl.operator.Power;
+import tw.com.skl.operator.Remainder;
+import tw.com.skl.operator.Subtration;
+import tw.com.skl.utility.Log;
 
 public abstract class Expression {
 
@@ -39,10 +40,6 @@ public abstract class Expression {
 	protected ExcelData excelData;
 	
 	public abstract String interpret(String statement);
-	
-	protected static void print(String msg) {
-		System.out.println(msg);
-	}
 	
 	protected String[] splitComman(String str) {
 		String[] splitStr = str.split(",");
@@ -142,12 +139,12 @@ public abstract class Expression {
 		while (m.find()) {
 			String operand = statement.substring(start, m.start());
 			if (!operand.isEmpty()) { 
-//				print("operand:" + operand);
+				Log.d("operand:" + operand);
 				opStack.add(operand);
 			}
 			
 			String operator = m.group();
-//			print("operator:" + operator);
+			Log.d("operator:" + operator);
 			switch(operator) {
 			case toStack: {
 				stack.add(operator);
@@ -176,7 +173,7 @@ public abstract class Expression {
 		
 		if (end < statement.length()) {
 			String operand = statement.substring(end);
-//			print("operand:" + operand);
+			Log.d("operand:" + operand);
 			opStack.add(operand);
 		}
 		
@@ -186,7 +183,7 @@ public abstract class Expression {
 			stack.remove(stack.size() - 1);
 		}
 		
-		print("postfix: " + opStack.toString());
+		Log.d("postfix: " + opStack.toString());
 		
 		return opStack;
 	}
@@ -201,8 +198,7 @@ public abstract class Expression {
 		for (int i = 0 ; i < stack.size() ; i++) {
 			String operator = stack.get(i);
 			if (this.isOperator(operator)) {
-				if (i < 2)
-					return;
+				if (i < 2) return;
 				
 				opIndex = i;
 	            numAIndex = i - 2;
@@ -237,28 +233,28 @@ public abstract class Expression {
 			String cNum = val.substring(0, 1);
 			String rNum = val.substring(1);
 			
-			print("cc " + cNum + "," + rNum);
+			Log.d("cc " + cNum + "," + rNum);
 			
 		} break;
 		case RELATIVE_ROW: {
 			String cNum = val.substring(1, 2);
 			String rNum = val.substring(2);
 			
-			print("cc " + cNum + "," + rNum);
+			Log.d("cc " + cNum + "," + rNum);
 			
 		} break;
 		case RELATIVE_CELL: {
 			String cNum = val.substring(0, 1);
 			String rNum = val.substring(2);
 			
-			print("cc " + cNum + "," + rNum);
+			Log.d("cc " + cNum + "," + rNum);
 			
 		} break;
 		case ABSOLUTE_COLUMN: {
 			String cNum = val.substring(1, 2);
 			String rNum = val.substring(3, 4);
 			
-			print("cc " + cNum + "," + rNum);
+			Log.d("cc " + cNum + "," + rNum);
 			
 		} break;
 		default:

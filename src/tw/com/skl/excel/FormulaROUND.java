@@ -1,5 +1,7 @@
 package tw.com.skl.excel;
 
+import tw.com.skl.utility.Log;
+
 public class FormulaROUND extends Expression {
 	
 	public static final String FORMULA_REGEX = "(ROUND|round)\\(";
@@ -14,7 +16,7 @@ public class FormulaROUND extends Expression {
 	
 	@Override
 	public String interpret(String statement) {
-		print("p " + NAME + " : " + statement);
+		Log.d("p " + NAME + " : " + statement);
 		
 		String[] statements = this.splitComman(statement);
 		this.number = statements[0];

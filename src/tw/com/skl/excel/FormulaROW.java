@@ -1,5 +1,7 @@
 package tw.com.skl.excel;
 
+import tw.com.skl.utility.Log;
+
 public class FormulaROW extends Expression {
 	
 	public static final String FORMULA_REGEX = "(ROW|row)\\(";
@@ -13,7 +15,7 @@ public class FormulaROW extends Expression {
 	
 	@Override
 	public String interpret(String statement) {
-		print("p " + NAME + " : " + statement);
+		Log.d("p " + NAME + " : " + statement);
 		
 		this.number = statement;
 		

@@ -1,4 +1,6 @@
-package tw.com.skl.invest.operator;
+package tw.com.skl.operator;
+
+import tw.com.skl.utility.Log;
 
 public class MoreThan extends Expression {
 	
@@ -14,7 +16,7 @@ public class MoreThan extends Expression {
 	
 	@Override
 	public String interpret() {
-		print("cel: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
+		Log.d("cel: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
 		return "MoreThanResult";
 	}
 }

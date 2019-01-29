@@ -3,6 +3,8 @@ package tw.com.skl.excel;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import tw.com.skl.utility.Log;
+
 public class ExpressionUtlity {
 	
 	private ExcelData excelData;
@@ -14,14 +16,10 @@ public class ExpressionUtlity {
 	public void parseStatement(String statement) {
 		StatementResult sr = new StatementResult(statement);
 
-		print(statement);
-		print("------------- interpreter start -------------");
+		Log.d(statement);
+		Log.d("------------- interpreter start -------------");
 		
 		this.interpretFormula(sr);
-	}
-	
-	private static void print(String msg) {
-		System.out.println(msg);
 	}
 	
 	private String getAllFormulaString() {
@@ -121,18 +119,18 @@ public class ExpressionUtlity {
 		} else {
 			String lastOperator = sr.getLastOperator();
 			if (lastOperator == null) {
-				print("Result");
+				Log.d("Result");
 				return;
 			}
 			
 			String lastFullStepment = sr.getLastFullStatement();
 			String result = this.process(sr);
 			String orignalStatement = sr.getOrignalStatement().replace(lastFullStepment, result);
-			print("\n" + orignalStatement);
+			Log.d("\n" + orignalStatement);
 			
 			sr = new StatementResult(orignalStatement);
 			if (this.isHasFormula(sr)) {
-				print("------------- interpreter start --------------");
+				Log.d("------------- interpreter start --------------");
 				this.interpretFormula(sr);
 			}
 			return;

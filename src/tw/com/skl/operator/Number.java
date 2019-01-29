@@ -1,4 +1,4 @@
-package tw.com.skl.invest.operator;
+package tw.com.skl.operator;
 
 public class Number extends Expression {
 	

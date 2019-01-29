@@ -1,5 +1,7 @@
 package tw.com.skl.excel;
 
+import tw.com.skl.utility.Log;
+
 public class FormulaVLOOKUP extends Expression {
 	
 	public static final String FORMULA_REGEX = "(VLOOKUP|vlookup)\\(";
@@ -16,7 +18,7 @@ public class FormulaVLOOKUP extends Expression {
 	
 	@Override
 	public String interpret(String statement) {
-		print("p " + NAME + " : " + statement);
+		Log.d("p " + NAME + " : " + statement);
 		
 		String[] statements = this.splitComman(statement);
 		

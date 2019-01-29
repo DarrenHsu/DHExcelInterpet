@@ -1,5 +1,7 @@
 package tw.com.skl.excel;
 
+import tw.com.skl.utility.Log;
+
 public class FormulaAVERAGE extends Expression {
 	
 	public static final String FORMULA_REGEX = "(AVERAGE|average)\\(";
@@ -13,7 +15,7 @@ public class FormulaAVERAGE extends Expression {
 	
 	@Override
 	public String interpret(String statement) {
-		print("p " + NAME + " : " + statement);
+		Log.d("p " + NAME + " : " + statement);
 		
 		this.numbers = this.splitComman(statement);
 		
