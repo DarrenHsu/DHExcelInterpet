@@ -48,12 +48,12 @@ public abstract class Expression {
 				"\\" + Addtion.SYMBOL + "|" +
 				"\\" + Subtration.SYMBOL + "|" +
 				"\\" + Colon.SYMBOL + "|" +
-				"\\" + Equal.SYMBOL + "|" +
 				"\\" + S_LEFT_PARENTHESIS + "|" +
 				"\\" + S_RIGHT_PARENTHESIS + "|" +
 				"(" + NotEqual.SYMBOL + "|" +
+				MoreThanEqual.SYMBOL + "|" + LassThanEqual.SYMBOL + "|" +
 				MoreThan.SYMBOL + "|" + LassThan.SYMBOL +  "|" +
-				MoreThanEqual.SYMBOL + "|" + LassThanEqual.SYMBOL + ")" + ")";
+				Equal.SYMBOL + ")" + ")";
 	}
 
 	protected int getExpressionOperatorPriority(String c) {

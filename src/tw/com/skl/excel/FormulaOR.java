@@ -5,17 +5,16 @@ public class FormulaOR extends Expression {
 	public static final String FORMULA_REGEX = "(OR|or)\\(";
 	public static final String NAME = "OR";
 	
-	private String[] operands;
+	private String[] logicalS;
 	
 	@Override
 	public String interpret(String statement) {
 		print("p " + NAME + " : " + statement);
 		
-		this.operands = this.splitComman(statement);
+		this.logicalS = this.splitComman(statement);
 		
-		for(int i  = 0 ; i < this.operands.length ; i++) {
-			String o = this.operands[i];
-			this.calPostfix(this.convertToPostfix(o));
+		for(int i  = 0 ; i < this.logicalS.length ; i++) {
+			this.calPostfix(this.convertToPostfix(this.logicalS[i]));
 		}
 		
 		return NAME + "_Result";

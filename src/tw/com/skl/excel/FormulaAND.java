@@ -7,18 +7,15 @@ public class FormulaAND extends Expression {
 	public static final String FORMULA_REGEX = "(AND|and)\\(";
 	public static final String NAME = "AND";
 	
-	private String[] operands;
+	private String[] logicals;
 	
 	@Override
 	public String interpret(String statement) {
 		print("p " + NAME + " : " + statement);
-		this.operands = this.splitComman(statement);
+		this.logicals = this.splitComman(statement);
 		
-		String msg = "p ";
-		for(int i  = 0 ; i < this.operands.length ; i++) {
-			String o = this.operands[i];
-			this.calPostfix(this.convertToPostfix(o));
-			msg += o + " & ";
+		for(int i  = 0 ; i < this.logicals.length ; i++) {
+			this.calPostfix(this.convertToPostfix(this.logicals[i]));
 		}
 
 		return NAME + "_Result";

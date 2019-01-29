@@ -15,6 +15,7 @@ public class TestClass {
 		map.put("年金給付年齡", "70");
 		map.put("保險費", "300000");
 		map.put("繳交年限", "5000");
+		map.put("繳法別", "12");
 		map.put("定期定額續期保險費", "1");
 		map.put("費用表!$D$2", "500000");
 		map.put("費用表!$E$2", "0");
@@ -57,7 +58,7 @@ public class TestClass {
 	
 	public static void main(String[] args) {
 		TestClass test = new TestClass();
-		String statement = test.statements[0];
+		String statement = test.statements[3];
 		statement = test.replaceNumber(statement);
 		test.utility.parseStatement(statement);
 	}

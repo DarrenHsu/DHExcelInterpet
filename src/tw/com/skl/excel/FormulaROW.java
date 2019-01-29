@@ -5,13 +5,13 @@ public class FormulaROW extends Expression {
 	public static final String FORMULA_REGEX = "(ROW|row)\\(";
 	public static final String NAME = "ROW";
 	
-	private String operand;
+	private String number;
 	
 	@Override
 	public String interpret(String statement) {
 		print("p " + NAME + " : " + statement);
 		
-		this.operand = statement;
+		this.number = statement;
 		
 		return NAME + "_Result";
 	}
