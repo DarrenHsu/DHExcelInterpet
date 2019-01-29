@@ -3,10 +3,10 @@ package tw.com.skl;
 import java.util.HashMap;
 
 import tw.com.skl.excel.ExcelData;
-import tw.com.skl.excel.ExpressionUtlity;
+import tw.com.skl.excel.Calculator;
 
 public class TestClass {
-	ExpressionUtlity utility;
+	Calculator calculator;
 	ExcelData excelData;
 	 
 	public static void main(String[] args) {
@@ -14,7 +14,7 @@ public class TestClass {
 		String statement = test.excelData.statements[14];
 		
 		statement = test.replaceNumber(statement);
-		test.utility.parseStatement(statement);
+		test.calculator.parseStatement(statement);
 		
 //		System.out.println("\n<================ table ====================>");
 //		for(int i = 0 ; i < test.excelData.table.length ; i++) {
@@ -72,13 +72,13 @@ public class TestClass {
 			"IF(B3<>\"\",IF((J3-$K3-M3)*(1+R$1)^(1/12)<0,0,(J3-$K3-M3)*(1+R$1)^(1/12)-O3),\"\")"
 		};
 		
-		int months = 69 * 12 + 1 + 2;
+		int months = (69 * 12 + 1);
 		int columns = statements.length;
 		
 		String[][] table = new String[months][columns];
 		
 		this.excelData = new ExcelData(table, statements, map, 3);
-		this.utility = new ExpressionUtlity(this.excelData);
+		this.calculator = new Calculator(this.excelData);
 	}
 	
 	public String replaceNumber(String statement) {

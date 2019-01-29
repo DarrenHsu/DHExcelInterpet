@@ -5,11 +5,11 @@ import java.util.regex.Pattern;
 
 import tw.com.skl.utility.Log;
 
-public class ExpressionUtlity {
+public class Calculator {
 	
 	private ExcelData excelData;
 	
-	public ExpressionUtlity(ExcelData excelData) {
+	public Calculator(ExcelData excelData) {
 		this.excelData = excelData;
 	}
 	
@@ -126,6 +126,7 @@ public class ExpressionUtlity {
 			String lastFullStepment = sr.getLastFullStatement();
 			String result = this.process(sr);
 			String orignalStatement = sr.getOrignalStatement().replace(lastFullStepment, result);
+			
 			Log.d("\n" + orignalStatement);
 			
 			sr = new StatementResult(orignalStatement);
