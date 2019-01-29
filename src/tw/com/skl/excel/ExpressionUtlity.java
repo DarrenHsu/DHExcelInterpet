@@ -4,33 +4,21 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ExpressionUtlity {
-	
-	public static void print(String msg) {
-		System.out.println(msg);
-	}
-	
-	public static void main(String[] args) {
-		String str = null;
-		
-		str = "IF(B3<>\"\",IF(B3=1,保險費,IF(B3<=13,IF(AND(MOD(B3,(12/繳法別))=1,B3<=繳交年限*12),定期定額續期保險費,B5>5/B2+1),+IF(AND(MOD(B3,(12/繳法別))=1,B3<=繳交年限*12),定期定額續期保險費,0))),\"\")";
-//		str = "IF(B3<>\"\",IF(AND(B3<>1,Q2=0),0,IF(AND(A3>=提領年度,A3<=結束提領年度,B3=12*A3,(J3-$K3)*(1+R$1)^(1/12)-部分提領>0),部分提領,0)),\"\")";
-//		str = "IF(B3<>\"\",IF(B3=1,保險費,IF(B3<=13,IF(AND(MOD(B3,(12/繳法別))=1,B3<=繳交年限*12),定期定額續期保險費,0),+IF(AND(MOD(B3,(12/繳法別))>1,MOD(B4,(12/繳法別))<3),定期定額續期保險費,0))),\"\")";
-//		str = "AND(MOD(B3,(12/繳法別))>1,MOD(B4,(12/繳法別))<3)";
-//		str = "B3<>\\\"\\\"";
-//		str = "AND(MOD(B3,(12/繳法別))=1,B3<=繳交年限*12)";
-//		str = "IF(B3<>\"\",SUM($E$3:E3),\"\")";
-		str = "=IF(B3<>\"\",IF((J3-$K3-M3)*(1+R$1)^(1/12)<0,0,(J3-$K3-M3)*(1+R$1)^(1/12)-O3),\"\")";
-//		str = "IF(ROW()=3,1,IF(OR(B3=\"\",B3>12*(年金給付年齡-投保年齡)),\"\",B3+1))";
-		
+	public void parseStatement(String statement) {
 		ExpressionUtlity ex = new ExpressionUtlity();
-		StatementResult sr = new StatementResult(str);
+		StatementResult sr = new StatementResult(statement);
 
-		print(str);
+		print(statement);
 		print("------------- interpreter start -------------");
+		
 		ex.interpretFormula(sr);
 	}
 	
-	public String getAllFormulaString() {
+	private static void print(String msg) {
+		System.out.println(msg);
+	}
+	
+	private String getAllFormulaString() {
 		return "(" + 
 				FormulaIF.NAME + "|" +
 				FormulaAND.NAME + "|" +
@@ -38,17 +26,20 @@ public class ExpressionUtlity {
 				FormulaSUM.NAME + "|" +
 				FormulaOR.NAME + "|" +
 				FormulaROW.NAME + "|" +
+				FormulaROUND.NAME + "|" +
+				FormulaAVERAGE.NAME + "|" +
+				FormulaVLOOKUP.NAME +
 				")\\(";
 	}
 	
-	public boolean isHasFormula(StatementResult sr) {
+	private boolean isHasFormula(StatementResult sr) {
 		String regex = this.getAllFormulaString();
 		Pattern p = Pattern.compile(regex);
 		Matcher m = p.matcher(sr.getStatement());
 		return m.find();
 	}
 	
-	public String getFormula(StatementResult sr) {
+	private String getFormula(StatementResult sr) {
 		String regex = this.getAllFormulaString();
 		Pattern p = Pattern.compile(regex);
 		Matcher m = p.matcher(sr.getStatement());
@@ -60,7 +51,7 @@ public class ExpressionUtlity {
 		}
 	}
 	
-	public String convertToRegex(String formula) {
+	private String convertToRegex(String formula) {
 		switch(formula) {
 		case FormulaIF.NAME:
 			return FormulaIF.FORMULA_REGEX;
@@ -74,12 +65,18 @@ public class ExpressionUtlity {
 			return FormulaOR.FORMULA_REGEX;
 		case FormulaROW.NAME:
 			return FormulaROW.FORMULA_REGEX;
+		case FormulaROUND.NAME:
+			return FormulaROUND.FORMULA_REGEX;
+		case FormulaAVERAGE.NAME:
+			return FormulaAVERAGE.FORMULA_REGEX;
+		case FormulaVLOOKUP.NAME:
+			return FormulaVLOOKUP.FORMULA_REGEX;
 		default:
 			return formula;
 		}
 	}
 	
-	public String process(StatementResult sr) {
+	private String process(StatementResult sr) {
 		switch(sr.getLastOperator()) {
 		case FormulaIF.NAME:
 			return new FormulaIF().interpret(sr.getStatement());
@@ -93,12 +90,18 @@ public class ExpressionUtlity {
 			return new FormulaOR().interpret(sr.getStatement());
 		case FormulaROW.NAME:
 			return new FormulaROW().interpret(sr.getStatement());
+		case FormulaROUND.NAME:
+			return new FormulaROUND().interpret(sr.getStatement());
+		case FormulaAVERAGE.NAME:
+			return new FormulaAVERAGE().interpret(sr.getStatement());
+		case FormulaVLOOKUP.NAME:
+			return new FormulaVLOOKUP().interpret(sr.getStatement());
 		default:
 			return null;
 		}
 	}
 	
-	public void interpretFormula(StatementResult sr) {
+	private void interpretFormula(StatementResult sr) {
 		String formula = this.getFormula(sr);
 		if (formula != null && !formula.isEmpty()) {
 			String regex = this.convertToRegex(formula);
@@ -125,7 +128,7 @@ public class ExpressionUtlity {
 		}
 	}
 	
-	public StatementResult interpret(StatementResult sr, String regex) {
+	private StatementResult interpret(StatementResult sr, String regex) {
 		Pattern p = Pattern.compile(regex);
 		Matcher m = p.matcher(sr.getStatement());
 		if (m.find()) {

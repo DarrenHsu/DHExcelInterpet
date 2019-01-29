@@ -13,13 +13,11 @@ public class FormulaMOD extends Expression {
 		print("p " + NAME + " : " + statement);
 		
 		String[] statements = this.splitComman(statement);
-		if (statements.length == 2) {
-			this.divisor = statements[0];
-			this.dividend = statements[1];
-			
-			this.calPostfix(this.convertToPostfix(this.divisor));
-			this.calPostfix(this.convertToPostfix(this.dividend));
-		}
+		this.divisor = statements[0];
+		this.dividend = statements[1];
+		
+		this.calPostfix(this.convertToPostfix(this.divisor));
+		this.calPostfix(this.convertToPostfix(this.dividend));
 		
 		return NAME + "_Result";
 	}

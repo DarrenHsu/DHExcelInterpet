@@ -1,7 +1,5 @@
 package tw.com.skl.excel;
 
-import java.util.ArrayList;
-
 public class FormulaIF extends Expression {
 	
 	public static final String FORMULA_REGEX = "(IF|if)\\(";
