@@ -233,15 +233,16 @@ public abstract class Expression {
 		Matcher m = p.matcher(val);
 		if (m.find()) {
 			String v = m.group();
-			if (v.length() == 4) 
+			switch (v.length()) {
+			case 4:
 				return ColumnType.ABSOLUTE_COLUMN;
-			else if (v.length() == 3) {
+			case 3:
 				if (v.startsWith("$")) {
 					return ColumnType.RELATIVE_ROW;
 				}else {
 					return ColumnType.RELATIVE_CELL;
 				}
-			}else {
+			default:
 				return ColumnType.RELATIVE_ALL;
 			}
 		}
