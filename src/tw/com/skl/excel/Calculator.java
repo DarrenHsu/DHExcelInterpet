@@ -9,6 +9,10 @@ public class Calculator {
 	
 	private ExcelData excelData;
 	
+	public Calculator() {
+		this.excelData = new ExcelData();
+	}
+	
 	public Calculator(ExcelData excelData) {
 		this.excelData = excelData;
 	}

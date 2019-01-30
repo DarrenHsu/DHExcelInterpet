@@ -26,6 +26,8 @@ public class ExcelData {
 	public int firstCol;
 	public HashMap<String, String> map;
 	
+	public ExcelData() {}
+	
 	public ExcelData(String[][] table, String[] statements, HashMap<String, String> map, int currentCol, int currentRow) {
 		this.statements = statements;
 		
