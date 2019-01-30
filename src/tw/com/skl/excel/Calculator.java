@@ -13,13 +13,17 @@ public class Calculator {
 		this.excelData = excelData;
 	}
 	
-	public void parseStatement(String statement) {
+	public String parseStatement(String statement) {
 		StatementData sr = new StatementData(statement);
 
 		Log.d(statement);
 		Log.d("------------- interpreter start -------------");
 		
-		this.interpretFormula(sr);
+		String result = this.interpretFormula(sr);
+		
+		Log.d("Final Result: " + result + "\n");
+		
+		return result;
 	}
 	
 	private String getAllFormulaString() {
@@ -84,7 +88,12 @@ public class Calculator {
 	}
 	
 	private String process(StatementData sr) {
-		switch(sr.getLastOperator()) {
+		String op = sr.getLastOperator();
+		
+		if (op == null) 
+			return new FormulaNone(this.excelData).interpret(sr.getStatement());
+		
+		switch(op) {
 		case FormulaIF.NAME:
 			return new FormulaIF(this.excelData).interpret(sr.getStatement());
 		case FormulaAND.NAME:
@@ -110,34 +119,29 @@ public class Calculator {
 		}
 	}
 	
-	private void interpretFormula(StatementData sr) {
+	private String interpretFormula(StatementData sr) {
 		String formula = this.getFormula(sr);
 		if (formula != null && !formula.isEmpty()) {
 			String regex = this.convertToRegex(formula);
 			this.interpret(sr, regex);
-			this.interpretFormula(sr);
+			return this.interpretFormula(sr);
 		} else {
 			String lastOperator = sr.getLastOperator();
 			if (lastOperator == null) {
-				Log.d("Result");
-				return;
+				return this.process(sr);
 			}
 			
 			String lastFullStepment = sr.getLastFullStatement();
 			String result = this.process(sr);
 			String orignalStatement = sr.getOrignalStatement().replace(lastFullStepment, result);
-
-			Log.d("final result : " + orignalStatement + "\n");
-
-			this.excelData.table[this.excelData.currentCol][this.excelData.currentRow] = result;
 			
 			sr = new StatementData(orignalStatement);
 			if (this.isHasFormula(sr)) {
 				Log.d("------------- interpreter start --------------");
-				this.interpretFormula(sr);
+				return this.interpretFormula(sr);
 			}
 			
-			return;
+			return result;
 		}
 	}
 	

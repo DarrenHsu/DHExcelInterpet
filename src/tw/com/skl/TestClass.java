@@ -15,12 +15,16 @@ public class TestClass {
 		
 		int row = test.excelData.currentRow;
 		int col = 1;
+		
 		String statement = test.excelData.statements[col];
 		statement = test.replaceNumber(statement);
+		
 		test.excelData.currentCol = col;
+		
 		for (int i = row ; i < test.excelData.rowCount ; i++) {
 			test.excelData.currentRow = i;
-			test.calculator.parseStatement(statement);
+			String result = test.calculator.parseStatement(statement);
+			test.excelData.table[test.excelData.currentCol][test.excelData.currentRow] = result;
 		}
 		
 		System.out.println("\n<================ table ====================>");
