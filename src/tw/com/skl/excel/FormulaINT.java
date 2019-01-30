@@ -2,7 +2,7 @@ package tw.com.skl.excel;
 
 import tw.com.skl.utility.Log;
 
-public class FormulaINT extends Expression {
+public class FormulaINT extends Formula {
 	
 	public static final String FORMULA_REGEX = "(MOD|mod)\\(";
 	public static final String NAME = "MOD";

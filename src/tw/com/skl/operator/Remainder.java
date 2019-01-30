@@ -15,7 +15,7 @@ public class Remainder extends Expression {
 	
 	@Override
 	public String interpret() {
-		Log.d("cel: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
+		Log.d("cal: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
 		return "RemainderResult";
 	}
 }

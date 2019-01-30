@@ -11,19 +11,23 @@ public class TestClass {
 	 
 	public static void main(String[] args) {
 		TestClass test = new TestClass();
-		String statement = test.excelData.statements[14];
 		
+		String statement = test.excelData.statements[1];
 		statement = test.replaceNumber(statement);
-		test.calculator.parseStatement(statement);
 		
-//		System.out.println("\n<================ table ====================>");
-//		for(int i = 0 ; i < test.excelData.table.length ; i++) {
-//			for(int j = 0 ; j < test.excelData.table[0].length ; j ++) {
-//				System.out.print(test.excelData.table[i][j] + (j == test.excelData.table[i].length - 1 ? "" : ","));
-//			}
-//			System.out.print("\n");
-//		}
-//		System.out.println("<================ table ====================>");
+		for (int i  = test.excelData.currentRow - 1 ; i < test.excelData.rowCount ; i++) {
+			test.excelData.currentRow = i + 1;
+			test.calculator.parseStatement(statement);
+		}
+		
+		System.out.println("\n<================ table ====================>");
+		for(int i = 0 ; i < test.excelData.table.length ; i++) {
+			for(int j = 0 ; j < test.excelData.table[i].length ; j ++) {
+				System.out.print(test.excelData.table[i][j] + (j == test.excelData.table[i].length - 1 ? "" : ","));
+			}
+			System.out.print("\n");
+		}
+		System.out.println("<================ table ====================>");
 	}
 	
 	public TestClass() {
@@ -49,35 +53,38 @@ public class TestClass {
 		map.put("加值給付開始年度", "5");
 	
 		String[] statements = new String[]{
-			"IF(B3<>\"\",INT((B3-1)/12)+1,\"\")",
-			"IF(ROW()=3,1,IF(OR(B2=\"\",B2>12*(年金給付年齡-投保年齡)),\"\",B2+1))",
-			"IF(A3<>\"\",投保年齡+A3-1,\"\")",
-			"IF(B3<>\"\",IF(B3=1,保險費,IF(B3<=13,IF(AND(MOD(B3,(12/繳法別))=1,B3<=繳交年限*12),定期定額續期保險費,0),+IF(AND(MOD(B3,(12/繳法別))=1,B3<=繳交年限*12),定期定額續期保險費,0))),\"\")",
-			"IF(B3<>\"\",IF(OR(F2+D3>60000000,AND(B3<>1,Q2=0)),0,D3),\"\")",
-			"IF(B3<>\"\",SUM($E$3:E3),\"\")",
-			"IF(B3<>\"\",G2+E3*IF(E3<費用表!$D$2,費用表!$E$2,IF(E3<費用表!$D$3,費用表!$E$3,費用表!$E$4)),\"\")",
-			"IF(B3<>\"\",ROUND(E3-(G3-G2),0),\"\")",
-			"IF(B3<>\"\",SUM($H$3:H3),\"\")",
-			"IF(B3<>\"\",IF(AND(B3<>1,Q2=0),0,IF(B3=1,H3,IF(OR(Q2<0,J2=0),0,Q2+H3+T3))),\"\")",
-			"IF(B3<>\"\",IF(AND(B3<>1,Q2=0),0,IF(I3-SUM($O$2:O2)<費用表!$B$3,費用表!$B$2,0)),\"\")",
-			"IF(B3<>\"\",L2+K3,\"\")",
-			"IF(A3<=5,IF(B3<>\"\",IF(AND(B3<>1,Q2=0),0,J3*費用表!$B$4),\"\"),0)",
-			"IF(B3<>\"\",N2+M3,\"\")",
-			"IF(B3<>\"\",IF(AND(B3<>1,Q2=0),0,IF(AND(A3>=提領年度,A3<=結束提領年度,B3=12*A3,(J3-$K3)*(1+R$1)^(1/12)-部分提領>0),部分提領,0)),\"\")",
-			"IF(B3<>\"\",IF(A3<=費用表!$H$1,VLOOKUP(A3,費用表!$G$2:$H$20,2,FALSE)*O3,0),\"\")",
-			"IF(B3<>\"\",IF((J3-$K3-M3)*(1+R$1)^(1/12)<0,0,(J3-$K3-M3)*(1+R$1)^(1/12)-O3),\"\")",
-			"IF(B3<>\"\",IF(A3<=費用表!$H$1,VLOOKUP(A3,費用表!$G$2:$H$20,2,FALSE)*ROUND(Q3,0),0),\"\")",
-			"IF(B3<>\"\",ROUND(Q3,0)-R3,\"\")",
-			"IF(AND(A3>=加值給付開始年度,C3<年金給付年齡,MOD(B3,12)=1),AVERAGE(#REF!)*VLOOKUP(IF(A3<11,A3,11),費用表!$J$3:$K$13,2,0),0)",
-			"IF(B3<>\"\",IF((J3-$K3-M3)*(1+R$1)^(1/12)<0,0,(J3-$K3-M3)*(1+R$1)^(1/12)-O3),\"\")"
+				"IF(B3<>\"\",INT((B3-1)/12)+1,\"\")",
+				"IF(ROW()=3,1,IF(OR(B2=\"\",B2>12*(年金給付年齡-投保年齡)),\"\",B2+1))",
+				"IF(A3<>\"\",投保年齡+A3-1,\"\")",
+				"IF(B3<>\"\",IF(B3=1,保險費,IF(B3<=13,IF(AND(MOD(B3,(12/繳法別))=1,B3<=繳交年限*12),定期定額續期保險費,0),+IF(AND(MOD(B3,(12/繳法別))=1,B3<=繳交年限*12),定期定額續期保險費,0))),\"\")",
+				"IF(B3<>\"\",IF(OR(F2+D3>60000000,AND(B3<>1,Q2=0)),0,D3),\"\")",
+				"IF(B3<>\"\",SUM($E$3:E3),\"\")",
+				"IF(B3<>\"\",G2+E3*IF(E3<費用表!$D$2,費用表!$E$2,IF(E3<費用表!$D$3,費用表!$E$3,費用表!$E$4)),\"\")",
+				"IF(B3<>\"\",ROUND(E3-(G3-G2),0),\"\")",
+				"IF(B3<>\"\",SUM($H$3:H3),\"\")",
+				"IF(B3<>\"\",IF(AND(B3<>1,Q2=0),0,IF(B3=1,H3,IF(OR(Q2<0,J2=0),0,Q2+H3+T3))),\"\")",
+				"IF(B3<>\"\",IF(AND(B3<>1,Q2=0),0,IF(I3-SUM($O$2:O2)<費用表!$B$3,費用表!$B$2,0)),\"\")",
+				"IF(B3<>\"\",L2+K3,\"\")",
+				"IF(A3<=5,IF(B3<>\"\",IF(AND(B3<>1,Q2=0),0,J3*費用表!$B$4),\"\"),0)",
+				"IF(B3<>\"\",N2+M3,\"\")",
+				"IF(B3<>\"\",IF(AND(B3<>1,Q2=0),0,IF(AND(A3>=提領年度,A3<=結束提領年度,B3=12*A3,(J3-$K3)*(1+R$1)^(1/12)-部分提領>0),部分提領,0)),\"\")",
+				"IF(B3<>\"\",IF(A3<=費用表!$H$1,VLOOKUP(A3,費用表!$G$2:$H$20,2,FALSE)*O3,0),\"\")",
+				"IF(B3<>\"\",IF((J3-$K3-M3)*(1+R$1)^(1/12)<0,0,(J3-$K3-M3)*(1+R$1)^(1/12)-O3),\"\")",
+				"IF(B3<>\"\",IF(A3<=費用表!$H$1,VLOOKUP(A3,費用表!$G$2:$H$20,2,FALSE)*ROUND(Q3,0),0),\"\")",
+				"IF(B3<>\"\",ROUND(Q3,0)-R3,\"\")",
+				"IF(AND(A3>=加值給付開始年度,C3<年金給付年齡,MOD(B3,12)=1),AVERAGE(#REF!)*VLOOKUP(IF(A3<11,A3,11),費用表!$J$3:$K$13,2,0),0)",
+				"IF(B3<>\"\",IF((J3-$K3-M3)*(1+R$1)^(1/12)<0,0,(J3-$K3-M3)*(1+R$1)^(1/12)-O3),\"\")"
 		};
 		
-		int months = (69 * 12 + 1);
+		int months = (69 * 12 + 1) + 2;
 		int columns = statements.length;
 		
 		String[][] table = new String[months][columns];
+		for(int i = 0 ; i < table.length ; i++)
+			for(int j = 0 ; j < table[i].length ; j ++) 
+				table[i][j] = "";
 		
-		this.excelData = new ExcelData(table, statements, map, 3);
+		this.excelData = new ExcelData(table, statements, map, 1, 3);
 		this.calculator = new Calculator(this.excelData);
 	}
 	

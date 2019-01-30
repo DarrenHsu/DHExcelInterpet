@@ -1,5 +1,8 @@
 package tw.com.skl.operator;
 
+import java.math.BigDecimal;
+
+import tw.com.skl.excel.Formula;
 import tw.com.skl.utility.Log;
 
 public class MoreThan extends Expression {
@@ -16,7 +19,9 @@ public class MoreThan extends Expression {
 	
 	@Override
 	public String interpret() {
-		Log.d("cel: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
-		return "MoreThanResult";
+		Log.d("cal: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
+		BigDecimal l = new BigDecimal(this.left.interpret());
+		BigDecimal r = new BigDecimal(this.right.interpret());
+		return l.compareTo(r) == 1 ? Formula.S_TRUE : Formula.S_FALSE;
 	}
 }

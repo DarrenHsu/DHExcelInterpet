@@ -1,5 +1,7 @@
 package tw.com.skl.operator;
 
+import java.math.BigDecimal;
+
 import tw.com.skl.utility.Log;
 
 public class Multiplication extends Expression {
@@ -16,7 +18,9 @@ public class Multiplication extends Expression {
 	
 	@Override
 	public String interpret() {
-		Log.d("cel: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
-		return "MultiplicationResult";
+		Log.d("cal: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
+		BigDecimal l = new BigDecimal(this.left.interpret());
+		BigDecimal r = new BigDecimal(this.right.interpret());
+		return l.multiply(r).toString();
 	}
 }

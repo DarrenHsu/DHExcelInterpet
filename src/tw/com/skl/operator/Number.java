@@ -10,6 +10,8 @@ public class Number extends Expression {
 	
 	@Override
 	public String interpret() {
-		return operand;
+		this.operand = this.operand.replaceAll("\"", "");
+		
+		return operand.equals("") ? "0" : operand;
 	}
 }

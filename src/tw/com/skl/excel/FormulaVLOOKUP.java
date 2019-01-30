@@ -2,7 +2,7 @@ package tw.com.skl.excel;
 
 import tw.com.skl.utility.Log;
 
-public class FormulaVLOOKUP extends Expression {
+public class FormulaVLOOKUP extends Formula {
 	
 	public static final String FORMULA_REGEX = "(VLOOKUP|vlookup)\\(";
 	public static final String NAME = "VLOOKUP";

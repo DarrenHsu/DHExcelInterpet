@@ -126,7 +126,7 @@ public class Calculator {
 			String lastFullStepment = sr.getLastFullStatement();
 			String result = this.process(sr);
 			String orignalStatement = sr.getOrignalStatement().replace(lastFullStepment, result);
-			
+
 			Log.d("\n" + orignalStatement);
 			
 			sr = new StatementData(orignalStatement);
@@ -134,6 +134,9 @@ public class Calculator {
 				Log.d("------------- interpreter start --------------");
 				this.interpretFormula(sr);
 			}
+			
+			this.excelData.table[this.excelData.currentRow - 1][this.excelData.currentCell] = orignalStatement;
+			
 			return;
 		}
 	}

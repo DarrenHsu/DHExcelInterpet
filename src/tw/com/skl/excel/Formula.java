@@ -21,16 +21,10 @@ import tw.com.skl.operator.Remainder;
 import tw.com.skl.operator.Subtration;
 import tw.com.skl.utility.Log;
 
-public abstract class Expression {
-
-	public enum ColumnType {
-		NONE,				//ex: Value
-		RELATIVE_ALL,		//ex: A3
-		RELATIVE_ROW,		//ex: $A3
-		RELATIVE_CELL,		//ex: A$3
-		ABSOLUTE_COLUMN		//ex: $A$3
-	}
-
+public abstract class Formula {
+	
+	public static final String S_TRUE = "TRUE";
+	public static final String S_FALSE = "FALSE";
 	public static final String S_LEFT_PARENTHESIS	= "(";
 	public static final String S_RIGHT_PARENTHESIS	= ")";
 	
@@ -87,10 +81,8 @@ public abstract class Expression {
 	}
 	
 	private String cal(String operator, String numA, String numB) {
-		ColumnType typeA = this.getColumnType(numA);
-		ColumnType typeB = this.getColumnType(numB);
-		this.getColumnValue(numA);
-		this.getColumnValue(numB);
+		numA = this.excelData.getColumnType(numA);
+		numB = this.excelData.getColumnType(numB);
 		
 		switch (operator) {
 		case Power.SYMBOL:
@@ -139,12 +131,12 @@ public abstract class Expression {
 		while (m.find()) {
 			String operand = statement.substring(start, m.start());
 			if (!operand.isEmpty()) { 
-				Log.d("operand:" + operand);
+//				Log.d("operand:" + operand);
 				opStack.add(operand);
 			}
 			
 			String operator = m.group();
-			Log.d("operator:" + operator);
+//			Log.d("operator:" + operator);
 			switch(operator) {
 			case toStack: {
 				stack.add(operator);
@@ -173,7 +165,7 @@ public abstract class Expression {
 		
 		if (end < statement.length()) {
 			String operand = statement.substring(end);
-			Log.d("operand:" + operand);
+//			Log.d("operand:" + operand);
 			opStack.add(operand);
 		}
 		
@@ -188,9 +180,9 @@ public abstract class Expression {
 		return opStack;
 	}
 	
-	protected void calPostfix(ArrayList<String> stack) {
+	protected String calPostfix(ArrayList<String> stack) {
 		if (stack.size() < 3) 
-			return;
+			return stack.get(0);
 		
 		int numAIndex = 0, numBIndex = 0, opIndex = 0;
 		boolean isCalculator = false;
@@ -198,7 +190,7 @@ public abstract class Expression {
 		for (int i = 0 ; i < stack.size() ; i++) {
 			String operator = stack.get(i);
 			if (this.isOperator(operator)) {
-				if (i < 2) return;
+				if (i < 2) return null;
 				
 				opIndex = i;
 	            numAIndex = i - 2;
@@ -207,7 +199,7 @@ public abstract class Expression {
 	            String numA = stack.get(i - 2);
 	            String numB = stack.get(i - 1);
 	            
-	            result = cal(operator, numA, numB);
+	            result = this.cal(operator, numA, numB);
 	            
 	            isCalculator = true;
 	            break;
@@ -223,60 +215,6 @@ public abstract class Expression {
 				stack.add(numAIndex, result);
 	    }
 		
-		this.calPostfix(stack);
-	}
-	
-	private String getColumnValue(String val) {
-		ColumnType type = this.getColumnType(val);
-		switch(type) {
-		case RELATIVE_ALL: {
-			String cNum = val.substring(0, 1);
-			String rNum = val.substring(1);
-			
-			Log.d("cc " + cNum + "," + rNum);
-			
-		} break;
-		case RELATIVE_ROW: {
-			String cNum = val.substring(1, 2);
-			String rNum = val.substring(2);
-			
-			Log.d("cc " + cNum + "," + rNum);
-			
-		} break;
-		case RELATIVE_CELL: {
-			String cNum = val.substring(0, 1);
-			String rNum = val.substring(2);
-			
-			Log.d("cc " + cNum + "," + rNum);
-			
-		} break;
-		case ABSOLUTE_COLUMN: {
-			String cNum = val.substring(1, 2);
-			String rNum = val.substring(3, 4);
-			
-			Log.d("cc " + cNum + "," + rNum);
-			
-		} break;
-		default:
-			return val;
-		}
-		return null;
-	}
-	
-	private ColumnType getColumnType(String val) {
-		Pattern p = Pattern.compile("\\$?[A-Z]\\$?\\d");
-		Matcher m = p.matcher(val);
-		if (m.find()) {
-			String v = m.group();
-			switch (v.length()) {
-			case 4:
-				return ColumnType.ABSOLUTE_COLUMN;
-			case 3:
-				return v.startsWith("$") ? ColumnType.RELATIVE_ROW : ColumnType.RELATIVE_CELL;
-			default:
-				return ColumnType.RELATIVE_ALL;
-			}
-		}
-		return ColumnType.NONE;
+		return this.calPostfix(stack);
 	}
 }

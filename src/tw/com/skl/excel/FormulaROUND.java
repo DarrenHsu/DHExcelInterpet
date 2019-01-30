@@ -2,7 +2,7 @@ package tw.com.skl.excel;
 
 import tw.com.skl.utility.Log;
 
-public class FormulaROUND extends Expression {
+public class FormulaROUND extends Formula {
 	
 	public static final String FORMULA_REGEX = "(ROUND|round)\\(";
 	public static final String NAME = "ROUND";

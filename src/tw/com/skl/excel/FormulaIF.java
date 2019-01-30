@@ -1,15 +1,16 @@
 package tw.com.skl.excel;
 
 import tw.com.skl.utility.Log;
+import tw.com.skl.operator.Expression;
 
-public class FormulaIF extends Expression {
+public class FormulaIF extends tw.com.skl.excel.Formula {
 	
 	public static final String FORMULA_REGEX = "(IF|if)\\(";
 	public static final String NAME = "IF";
 	
-	private String logical;
-	private String trueResult;
-	private String falseResult;
+	private String localTest;
+	private String trueValue;
+	private String falseValue;
 	
 	public FormulaIF(ExcelData excelData) {
 		this.excelData = excelData;
@@ -20,16 +21,15 @@ public class FormulaIF extends Expression {
 		Log.d("p " + NAME + " : " + statement);
 		
 		String[] statements = this.splitComman(statement);
+		
 		if (statements.length == 3) {
-			this.logical = statements[0];
-			this.trueResult = statements[1];
-			this.falseResult = statements[2];
-			
-			this.calPostfix(this.convertToPostfix(this.logical));
-			this.calPostfix(this.convertToPostfix(this.trueResult));
-			this.calPostfix(this.convertToPostfix(this.falseResult));
+			this.localTest = this.calPostfix(this.convertToPostfix(statements[0]));
+			this.trueValue = this.calPostfix(this.convertToPostfix(statements[1]));
+			this.falseValue = this.calPostfix(this.convertToPostfix(statements[2]));
 		}
 		
-		return NAME + "_Result";
+		String result = this.localTest.equals(S_TRUE) ? this.trueValue : this.falseValue;
+		Log.d("r " + result);
+		return result;
 	}
 }

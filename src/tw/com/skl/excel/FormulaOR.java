@@ -2,7 +2,7 @@ package tw.com.skl.excel;
 
 import tw.com.skl.utility.Log;
 
-public class FormulaOR extends Expression {
+public class FormulaOR extends Formula {
 	
 	public static final String FORMULA_REGEX = "(OR|or)\\(";
 	public static final String NAME = "OR";
@@ -18,11 +18,16 @@ public class FormulaOR extends Expression {
 		Log.d("p " + NAME + " : " + statement);
 		
 		this.logicalS = this.splitComman(statement);
-		
 		for(int i  = 0 ; i < this.logicalS.length ; i++) {
-			this.calPostfix(this.convertToPostfix(this.logicalS[i]));
+			String result = this.calPostfix(this.convertToPostfix(this.logicalS[i]));
+			
+			if (result.equals(S_TRUE)) {
+				Log.d("r " + S_TRUE);
+				return S_TRUE;
+			}
 		}
 		
-		return NAME + "_Result";
+		Log.d("r " + S_FALSE);
+		return S_FALSE;
 	}
 }

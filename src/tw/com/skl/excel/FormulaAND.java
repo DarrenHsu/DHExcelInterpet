@@ -1,10 +1,8 @@
 package tw.com.skl.excel;
 
-import java.util.ArrayList;
-
 import tw.com.skl.utility.Log;
 
-public class FormulaAND extends Expression {
+public class FormulaAND extends Formula {
 	
 	public static final String FORMULA_REGEX = "(AND|and)\\(";
 	public static final String NAME = "AND";
