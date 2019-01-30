@@ -3,6 +3,7 @@ package tw.com.skl;
 import java.util.HashMap;
 
 import tw.com.skl.excel.ExcelData;
+import tw.com.skl.utility.Log;
 import tw.com.skl.excel.Calculator;
 
 public class TestClass {
@@ -12,18 +13,20 @@ public class TestClass {
 	public static void main(String[] args) {
 		TestClass test = new TestClass();
 		
-		String statement = test.excelData.statements[1];
+		int row = test.excelData.currentRow;
+		int col = 1;
+		String statement = test.excelData.statements[col];
 		statement = test.replaceNumber(statement);
-		
-		for (int i  = test.excelData.currentRow - 1 ; i < test.excelData.rowCount ; i++) {
-			test.excelData.currentRow = i + 1;
+		test.excelData.currentCol = col;
+		for (int i = row ; i < test.excelData.rowCount ; i++) {
+			test.excelData.currentRow = i;
 			test.calculator.parseStatement(statement);
 		}
 		
 		System.out.println("\n<================ table ====================>");
-		for(int i = 0 ; i < test.excelData.table.length ; i++) {
-			for(int j = 0 ; j < test.excelData.table[i].length ; j ++) {
-				System.out.print(test.excelData.table[i][j] + (j == test.excelData.table[i].length - 1 ? "" : ","));
+		for(int r = 0 ; r < test.excelData.rowCount ; r++) {
+			for(int c = 0 ; c < test.excelData.colCount ; c++) {
+				System.out.print(test.excelData.table[c][r] + (c == test.excelData.colCount - 1 ? "" : ",\t"));
 			}
 			System.out.print("\n");
 		}
@@ -76,15 +79,15 @@ public class TestClass {
 				"IF(B3<>\"\",IF((J3-$K3-M3)*(1+R$1)^(1/12)<0,0,(J3-$K3-M3)*(1+R$1)^(1/12)-O3),\"\")"
 		};
 		
-		int months = (69 * 12 + 1) + 2;
-		int columns = statements.length;
+		int cols = statements.length;
+		int rows = 1 * 12 + 1 + 2;
 		
-		String[][] table = new String[months][columns];
+		String[][] table = new String[cols][rows];
 		for(int i = 0 ; i < table.length ; i++)
 			for(int j = 0 ; j < table[i].length ; j ++) 
 				table[i][j] = "";
 		
-		this.excelData = new ExcelData(table, statements, map, 1, 3);
+		this.excelData = new ExcelData(table, statements, map, 0, 2);
 		this.calculator = new Calculator(this.excelData);
 	}
 	

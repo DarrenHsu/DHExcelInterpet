@@ -127,15 +127,15 @@ public class Calculator {
 			String result = this.process(sr);
 			String orignalStatement = sr.getOrignalStatement().replace(lastFullStepment, result);
 
-			Log.d("\n" + orignalStatement);
+			Log.d("final result : " + orignalStatement + "\n");
+
+			this.excelData.table[this.excelData.currentCol][this.excelData.currentRow] = result;
 			
 			sr = new StatementData(orignalStatement);
 			if (this.isHasFormula(sr)) {
 				Log.d("------------- interpreter start --------------");
 				this.interpretFormula(sr);
 			}
-			
-			this.excelData.table[this.excelData.currentRow - 1][this.excelData.currentCell] = orignalStatement;
 			
 			return;
 		}

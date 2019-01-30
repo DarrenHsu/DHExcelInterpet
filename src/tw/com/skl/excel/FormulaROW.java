@@ -14,7 +14,8 @@ public class FormulaROW extends Formula {
 	@Override
 	public String interpret(String statement) {
 		Log.d("p " + NAME + " : " + statement);
-		Log.d("r " + this.excelData.currentRow);
-		return "" + this.excelData.currentRow;
+		int result = this.excelData.currentRow + 1;
+		Log.d("r " + result);
+		return "" + result;
 	}
 }

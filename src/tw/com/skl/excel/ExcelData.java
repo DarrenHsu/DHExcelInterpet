@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import tw.com.skl.utility.Log;
+
 public class ExcelData {
 	
 	public enum ColumnType {
@@ -17,24 +19,31 @@ public class ExcelData {
 	public String[] statements;
 	public String[][] table;
 	public int rowCount;
+	public int colCount;
 	public int currentRow;
-	public int currentCell;
+	public int currentCol;
 	public int firstRow;
-	public int firstCell;
+	public int firstCol;
 	public HashMap<String, String> map;
 	
-	public ExcelData(String[][] table, String[] statements, HashMap<String, String> map, int currentCell, int currentRow) {
+	public ExcelData(String[][] table, String[] statements, HashMap<String, String> map, int currentCol, int currentRow) {
 		this.statements = statements;
-		this.table = table;
-		this.rowCount = table.length;
+		
 		this.map = map;
+		
+		this.table = table;
+		
+		this.colCount = table.length;
+		this.rowCount = table[0].length;
+		
+		this.currentCol = currentCol;
 		this.currentRow = currentRow;
-		this.currentCell = currentCell;
+		
+		this.firstCol = currentCol;
 		this.firstRow = currentRow;
-		this.firstCell = currentCell;
 	}
 	
-	public int getCell(String column) {
+	public int getCol(String column) {
 		Pattern p = Pattern.compile("[A-Z]{1,2}");
 		Matcher m = p.matcher(column);
 		if (m.find()) {
@@ -65,48 +74,48 @@ public class ExcelData {
 		Matcher m = p.matcher(column);
 		if (m.find()) {
 			// RELATIVE_ROW
-			int cell = getCell(m.group());
-			int row = getRow(m.group()) - this.firstRow + this.currentRow;
+			int col = getCol(m.group());
+			int row = getRow(m.group()) - 1 - this.firstRow + this.currentRow;
 			
-//			Log.d("cell " + m.group() + ": " + cell + ",row " + row);
+			Log.d(m.group() + " col " + col + ",row " + row);
 			
-			return this.table[cell][row];
+			return this.table[col][row];
 		}
 		
 		p = Pattern.compile("^([A-Z]{1,2})(\\$)(\\d{1,3})$");
 		m = p.matcher(column);
 		if (m.find()) {
 			// RELATIVE_CELL
-			int cell = getCell(m.group()) - this.firstCell + this.currentCell;
+			int col = getCol(m.group());
 			int row = getRow(m.group());
 			
-//			Log.d("cell " + m.group() + ": " + cell + ",row " + row);
+			Log.d(m.group() + " col " + col + ",row " + row);
 			
-			return this.table[cell][row];
+			return this.table[col][row];
 		}
 		
 		p = Pattern.compile("^\\$([A-Z]{1,2})\\$(\\d{1,3})$");
 		m = p.matcher(column);
 		if (m.find()) {
 			// ABSOLUTE_COLUMN
-			int cell = getCell(m.group());
+			int col = getCol(m.group());
 			int row = getRow(m.group());
 			
-//			Log.d("cell " + m.group() + ": " + cell + ",row " + row);
+			Log.d(m.group() + " col " + col + ",row " + row);
 			
-			return this.table[cell][row];
+			return this.table[col][row];
 		}
 		
 		p = Pattern.compile("([A-Z]{1,2})(\\d{1,3})$");
 		m = p.matcher(column);
 		if (m.find()) {
 			// RELATIVE_ALL
-			int cell = getCell(m.group()) - this.firstCell + this.currentCell;
-			int row = getRow(m.group()) - this.firstRow + this.currentRow;
+			int col = getCol(m.group());
+			int row = getRow(m.group()) - 1 - this.firstRow + this.currentRow;
 			
-//			Log.d("cell " + m.group() + ": " + cell + ",row " + row);
+			Log.d(m.group() + " col " + col + ",row " + row);
 			
-			return this.table[cell][row];
+			return this.table[col][row];
 		}
 		
 		return column;

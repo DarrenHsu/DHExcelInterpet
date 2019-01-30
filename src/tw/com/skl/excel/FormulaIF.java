@@ -1,9 +1,8 @@
 package tw.com.skl.excel;
 
 import tw.com.skl.utility.Log;
-import tw.com.skl.operator.Expression;
 
-public class FormulaIF extends tw.com.skl.excel.Formula {
+public class FormulaIF extends Formula {
 	
 	public static final String FORMULA_REGEX = "(IF|if)\\(";
 	public static final String NAME = "IF";
