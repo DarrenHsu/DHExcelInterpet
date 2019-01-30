@@ -41,6 +41,11 @@ public class ExcelData {
 		
 		this.firstCol = currentCol;
 		this.firstRow = currentRow;
+		
+		for(int i = 0 ; i < this.table.length ; i++)
+			for(int j = 0 ; j < this.table[i].length ; j ++) 
+				this.table[i][j] = "";
+		
 	}
 	
 	public int getCol(String column) {

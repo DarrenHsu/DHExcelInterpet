@@ -87,9 +87,6 @@ public class TestClass {
 		int rows = 1 * 12 + 1 + 2;
 		
 		String[][] table = new String[cols][rows];
-		for(int i = 0 ; i < table.length ; i++)
-			for(int j = 0 ; j < table[i].length ; j ++) 
-				table[i][j] = "";
 		
 		this.excelData = new ExcelData(table, statements, map, 0, 2);
 		this.calculator = new Calculator(this.excelData);
