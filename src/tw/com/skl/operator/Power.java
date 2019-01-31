@@ -1,5 +1,7 @@
 package tw.com.skl.operator;
 
+import java.math.BigDecimal;
+
 import tw.com.skl.utility.Log;
 
 public class Power extends Expression {
@@ -17,6 +19,8 @@ public class Power extends Expression {
 	@Override
 	public String interpret() {
 		Log.d("cal: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
-		return "PowerResult";
+		BigDecimal l = new BigDecimal(this.left.interpret());
+		int r = Integer.parseInt(this.right.interpret());
+		return l.pow(r).toString();
 	}
 }

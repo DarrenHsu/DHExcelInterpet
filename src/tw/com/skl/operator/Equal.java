@@ -18,9 +18,7 @@ public class Equal extends Expression {
 	@Override
 	public String interpret() {
 		Log.d("cal: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
-		
 		String result = this.left.interpret().equals(this.right.interpret()) ? Formula.S_TRUE : Formula.S_FALSE;
-		
 		return result;
 	}
 }

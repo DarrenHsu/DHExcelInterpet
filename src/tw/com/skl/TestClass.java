@@ -13,14 +13,14 @@ public class TestClass {
 	public static void main(String[] args) {
 		TestClass test = new TestClass();
 		
-		test.calculator.parseStatement("MOD(10, 3)");
-		
-		if (true) {
-			return;
-		}
+//		test.calculator.parseStatement("3<>3");
+//		
+//		if (true) {
+//			return;
+//		}
 		
 		int row = test.excelData.currentRow;
-		int col = 5;
+		int col = 8;
 		
 		String statement = test.excelData.statements[col];
 		statement = test.replaceNumber(statement);
@@ -101,7 +101,7 @@ public class TestClass {
 	
 	public String replaceNumber(String statement) {
 		for(String key : this.excelData.map.keySet()) {
-			statement = statement.replaceAll(key, this.excelData.map.get(key));
+			statement = statement.replace(key, this.excelData.map.get(key));
 		}
 		return statement;
 	}
