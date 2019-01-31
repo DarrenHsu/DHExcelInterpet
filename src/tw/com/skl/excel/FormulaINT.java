@@ -1,14 +1,14 @@
 package tw.com.skl.excel;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+
 import tw.com.skl.utility.Log;
 
 public class FormulaINT extends Formula {
 	
-	public static final String FORMULA_REGEX = "(MOD|mod)\\(";
-	public static final String NAME = "MOD";
-	
-	private String divisor;
-	private String dividend;
+	public static final String FORMULA_REGEX = "(INT|int)\\(";
+	public static final String NAME = "INT";
 	
 	public FormulaINT(ExcelData excelData) {
 		this.excelData = excelData;
@@ -17,14 +17,7 @@ public class FormulaINT extends Formula {
 	@Override
 	public String interpret(String statement) {
 		Log.d("p " + NAME + " : " + statement);
-		
-		String[] statements = this.splitComman(statement);
-		this.divisor = statements[0];
-		this.dividend = statements[1];
-		
-		this.calPostfix(this.convertToPostfix(this.divisor));
-		this.calPostfix(this.convertToPostfix(this.dividend));
-		
-		return NAME + "_Result";
+		BigDecimal result = new BigDecimal(statement);
+		return "" + result.intValue();
 	}
 }

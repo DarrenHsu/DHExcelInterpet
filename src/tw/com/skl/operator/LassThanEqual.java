@@ -1,5 +1,8 @@
 package tw.com.skl.operator;
 
+import java.math.BigDecimal;
+
+import tw.com.skl.excel.Formula;
 import tw.com.skl.utility.Log;
 
 public class LassThanEqual extends Expression {
@@ -17,6 +20,8 @@ public class LassThanEqual extends Expression {
 	@Override
 	public String interpret() {
 		Log.d("cal: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
-		return "LassThanEqualResult";
+		BigDecimal l = new BigDecimal(this.left.interpret());
+		BigDecimal r = new BigDecimal(this.right.interpret());
+		return l.compareTo(r) == -1 || l.compareTo(r) == 0 ? Formula.S_TRUE : Formula.S_FALSE;
 	}
 }

@@ -1,5 +1,7 @@
 package tw.com.skl.operator;
 
+import java.math.BigDecimal;
+
 import tw.com.skl.utility.Log;
 
 public class Remainder extends Expression {
@@ -16,6 +18,8 @@ public class Remainder extends Expression {
 	@Override
 	public String interpret() {
 		Log.d("cal: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
-		return "RemainderResult";
+		BigDecimal l = new BigDecimal(this.left.interpret());
+		BigDecimal r = new BigDecimal(this.right.interpret());
+		return l.remainder(r).toString();
 	}
 }

@@ -67,7 +67,7 @@ public class ExcelData {
 	}
 	
 	public int getRow(String column) {
-		Pattern p = Pattern.compile("[1-9]{1,2}");
+		Pattern p = Pattern.compile("\\d{1,3}");
 		Matcher m = p.matcher(column);
 		if (m.find()) {
 			return Integer.parseInt(m.group());
@@ -76,7 +76,7 @@ public class ExcelData {
 		return -1;
 	}
 	
-	public String getColumnType(String column) {
+	public int[] getColumnIndex(String column) {
 		Pattern p = Pattern.compile("^(\\$)([A-Z]{1,2})(\\d{1,3})$");
 		Matcher m = p.matcher(column);
 		if (m.find()) {
@@ -86,7 +86,7 @@ public class ExcelData {
 			
 			Log.d(m.group() + " col " + col + ",row " + row);
 			
-			return this.table[col][row];
+			return new int[]{col, row};
 		}
 		
 		p = Pattern.compile("^([A-Z]{1,2})(\\$)(\\d{1,3})$");
@@ -94,11 +94,11 @@ public class ExcelData {
 		if (m.find()) {
 			// RELATIVE_CELL
 			int col = getCol(m.group());
-			int row = getRow(m.group());
+			int row = getRow(m.group()) - 1;
 			
 			Log.d(m.group() + " col " + col + ",row " + row);
 			
-			return this.table[col][row];
+			return new int[]{col, row};
 		}
 		
 		p = Pattern.compile("^\\$([A-Z]{1,2})\\$(\\d{1,3})$");
@@ -106,11 +106,11 @@ public class ExcelData {
 		if (m.find()) {
 			// ABSOLUTE_COLUMN
 			int col = getCol(m.group());
-			int row = getRow(m.group());
+			int row = getRow(m.group()) - 1;
 			
 			Log.d(m.group() + " col " + col + ",row " + row);
 			
-			return this.table[col][row];
+			return new int[]{col, row};
 		}
 		
 		p = Pattern.compile("([A-Z]{1,2})(\\d{1,3})$");
@@ -122,9 +122,14 @@ public class ExcelData {
 			
 			Log.d(m.group() + " col " + col + ",row " + row);
 			
-			return this.table[col][row];
+			return new int[]{col, row};
 		}
 		
-		return column;
+		return null;
+	}
+	
+	public String getColumnType(String column) {
+		int[] index = this.getColumnIndex(column);
+		return index != null ? this.table[index[0]][index[1]] : column;
 	}
 }

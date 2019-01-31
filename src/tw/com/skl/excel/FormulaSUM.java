@@ -1,5 +1,8 @@
 package tw.com.skl.excel;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+
 import tw.com.skl.utility.Log;
 
 public class FormulaSUM extends Formula {
@@ -16,12 +19,19 @@ public class FormulaSUM extends Formula {
 	@Override
 	public String interpret(String statement) {
 		Log.d("p " + NAME + " : " + statement);
-		this.numbers = this.splitComman(statement);
+		this.numbers = this.splitComman(statement, ":");
 		
-		for(int i  = 0 ; i < this.numbers.length ; i++) {
-			this.calPostfix(this.convertToPostfix(this.numbers[i]));
+		int[] index1 = this.excelData.getColumnIndex(this.numbers[0]);
+		int[] index2 = this.excelData.getColumnIndex(this.numbers[1]);
+
+		BigDecimal number = new BigDecimal(0);	
+		for(int i = index1[0] ; i <= index2[0] ; i++) {
+			for(int j = index1[1] ; j <= index2[1] ; j++) {
+				Log.d("SUM " + i + "," + j + " = " + this.excelData.table[i][j]);
+				number = number.add(new BigDecimal(this.excelData.table[i][j].equals("") ? "0" : this.excelData.table[i][j]));
+			}
 		}
-		
-		return NAME + "_Result";
+
+		return number.toString();
 	}
 }

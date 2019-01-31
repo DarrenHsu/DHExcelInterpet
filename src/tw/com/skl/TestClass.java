@@ -13,8 +13,14 @@ public class TestClass {
 	public static void main(String[] args) {
 		TestClass test = new TestClass();
 		
+//		test.calculator.parseStatement("SUM($A$1:B10)");
+		
+//		if (true) {
+//			return;
+//		}
+		
 		int row = test.excelData.currentRow;
-		int col = 1;
+		int col = 5;
 		
 		String statement = test.excelData.statements[col];
 		statement = test.replaceNumber(statement);
@@ -23,6 +29,7 @@ public class TestClass {
 		
 		for (int i = row ; i < test.excelData.rowCount ; i++) {
 			test.excelData.currentRow = i;
+			Log.d("row " + test.excelData.currentRow);
 			String result = test.calculator.parseStatement(statement);
 			test.excelData.table[test.excelData.currentCol][test.excelData.currentRow] = result;
 		}
@@ -58,7 +65,7 @@ public class TestClass {
 		map.put("部分提領", "5000");
 		map.put("費用表!$H$1", "5");
 		map.put("加值給付開始年度", "5");
-	
+		
 		String[] statements = new String[]{
 				"IF(B3<>\"\",INT((B3-1)/12)+1,\"\")",
 				"IF(ROW()=3,1,IF(OR(B2=\"\",B2>12*(年金給付年齡-投保年齡)),\"\",B2+1))",

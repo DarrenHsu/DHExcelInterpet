@@ -18,10 +18,24 @@ public class FormulaAND extends Formula {
 		Log.d("p " + NAME + " : " + statement);
 		this.logicals = this.splitComman(statement);
 		
+		String result = S_TRUE;
+		String r = null;
+		
 		for(int i  = 0 ; i < this.logicals.length ; i++) {
-			this.calPostfix(this.convertToPostfix(this.logicals[i]));
+			if (i == 0) {
+				r = this.calPostfix(this.convertToPostfix(this.logicals[i]));
+				continue;
+			}
+			String tmp = this.calPostfix(this.convertToPostfix(this.logicals[i]));
+			if (!r.equals(tmp)) {
+				result = S_FALSE;
+				break;
+			}else {
+				r = tmp;
+			}
 		}
 
-		return NAME + "_Result";
+		Log.d("r " + result);
+		return result;
 	}
 }

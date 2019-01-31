@@ -36,7 +36,11 @@ public abstract class Formula {
 	public abstract String interpret(String statement);
 	
 	protected String[] splitComman(String str) {
-		String[] splitStr = str.split(",");
+		return this.splitComman(str, ",");
+	}
+	
+	protected String[] splitComman(String str, String comman) {
+		String[] splitStr = str.split(comman);
 		return splitStr;
 	}
 	
@@ -129,13 +133,13 @@ public abstract class Formula {
 		final String toStack = "(", toOutput = ")";
 		int start = 0, end = 0;
 		while (m.find()) {
-			String operand = statement.substring(start, m.start());
+			String operand = statement.substring(start, m.start()).trim();
 			if (!operand.isEmpty()) { 
 //				Log.d("operand:" + operand);
 				opStack.add(operand);
 			}
 			
-			String operator = m.group();
+			String operator = m.group().trim();
 //			Log.d("operator:" + operator);
 			switch(operator) {
 			case toStack: {
@@ -164,7 +168,7 @@ public abstract class Formula {
 		}
 		
 		if (end < statement.length()) {
-			String operand = statement.substring(end);
+			String operand = statement.substring(end).trim();
 //			Log.d("operand:" + operand);
 			opStack.add(operand);
 		}
@@ -181,8 +185,8 @@ public abstract class Formula {
 	}
 	
 	protected String calPostfix(ArrayList<String> stack) {
-		if (stack.size() < 3) 
-			return stack.get(0);
+		if (stack.size() < 3)
+			return this.excelData.getColumnType(stack.get(0));
 		
 		int numAIndex = 0, numBIndex = 0, opIndex = 0;
 		boolean isCalculator = false;
