@@ -1,5 +1,7 @@
 package tw.com.skl.excel;
 
+import java.math.BigDecimal;
+
 import tw.com.skl.utility.Log;
 
 public class FormulaAVERAGE extends Formula {
@@ -19,11 +21,14 @@ public class FormulaAVERAGE extends Formula {
 		
 		this.numbers = this.splitComman(statement);
 		
-		for(int i  = 0 ; i < this.numbers.length ; i++) {
-			String number = this.numbers[i];
-			this.calPostfix(this.convertToPostfix(number));
+		BigDecimal result = new BigDecimal("0");
+		for(int i = 0 ; i < this.numbers.length ; i++) {
+			result = result.add(new BigDecimal(this.calPostfix(this.convertToPostfix(this.numbers[i]))));
 		}
 		
-		return NAME + "_Result";
+		result = result.divide(new BigDecimal(this.numbers.length));
+		
+		Log.d("r " + result);
+		return result.toString();
 	}
 }

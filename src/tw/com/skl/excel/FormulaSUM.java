@@ -32,6 +32,7 @@ public class FormulaSUM extends Formula {
 			}
 		}
 
+		Log.d("r " + number.toString());
 		return number.toString();
 	}
 }

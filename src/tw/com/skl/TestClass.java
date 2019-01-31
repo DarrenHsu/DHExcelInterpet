@@ -13,11 +13,11 @@ public class TestClass {
 	public static void main(String[] args) {
 		TestClass test = new TestClass();
 		
-//		test.calculator.parseStatement("SUM($A$1:B10)");
+		test.calculator.parseStatement("MOD(10, 3)");
 		
-//		if (true) {
-//			return;
-//		}
+		if (true) {
+			return;
+		}
 		
 		int row = test.excelData.currentRow;
 		int col = 5;

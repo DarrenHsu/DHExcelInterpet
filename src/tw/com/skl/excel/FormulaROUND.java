@@ -1,5 +1,7 @@
 package tw.com.skl.excel;
 
+import java.math.BigDecimal;
+
 import tw.com.skl.utility.Log;
 
 public class FormulaROUND extends Formula {
@@ -22,9 +24,11 @@ public class FormulaROUND extends Formula {
 		this.number = statements[0];
 		this.digits = statements[1];
 		
-		this.calPostfix(this.convertToPostfix(this.number));
-		this.calPostfix(this.convertToPostfix(this.digits));
+		BigDecimal n = new BigDecimal(this.calPostfix(this.convertToPostfix(this.number)));
+		int d = Integer.parseInt(this.calPostfix(this.convertToPostfix(this.digits)));
+		BigDecimal result = n.setScale(d, BigDecimal.ROUND_HALF_UP);
+		Log.d("r " + result.toString());
 		
-		return NAME + "_Result";
+		return result.toString();
 	}
 }
