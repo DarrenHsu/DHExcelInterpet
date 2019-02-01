@@ -22,7 +22,6 @@ public class Division extends Expression {
 		Log.d("cal: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
 		BigDecimal l = new BigDecimal(this.left.interpret());
 		BigDecimal r = new BigDecimal(this.right.interpret());
-		BigDecimal result = l.divide(r, new MathContext(10)).stripTrailingZeros();
-		return result.toString();
+		return l.divide(r, new MathContext(10)).stripTrailingZeros().toPlainString();
 	}
 }

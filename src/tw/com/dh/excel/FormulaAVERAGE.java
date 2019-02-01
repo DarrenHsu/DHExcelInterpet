@@ -21,7 +21,7 @@ public class FormulaAVERAGE extends Formula {
 		
 		this.numbers = this.splitComman(statement);
 		
-		BigDecimal result = BigDecimal.ZERO;
+		BigDecimal result = new BigDecimal("0");
 		
 		if (this.numbers.length == 1 && numbers[0].indexOf(":") >= 0) {
 			String s = numbers[0].substring(0, numbers[0].indexOf(":"));
@@ -33,7 +33,7 @@ public class FormulaAVERAGE extends Formula {
 				for (int j = sindex[1] ; j <= eindex[1]; j++) {
 					if (i < 0 || j < 0) continue;
 					String value = this.excelData.table[i][j];
-					result = result.add(new BigDecimal(value.isEmpty() ? "0" : ""));
+					result = result.add(new BigDecimal(value.isEmpty() ? "0" : value));
 				}
 			}
 			

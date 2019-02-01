@@ -3,6 +3,8 @@ package tw.com.dh.excel;
 import java.math.BigDecimal;
 
 import tw.com.dh.utility.Log;
+import tw.com.dhl.operator.Remainder;
+import tw.com.dhl.operator.Number;
 
 public class FormulaMOD extends Formula {
 	
@@ -18,11 +20,12 @@ public class FormulaMOD extends Formula {
 		Log.d("p " + NAME + " : " + statement);
 		
 		String[] statements = this.splitComman(statement);
-		BigDecimal result = null;
+		String result = null;
 		if (statements.length == 2) {
-			BigDecimal n = new BigDecimal(this.calPostfix(this.convertToPostfix(statements[0])));
-			BigDecimal d = new BigDecimal(this.calPostfix(this.convertToPostfix(statements[1])));
-			result = n.remainder(d).setScale(0);
+			result  = new Remainder(
+					new Number(this.calPostfix(this.convertToPostfix(statements[0]))),
+					new Number(this.calPostfix(this.convertToPostfix(statements[1])))
+					).interpret();
 		}
 		Log.d("r " + result);
 		return result.toString();

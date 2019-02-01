@@ -23,6 +23,6 @@ public class Power extends Expression {
 		Log.d("cal: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
 		BigDecimal l = new BigDecimal(this.left.interpret());
 		BigDecimal r = new BigDecimal(this.right.interpret());
-		return BigDecimalMath.pow(l, r, new MathContext(10)).toString();
+		return BigDecimalMath.pow(l, r, new MathContext(10)).stripTrailingZeros().toPlainString();
 	}
 }

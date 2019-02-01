@@ -26,9 +26,9 @@ public class FormulaROUND extends Formula {
 		
 		BigDecimal n = new BigDecimal(this.calPostfix(this.convertToPostfix(this.number)));
 		int d = Integer.parseInt(this.calPostfix(this.convertToPostfix(this.digits)));
-		BigDecimal result = n.setScale(d, BigDecimal.ROUND_HALF_UP);
-		Log.d("r " + result.toString());
+		BigDecimal result = n.setScale(d, BigDecimal.ROUND_HALF_UP).stripTrailingZeros();
 		
-		return result.toString();
+		Log.d("r " + result.toPlainString());
+		return result.toPlainString();
 	}
 }

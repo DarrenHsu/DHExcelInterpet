@@ -21,6 +21,6 @@ public class Subtration extends Expression {
 		Log.d("cal: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
 		BigDecimal l = new BigDecimal(this.left.interpret());
 		BigDecimal r = new BigDecimal(this.right.interpret());
-		return l.subtract(r).toString();
+		return l.subtract(r).stripTrailingZeros().toPlainString();
 	}
 }

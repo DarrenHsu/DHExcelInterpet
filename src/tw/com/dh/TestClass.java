@@ -14,14 +14,13 @@ public class TestClass {
 	public static void main(String[] args) {
 		TestClass test = new TestClass();
 		
-//		test.calculator.parseStatement("0.1 / 12");
+//		test.calculator.parseStatement("0.000000000012 * 0.0000055");
 //		
 //		if (true) {
 //			return;
 //		}
 		
-//		int[] cols = new int[]{1, 0, 2, 3, 4, 5, 6, 7, 8};
-		int[] cols = new int[]{1, 0, 2, 19};
+		int[] cols = new int[]{1, 0, 2, 3, 4, 5, 6, 7, 8, 9, 19};
 		int row = test.excelData.currentRow;
 		
 		for (int c = 0 ; c < cols.length ; c++) {
