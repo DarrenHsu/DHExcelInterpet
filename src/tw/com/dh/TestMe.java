@@ -5,8 +5,8 @@ import java.math.BigDecimal;
 public class TestMe {
 	
 	public static void main(String[] args) {
-		BigDecimal a1 = new BigDecimal("2");
-		BigDecimal a2 = new BigDecimal("1");
+		BigDecimal a1 = new BigDecimal("2.0");
+		BigDecimal a2 = new BigDecimal("2.01");
 		System.out.print(a1.compareTo(a2));
 	}
 

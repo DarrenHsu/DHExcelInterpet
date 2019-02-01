@@ -16,14 +16,15 @@ public class ExcelData {
 		ABSOLUTE_COLUMN		//ex: $A$3
 	}
 	
+	public HashMap<String, String[][]> sheets;
+	
 	public String[] statements;
 	public String[][] table;
-	public int rowCount;
-	public int colCount;
-	public int currentRow;
-	public int currentCol;
-	public int firstRow;
-	public int firstCol;
+	
+	public int rowCount, colCount;
+	public int currentRow, currentCol;
+	public int firstRow, firstCol;
+	
 	public HashMap<String, String> map;
 	
 	public ExcelData() {}
@@ -130,6 +131,6 @@ public class ExcelData {
 	
 	public String getColumnType(String column) {
 		int[] index = this.getColumnIndex(column);
-		return index != null ? this.table[index[0]][index[1]] : column;
+		return index != null ? this.table[index[0]][index[1]].equals("") ? "0" : this.table[index[0]][index[1]] : column;
 	}
 }

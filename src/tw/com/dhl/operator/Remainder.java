@@ -20,6 +20,6 @@ public class Remainder extends Expression {
 		Log.d("cal: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
 		BigDecimal l = new BigDecimal(this.left.interpret());
 		BigDecimal r = new BigDecimal(this.right.interpret());
-		return l.remainder(r).toString();
+		return l.remainder(r).setScale(0).toString();
 	}
 }

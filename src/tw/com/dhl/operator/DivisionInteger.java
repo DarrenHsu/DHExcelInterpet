@@ -6,7 +6,7 @@ import tw.com.dh.utility.Log;
 
 public class DivisionInteger extends Expression {
 	
-	public static final String SYMBOL = "\\";
+	public static final String SYMBOL = "//";
 	
 	private Expression left;
 	private Expression right;
@@ -21,6 +21,6 @@ public class DivisionInteger extends Expression {
 		Log.d("cal: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
 		BigDecimal l = new BigDecimal(this.left.interpret());
 		BigDecimal r = new BigDecimal(this.right.interpret());
-		return l.divide(r).toString();
+		return l.divide(r, 0, BigDecimal.ROUND_HALF_UP).toString();
 	}
 }

@@ -21,6 +21,6 @@ public class Division extends Expression {
 		Log.d("cal: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
 		BigDecimal l = new BigDecimal(this.left.interpret());
 		BigDecimal r = new BigDecimal(this.right.interpret());
-		return l.divide(r).toString();
+		return l.divide(r, 9, BigDecimal.ROUND_HALF_UP).toString();
 	}
 }

@@ -17,7 +17,7 @@ public class FormulaINT extends Formula {
 	@Override
 	public String interpret(String statement) {
 		Log.d("p " + NAME + " : " + statement);
-		BigDecimal result = new BigDecimal(statement);
+		BigDecimal result = new BigDecimal(this.calPostfix(this.convertToPostfix(statement)));
 		return "" + result.intValue();
 	}
 }

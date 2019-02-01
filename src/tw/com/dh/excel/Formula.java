@@ -47,8 +47,8 @@ public abstract class Formula {
 	protected String getExpressionOperatorRegex() {
 		return "(\\" + Power.SYMBOL + "|" +
 				"\\" + Multiplication.SYMBOL + "|" +
-				"\\" + Division.SYMBOL + "|" +
 				"\\" + DivisionInteger.SYMBOL + "|" +
+				"\\" + Division.SYMBOL + "|" +
 				"\\" + Remainder.SYMBOL + "|" +
 				"\\" + Addtion.SYMBOL + "|" +
 				"\\" + Subtration.SYMBOL + "|" +

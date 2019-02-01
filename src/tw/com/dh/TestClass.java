@@ -13,35 +13,36 @@ public class TestClass {
 	public static void main(String[] args) {
 		TestClass test = new TestClass();
 		
-		test.calculator.parseStatement("ROUND(2.55, 1)");
+//		test.calculator.parseStatement("1 % 1.000000000");
+//		
+//		if (true) {
+//			return;
+//		}
 		
-		if (true) {
-			return;
-		}
-		
+		int[] cols = new int[]{1, 0, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 		int row = test.excelData.currentRow;
-		int col = 8;
 		
-		String statement = test.excelData.statements[col];
-		statement = test.replaceNumber(statement);
-		
-		test.excelData.currentCol = col;
-		
-		for (int i = row ; i < test.excelData.rowCount ; i++) {
-			test.excelData.currentRow = i;
-			Log.d("row " + test.excelData.currentRow);
-			String result = test.calculator.parseStatement(statement);
-			test.excelData.table[test.excelData.currentCol][test.excelData.currentRow] = result;
-		}
-		
-		System.out.println("\n<================ table ====================>");
-		for(int r = 0 ; r < test.excelData.rowCount ; r++) {
-			for(int c = 0 ; c < test.excelData.colCount ; c++) {
-				System.out.print(test.excelData.table[c][r] + (c == test.excelData.colCount - 1 ? "" : ",\t"));
+		for (int c = 0 ; c < cols.length ; c++) {
+			String statement = test.excelData.statements[cols[c]];
+			statement = test.replaceNumber(statement);
+			test.excelData.currentCol = cols[c];
+			for (int i = row ; i < test.excelData.rowCount ; i++) {
+				test.excelData.currentRow = i;
+				Log.d("index " + test.excelData.currentCol + "," + test.excelData.currentRow);
+				String result = test.calculator.parseStatement(statement);
+				test.excelData.table[test.excelData.currentCol][test.excelData.currentRow] = result;
 			}
-			System.out.print("\n");
 		}
-		System.out.println("<================ table ====================>");
+		
+		Log.d("\n<================ table ====================>");
+		for(int r = 0 ; r < test.excelData.rowCount ; r++) {
+			String s = "";
+			for(int c = 0 ; c < test.excelData.colCount ; c++) {
+				s += String.format("%10s", test.excelData.table[c][r]) + (c == test.excelData.colCount - 1 ? "" : ",");
+			}
+			Log.d(s);
+		}
+		Log.d("<================ table ====================>");
 	}
 	
 	public TestClass() {
