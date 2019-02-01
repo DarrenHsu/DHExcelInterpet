@@ -14,14 +14,14 @@ public class TestClass {
 	public static void main(String[] args) {
 		TestClass test = new TestClass();
 		
-//		test.calculator.parseStatement("2 ^ 0.08333333");
+//		test.calculator.parseStatement("0.1 / 12");
 //		
 //		if (true) {
 //			return;
 //		}
 		
 //		int[] cols = new int[]{1, 0, 2, 3, 4, 5, 6, 7, 8};
-		int[] cols = new int[]{1, 0, 2, 20};
+		int[] cols = new int[]{1, 0, 2, 19};
 		int row = test.excelData.currentRow;
 		
 		for (int c = 0 ; c < cols.length ; c++) {
@@ -89,12 +89,13 @@ public class TestClass {
 				/* Q */ "IF(B3<>\"\",IF((J3-$K3-M3)*(1+R$1)^(1/12)<0,0,(J3-$K3-M3)*(1+R$1)^(1/12)-O3),\"\")",
 				/* R */ "IF(B3<>\"\",IF(A3<=費用表!$H$1,VLOOKUP(A3,費用表!$G$2:$H$20,2,FALSE)*ROUND(Q3,0),0),\"\")",
 				/* S */ "IF(B3<>\"\",ROUND(Q3,0)-R3,\"\")",
-				/* T */ "IF(AND(A3>=加值給付開始年度,C3<年金給付年齡,MOD(B3,12)=1),AVERAGE(#REF!)*VLOOKUP(IF(A3<11,A3,11),費用表!$J$3:$K$13,2,0),0)",
+				/* T */ "IF(AND(A3>=加值給付開始年度,C3<年金給付年齡,MOD(B3,12)=1),AVERAGE(J-8:J3)*VLOOKUP(IF(A3<11,A3,11),費用表!$J$3:$K$13,2,0),0)",
 				/* U */ "IF(B3<>\"\",IF((J3-$K3-M3)*(1+R$1)^(1/12)<0,0,(J3-$K3-M3)*(1+R$1)^(1/12)-O3),\"\")"
 		};
 		
 		int cols = statements.length;
 		int rows = 1 * 12 + 1 + 2;
+		rows = 51;
 		
 		String name1 = "月化試算表(+1)";
 		String[][] table1 = new String[cols][rows];

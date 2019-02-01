@@ -1,6 +1,7 @@
 package tw.com.dhl.operator;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 import tw.com.dh.utility.Log;
 
@@ -21,6 +22,7 @@ public class Division extends Expression {
 		Log.d("cal: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
 		BigDecimal l = new BigDecimal(this.left.interpret());
 		BigDecimal r = new BigDecimal(this.right.interpret());
-		return l.divide(r, 9, BigDecimal.ROUND_HALF_UP).toString();
+		BigDecimal result = l.divide(r, new MathContext(10)).stripTrailingZeros();
+		return result.toString();
 	}
 }

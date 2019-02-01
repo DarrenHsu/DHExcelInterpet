@@ -68,9 +68,10 @@ public class ExcelData {
 	}
 	
 	public int getRow(String column) {
-		Pattern p = Pattern.compile("\\d{1,3}");
+		Pattern p = Pattern.compile("-{0,1}\\d{1,3}");
 		Matcher m = p.matcher(column);
 		if (m.find()) {
+			String s = m.group();
 			return Integer.parseInt(m.group());
 		}
 		
@@ -78,7 +79,7 @@ public class ExcelData {
 	}
 	
 	public int[] getColumnIndex(String column) {
-		Pattern p = Pattern.compile("^(\\$)([A-Z]{1,2})(\\d{1,3})$");
+		Pattern p = Pattern.compile("^(\\$)([A-Z]{1,2})(-{0,1}\\d{1,3})$");
 		Matcher m = p.matcher(column);
 		if (m.find()) {
 			// RELATIVE_ROW
@@ -90,7 +91,7 @@ public class ExcelData {
 			return new int[]{col, row};
 		}
 		
-		p = Pattern.compile("^([A-Z]{1,2})(\\$)(\\d{1,3})$");
+		p = Pattern.compile("^([A-Z]{1,2})(\\$)(-{0,1}\\d{1,3})$");
 		m = p.matcher(column);
 		if (m.find()) {
 			// RELATIVE_CELL
@@ -102,7 +103,7 @@ public class ExcelData {
 			return new int[]{col, row};
 		}
 		
-		p = Pattern.compile("^\\$([A-Z]{1,2})\\$(\\d{1,3})$");
+		p = Pattern.compile("^\\$([A-Z]{1,2})\\$(-{0,1}\\d{1,3})$");
 		m = p.matcher(column);
 		if (m.find()) {
 			// ABSOLUTE_COLUMN
@@ -114,7 +115,7 @@ public class ExcelData {
 			return new int[]{col, row};
 		}
 		
-		p = Pattern.compile("([A-Z]{1,2})(\\d{1,3})$");
+		p = Pattern.compile("([A-Z]{1,2})(-{0,1}\\d{1,3})$");
 		m = p.matcher(column);
 		if (m.find()) {
 			// RELATIVE_ALL
