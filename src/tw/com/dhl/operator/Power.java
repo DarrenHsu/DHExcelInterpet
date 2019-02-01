@@ -1,7 +1,9 @@
 package tw.com.dhl.operator;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 
+import ch.obermuhlner.math.big.BigDecimalMath;
 import tw.com.dh.utility.Log;
 
 public class Power extends Expression {
@@ -20,7 +22,7 @@ public class Power extends Expression {
 	public String interpret() {
 		Log.d("cal: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
 		BigDecimal l = new BigDecimal(this.left.interpret());
-		int r = Integer.parseInt(this.right.interpret());
-		return l.pow(r).toString();
+		BigDecimal r = new BigDecimal(this.right.interpret());
+		return BigDecimalMath.pow(l, r, new MathContext(10)).toString();
 	}
 }

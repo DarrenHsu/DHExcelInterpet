@@ -39,21 +39,20 @@ public class FormulaVLOOKUP extends Formula {
 		String e = this.tableArray.substring(this.tableArray.indexOf(":") + 1);
 		int [] sindex = this.excelData.getColumnIndex(s);
 		int [] eindex = this.excelData.getColumnIndex(e);
+		String[][] table = this.excelData.getTable(this.sheet);
 		
 		for (int i = sindex[0] ; i <= eindex[0]; i++) {
 			for (int j = sindex[1] ; j <= eindex[1]; j++) {
 				if(i == 0) {
 					if (this.rangeLookup.equals(S_TRUE)) {
-						BigDecimal start = new BigDecimal(this.excelData.table[i][j]);
-						BigDecimal end = new BigDecimal(this.excelData.table[i == eindex[0] ? i : i + 1][j]);
+						BigDecimal start = new BigDecimal(table[i][j]);
+						BigDecimal end = new BigDecimal(table[i == eindex[0] ? i : i + 1][j]);
 						BigDecimal value = new BigDecimal(this.lookUpValue);
-						if (start.compareTo(value) <= 0 && end.compareTo(value) >= 0) {
-							return this.excelData.table[Integer.parseInt(colIndex)][j];
-						}
+						if (start.compareTo(value) <= 0 && end.compareTo(value) >= 0) 
+							return table[Integer.parseInt(colIndex)][j];
 					}else {
-						if (lookUpValue.equals(this.excelData.table[i][j])) {
-							return this.excelData.table[Integer.parseInt(colIndex)][j];
-						}
+						if (lookUpValue.equals(table[i][j])) 
+							return table[Integer.parseInt(colIndex)][j];
 					}
 				}
 			}

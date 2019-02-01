@@ -25,16 +25,12 @@ public class ExcelData {
 	public int currentRow, currentCol;
 	public int firstRow, firstCol;
 	
-	public HashMap<String, String> map;
-	
 	public ExcelData() {}
 	
-	public ExcelData(String[][] table, String[] statements, HashMap<String, String> map, int currentCol, int currentRow) {
+	public ExcelData(HashMap<String, String[][]> sheet, String name, String[] statements, int currentCol, int currentRow) {
 		this.statements = statements;
-		
-		this.map = map;
-		
-		this.table = table;
+		this.sheets = sheet;
+		this.table = this.sheets.get(name);
 		
 		this.colCount = table.length;
 		this.rowCount = table[0].length;
@@ -49,6 +45,10 @@ public class ExcelData {
 			for(int j = 0 ; j < this.table[i].length ; j ++) 
 				this.table[i][j] = "";
 		
+	}
+	
+	public String[][] getTable(String sheetName) {
+		return this.sheets.get(sheetName);
 	}
 	
 	public int getCol(String column) {
