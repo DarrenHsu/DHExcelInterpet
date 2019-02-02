@@ -43,8 +43,10 @@ public class FormulaVLOOKUP extends Formula {
 		
 		for (int i = sindex[0] ; i <= eindex[0]; i++) {
 			for (int j = sindex[1] ; j <= eindex[1]; j++) {
+				if(table[i][j] == null || table[i][j].isEmpty()) break;
+				
 				if(i == sindex[0]) {
-					if (this.rangeLookup.equals("1")) {
+					if (this.rangeLookup.equals("1") || this.rangeLookup.equals("TRUE")) {
 						BigDecimal start = new BigDecimal(table[i][j]);
 						BigDecimal end = new BigDecimal(table[i == eindex[0] ? i : i + 1][j]);
 						BigDecimal value = new BigDecimal(this.lookUpValue);
@@ -52,7 +54,7 @@ public class FormulaVLOOKUP extends Formula {
 						if (start.compareTo(value) <= 0 && end.compareTo(value) >= 0) 
 							return table[Integer.parseInt(colIndex)][j];
 					}else {
-						Log.d(lookUpValue + " -> " + table[i][j]);
+						Log.d(lookUpValue + " -> " + table[i][j] + " : " + i + "," + j);
 						if (lookUpValue.equals(table[i][j])) 
 							return table[i + Integer.parseInt(colIndex) - 1][j];
 					}
@@ -60,6 +62,7 @@ public class FormulaVLOOKUP extends Formula {
 			}
 		}
 		
-		return "";
+		Log.d("Not Lookup!");
+		return "0";
 	}
 }
