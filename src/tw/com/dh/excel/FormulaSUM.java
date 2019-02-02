@@ -28,7 +28,7 @@ public class FormulaSUM extends Formula {
 		for(int i = index1[0] ; i <= index2[0] ; i++) {
 			for(int j = index1[1] ; j <= index2[1] ; j++) {
 				Log.d("SUM " + i + "," + j + " = " + this.excelData.table[i][j]);
-				number = number.add(new BigDecimal(this.excelData.table[i][j].equals("") ? "0" : this.excelData.table[i][j]));
+				number = number.add(new BigDecimal(this.excelData.table[i][j].isEmpty() ? "0" : this.excelData.table[i][j]));
 			}
 		}
 

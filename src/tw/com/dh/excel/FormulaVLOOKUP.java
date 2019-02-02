@@ -45,24 +45,24 @@ public class FormulaVLOOKUP extends Formula {
 			for (int j = sindex[1] ; j <= eindex[1]; j++) {
 				if(table[i][j] == null || table[i][j].isEmpty()) break;
 				
-				if(i == sindex[0]) {
-					if (this.rangeLookup.equals("1") || this.rangeLookup.equals("TRUE")) {
-						BigDecimal start = new BigDecimal(table[i][j]);
-						BigDecimal end = new BigDecimal(table[i == eindex[0] ? i : i + 1][j]);
-						BigDecimal value = new BigDecimal(this.lookUpValue);
-						Log.d(start + " ~ " + end + " " + value);
-						if (start.compareTo(value) <= 0 && end.compareTo(value) >= 0) 
-							return table[Integer.parseInt(colIndex)][j];
-					}else {
-						Log.d(lookUpValue + " -> " + table[i][j] + " : " + i + "," + j);
-						if (lookUpValue.equals(table[i][j])) 
-							return table[i + Integer.parseInt(colIndex) - 1][j];
-					}
+				if(i != sindex[0]) continue;
+					
+				if (this.rangeLookup.equals("1") || this.rangeLookup.equals("TRUE")) {
+					BigDecimal start = new BigDecimal(table[i][j]);
+					BigDecimal end = new BigDecimal(table[i == eindex[0] ? i : i + 1][j]);
+					BigDecimal value = new BigDecimal(this.lookUpValue);
+					Log.d(start + " ~ " + end + " -> " + value);
+					if (start.compareTo(value) <= 0 && end.compareTo(value) >= 0) 
+						return table[Integer.parseInt(colIndex)][j];
+				}else {
+					Log.d(lookUpValue + " -> " + table[i][j]);
+					if (lookUpValue.equals(table[i][j])) 
+						return table[i + Integer.parseInt(colIndex) - 1][j];
 				}
 			}
 		}
 		
 		Log.d("Not Lookup!");
-		return "0";
+		return "";
 	}
 }

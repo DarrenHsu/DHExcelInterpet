@@ -14,7 +14,7 @@ public class TestClass {
 	public static void main(String[] args) {
 		TestClass test = new TestClass();
 		
-		test.calculator.parseStatement("VLOOKUP(10,費用表!$E$2:$F$20,2,FALSE)");
+		test.calculator.parseStatement("ROUND(0.01234567890123456789, 14)");
 		
 		if (true) {
 			return;

@@ -22,7 +22,7 @@ public class FormulaMOD extends Formula {
 		String[] statements = this.splitComman(statement);
 		String result = null;
 		if (statements.length == 2) {
-			result  = new Remainder(
+			result = new Remainder(
 					new Number(this.calPostfix(this.convertToPostfix(statements[0]))),
 					new Number(this.calPostfix(this.convertToPostfix(statements[1])))
 					).interpret();
