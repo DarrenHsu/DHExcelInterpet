@@ -1,5 +1,6 @@
 package tw.com.dh;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 
 import tw.com.dh.excel.Calculator;
@@ -14,20 +15,21 @@ public class TestClass {
 	public static void main(String[] args) {
 		TestClass test = new TestClass();
 		
-		test.calculator.parseStatement("ROUND(0.01234567890123456789, 14)");
+//		test.calculator.parseStatement("ROUND(0.01234567890123456789, 14)");
+//		
+//		if (true) {
+//			return;
+//		}
 		
-		if (true) {
-			return;
-		}
-		
-		int[] cols = new int[]{1, 0, 2, 3, 4, 5, 6, 7, 8, 9, 19};
+		int[] cols = new int[]{1, 0, 2, 3, 4, 5, 6, 7, 8, 19, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20};
 		int row = test.excelData.currentRow;
 		
-		for (int c = 0 ; c < cols.length ; c++) {
-			String statement = test.excelData.statements[cols[c]];
-			statement = test.replaceNumber(statement);
-			test.excelData.currentCol = cols[c];
-			for (int i = row ; i < test.excelData.rowCount ; i++) {
+		for (int i = row ; i < test.excelData.rowCount ; i++) {
+			for (int c = 0 ; c < cols.length ; c++) {
+				String statement = test.excelData.statements[cols[c]];
+				statement = test.replaceNumber(statement);
+				test.excelData.currentCol = cols[c];
+			
 				test.excelData.currentRow = i;
 				Log.d("index " + test.excelData.currentCol + "," + test.excelData.currentRow);
 				String result = test.calculator.parseStatement(statement);
@@ -36,10 +38,16 @@ public class TestClass {
 		}
 		
 		Log.d("\n<================ table ====================>");
+		String h = "";
+		for(int c = 0 ; c < test.excelData.colCount ; c++) {
+			h += String.format("%10s", "" + c) + (c == test.excelData.colCount - 1 ? "" : ",");
+		}
+		Log.d(h);
 		for(int r = 0 ; r < test.excelData.rowCount ; r++) {
 			String s = "";
 			for(int c = 0 ; c < test.excelData.colCount ; c++) {
-				s += String.format("%10s", test.excelData.table[c][r]) + (c == test.excelData.colCount - 1 ? "" : ",");
+				String result = test.excelData.table[c][r].isEmpty() ? "" : new BigDecimal(test.excelData.table[c][r]).setScale(0,  BigDecimal.ROUND_UP).toString();
+				s += String.format("%10s", result) + (c == test.excelData.colCount - 1 ? "" : ",");
 			}
 			Log.d(s);
 		}
@@ -93,11 +101,16 @@ public class TestClass {
 		};
 		
 		int cols = statements.length;
-		int rows = 1 * 12 + 1 + 2;
-		rows = 51;
-		
+		int rows = 1 * 12  + 2;
+
 		String name1 = "月化試算表(+1)";
 		String[][] table1 = new String[cols][rows];
+		
+		for(int i = 0 ; i < table1.length ; i++)
+			for(int j = 0 ; j < table1[i].length ; j ++) 
+				table1[i][j] = "";
+		
+		table1[17][0] = "0.01";
 		
 		String name2 = "費用表";
 		String[][] table2 = new String[11][13];
@@ -107,11 +120,11 @@ public class TestClass {
 		table2[6][4] = "4";
 		table2[6][5] = "5";
 		
-		table2[7][1] = "7";
-		table2[7][2] = "6";
-		table2[7][3] = "5";
-		table2[7][4] = "3";
-		table2[7][5] = "2";
+		table2[7][1] = "0.07";
+		table2[7][2] = "0.06";
+		table2[7][3] = "0.05";
+		table2[7][4] = "0.03";
+		table2[7][5] = "0.02";
 		
 		table2[9][2] = "1";
 		table2[9][3] = "2";
@@ -128,14 +141,14 @@ public class TestClass {
 		table2[10][2] = "0";
 		table2[10][3] = "0";
 		table2[10][4] = "0";
-		table2[10][5] = "0.6";
-		table2[10][6] = "0.6";
-		table2[10][7] = "0.6";
-		table2[10][8] = "0.6";
-		table2[10][9] = "0.6";
-		table2[10][10] = "0.6";
-		table2[10][11] = "0.6";
-		table2[10][12] = "0.6";	
+		table2[10][5] = "0.006";
+		table2[10][6] = "0.006";
+		table2[10][7] = "0.006";
+		table2[10][8] = "0.006";
+		table2[10][9] = "0.006";
+		table2[10][10] = "0.006";
+		table2[10][11] = "0.006";
+		table2[10][12] = "0.006";	
 		
 		HashMap<String, String[][]> sheet = new HashMap<>();
 		sheet.put(name1, table1);
