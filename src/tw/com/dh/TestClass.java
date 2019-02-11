@@ -1,6 +1,7 @@
 package tw.com.dh;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 
 import tw.com.dh.excel.Calculator;
@@ -15,7 +16,7 @@ public class TestClass {
 	public static void main(String[] args) {
 		TestClass test = new TestClass();
 		
-//		test.calculator.parseStatement("ROUND(0.01234567890123456789, 14)");
+//		test.calculator.parseStatement("AVERAGE(J39:J50)");
 //		
 //		if (true) {
 //			return;
@@ -33,27 +34,26 @@ public class TestClass {
 				test.excelData.currentRow = i;
 				Log.d("index " + test.excelData.currentCol + "," + test.excelData.currentRow);
 				String result = test.calculator.parseStatement(statement);
-				result = result.isEmpty() ? "" : new BigDecimal(result).setScale(0, BigDecimal.ROUND_HALF_UP).toString();
 				test.excelData.table[test.excelData.currentCol][test.excelData.currentRow] = result;
 			}
 		}
 		
-		Log.d("\n<================ table ====================>");
+		Log.i("\n<================ table ====================>");
 		String h = "";
 		for(int c = 0 ; c < test.excelData.colCount ; c++) {
 			h += String.format("%10s", "" + c) + (c == test.excelData.colCount - 1 ? "" : ",");
 		}
-		Log.d(h);
+		Log.i(h);
 		for(int r = 0 ; r < test.excelData.rowCount ; r++) {
 			String s = "";
 			for(int c = 0 ; c < test.excelData.colCount ; c++) {
-//				String result = test.excelData.table[c][r].isEmpty() ? "" : new BigDecimal(test.excelData.table[c][r]).setScale(0, BigDecimal.ROUND_HALF_UP).toString();
 				String result = test.excelData.table[c][r];
+				result = result.isEmpty() ? "" : new BigDecimal(result).setScale(0, BigDecimal.ROUND_HALF_UP).toString();
 				s += String.format("%10s", result) + (c == test.excelData.colCount - 1 ? "" : ",");
 			}
-			Log.d(s);
+			Log.i(s);
 		}
-		Log.d("<================ table ====================>");
+		Log.i("<================ table ====================>");
 	}
 	
 	public TestClass() {
@@ -98,14 +98,14 @@ public class TestClass {
 				/* Q 16 */ "IF(B3<>\"\",IF((J3-$K3-M3)*(1+R$1)^(1/12)<0,0,(J3-$K3-M3)*(1+R$1)^(1/12)-O3),\"\")",
 				/* R 17 */ "IF(B3<>\"\",IF(A3<=費用表!$H$1,VLOOKUP(A3,費用表!$G$2:$H$20,2,FALSE)*ROUND(Q3,0),0),\"\")",
 				/* S 18 */ "IF(B3<>\"\",ROUND(Q3,0)-R3,\"\")",
-				/* T 19 */ "IF(AND(A3>=加值給付開始年度,C3<年金給付年齡,MOD(B3,12)=1),AVERAGE(J-8:J3)*VLOOKUP(IF(A3<11,A3,11),費用表!$J$3:$K$13,2,0),0)",
+				/* T 19 */ "IF(AND(A3>=加值給付開始年度,C3<年金給付年齡,MOD(B3,12)=1),AVERAGE(J-9:J2)*VLOOKUP(IF(A3<11,A3,11),費用表!$J$3:$K$13,2,0),0)",
 				/* U 20 */ "IF(B3<>\"\",IF((J3-$K3-M3)*(1+R$1)^(1/12)<0,0,(J3-$K3-M3)*(1+R$1)^(1/12)-O3),\"\")"
 		};
 		
 		int cols = statements.length;
 		int rows = 1 * 12  + 2;
 		rows = 51;
-
+		
 		String name1 = "月化試算表(+1)";
 		String[][] table1 = new String[cols][rows];
 		
