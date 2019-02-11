@@ -8,8 +8,6 @@ public class FormulaIF extends Formula {
 	public static final String NAME = "IF";
 	
 	private String localTest;
-	private String trueValue;
-	private String falseValue;
 	
 	public FormulaIF(ExcelData excelData) {
 		this.excelData = excelData;
