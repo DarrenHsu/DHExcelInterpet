@@ -16,7 +16,7 @@ public class TestClass {
 	public static void main(String[] args) {
 		TestClass test = new TestClass();
 		
-//		test.calculator.parseStatement("AVERAGE(J39:J50)");
+//		test.calculator.parseStatement("SUM(100,9)");
 //		
 //		if (true) {
 //			return;
@@ -42,6 +42,7 @@ public class TestClass {
 		String h = "";
 		for(int c = 0 ; c < test.excelData.colCount ; c++) {
 			h += String.format("%10s", "" + c) + (c == test.excelData.colCount - 1 ? "" : ",");
+//			h += String.format("%s", "" + c) + (c == test.excelData.colCount - 1 ? "" : ",");
 		}
 		Log.i(h);
 		for(int r = 0 ; r < test.excelData.rowCount ; r++) {
@@ -50,6 +51,7 @@ public class TestClass {
 				String result = test.excelData.table[c][r];
 				result = result.isEmpty() ? "" : new BigDecimal(result).setScale(0, BigDecimal.ROUND_HALF_UP).toString();
 				s += String.format("%10s", result) + (c == test.excelData.colCount - 1 ? "" : ",");
+//				s += String.format("%s", result) + (c == test.excelData.colCount - 1 ? "" : ",");
 			}
 			Log.i(s);
 		}
@@ -103,7 +105,7 @@ public class TestClass {
 		};
 		
 		int cols = statements.length;
-		int rows = 1 * 12  + 2;
+		int rows = 69 * 12 + 1  + 2;
 		rows = 51;
 		
 		String name1 = "月化試算表(+1)";

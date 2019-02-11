@@ -20,14 +20,17 @@ public class FormulaIF extends Formula {
 		Log.d("p " + NAME + " : " + statement);
 		
 		String[] statements = this.splitComman(statement);
+		String result = null;
 		
 		if (statements.length == 3) {
 			this.localTest = this.calPostfix(this.convertToPostfix(statements[0]));
-			this.trueValue = this.calPostfix(this.convertToPostfix(statements[1]));
-			this.falseValue = this.calPostfix(this.convertToPostfix(statements[2]));
+			if (this.localTest.equals(S_TRUE)) {
+				result = this.calPostfix(this.convertToPostfix(statements[1]));
+			}else {
+				result = this.calPostfix(this.convertToPostfix(statements[2]));
+			}
 		}
 		
-		String result = this.localTest.equals(S_TRUE) ? this.trueValue : this.falseValue;
 		Log.d("r " + result);
 		return result;
 	}
