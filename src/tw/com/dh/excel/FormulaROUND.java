@@ -17,7 +17,7 @@ public class FormulaROUND extends Formula {
 	}
 	
 	@Override
-	public String interpret(String statement) {
+	public BigDecimal interpret(String statement) {
 		Log.d("p " + NAME + " : " + statement);
 		
 		String[] statements = this.splitComman(statement);
@@ -28,6 +28,6 @@ public class FormulaROUND extends Formula {
 		BigDecimal result = this.calPostfix(this.convertToPostfix(this.number)).setScale(d, BigDecimal.ROUND_HALF_UP).stripTrailingZeros();
 		
 		Log.d("r " + result.toPlainString());
-		return result.stripTrailingZeros().toPlainString();
+		return result;
 	}
 }

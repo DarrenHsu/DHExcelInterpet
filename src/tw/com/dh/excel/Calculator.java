@@ -1,5 +1,6 @@
 package tw.com.dh.excel;
 
+import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,13 +18,13 @@ public class Calculator {
 		this.excelData = excelData;
 	}
 	
-	public String parseStatement(String statement) {
+	public BigDecimal parseStatement(String statement) {
 		StatementData sr = new StatementData(statement);
 
 		Log.d(statement);
 		Log.d("------------- interpreter start -------------");
 		
-		String result = this.interpretFormula(sr);
+		BigDecimal result = this.interpretFormula(sr);
 		
 		Log.d("Final Result: " + result + "\n");
 		
@@ -91,7 +92,7 @@ public class Calculator {
 		}
 	}
 	
-	private String process(StatementData sr) {
+	private BigDecimal process(StatementData sr) {
 		String op = sr.getLastOperator();
 		
 		if (op == null) 
@@ -119,11 +120,11 @@ public class Calculator {
 		case FormulaINT.NAME:
 			return new FormulaINT(this.excelData).interpret(sr.getStatement());
 		default:
-			return null;
+			return BigDecimal.ZERO;
 		}
 	}
 	
-	private String interpretFormula(StatementData sr) {
+	private BigDecimal interpretFormula(StatementData sr) {
 		String formula = this.getFormula(sr);
 		if (formula != null && !formula.isEmpty()) {
 			String regex = this.convertToRegex(formula);
@@ -136,8 +137,8 @@ public class Calculator {
 			}
 			
 			String lastFullStepment = sr.getLastFullStatement();
-			String result = this.process(sr);
-			String orignalStatement = sr.getOrignalStatement().replace(lastFullStepment, result);
+			BigDecimal result = this.process(sr);
+			String orignalStatement = sr.getOrignalStatement().replace(lastFullStepment, result.stripTrailingZeros().toPlainString());
 			
 			sr = new StatementData(orignalStatement);
 			if (this.isHasFormula(sr)) {

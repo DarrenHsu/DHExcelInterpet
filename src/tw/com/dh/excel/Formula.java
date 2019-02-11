@@ -34,7 +34,7 @@ public abstract class Formula {
 	
 	protected ExcelData excelData;
 	
-	public abstract String interpret(String statement);
+	public abstract BigDecimal interpret(String statement);
 	
 	protected String[] splitComman(String str) {
 		return this.splitComman(str, ",");

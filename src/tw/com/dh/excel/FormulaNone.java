@@ -11,12 +11,12 @@ public class FormulaNone extends Formula {
 	}
 	
 	@Override
-	public String interpret(String statement) {
+	public BigDecimal interpret(String statement) {
 		Log.d("p " + NAME + " : " + statement);
 			
 		BigDecimal result = this.calPostfix(this.convertToPostfix(statement));
 
 		Log.d("r " + result);
-		return result.toString();
+		return result;
 	}
 }

@@ -14,7 +14,7 @@ public class FormulaIF extends Formula {
 	}
 	
 	@Override
-	public String interpret(String statement) {
+	public BigDecimal interpret(String statement) {
 		Log.d("p " + NAME + " : " + statement);
 		
 		String[] statements = this.splitComman(statement);
@@ -29,6 +29,6 @@ public class FormulaIF extends Formula {
 		}
 		
 		Log.d("r " + result);
-		return result.stripTrailingZeros().toPlainString();
+		return result;
 	}
 }

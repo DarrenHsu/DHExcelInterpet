@@ -19,7 +19,7 @@ public class FormulaSUM extends Formula {
 	}
 	
 	@Override
-	public String interpret(String statement) {
+	public BigDecimal interpret(String statement) {
 		Log.d("p " + NAME + " : " + statement);
 		
 		BigDecimal result = BigDecimal.ZERO;
@@ -45,6 +45,6 @@ public class FormulaSUM extends Formula {
 		}
 		
 		Log.d("r " + result);
-		return result.stripTrailingZeros().toPlainString();
+		return result;
 	}
 }

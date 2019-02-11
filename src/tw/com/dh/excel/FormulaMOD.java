@@ -16,7 +16,7 @@ public class FormulaMOD extends Formula {
 	}
 	
 	@Override
-	public String interpret(String statement) {
+	public BigDecimal interpret(String statement) {
 		Log.d("p " + NAME + " : " + statement);
 		
 		String[] statements = this.splitComman(statement);
@@ -28,6 +28,6 @@ public class FormulaMOD extends Formula {
 					).interpret();
 		}
 		Log.d("r " + result);
-		return result.toString();
+		return result;
 	}
 }

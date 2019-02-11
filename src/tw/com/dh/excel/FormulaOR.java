@@ -16,7 +16,7 @@ public class FormulaOR extends Formula {
 	}
 	
 	@Override
-	public String interpret(String statement) {
+	public BigDecimal interpret(String statement) {
 		Log.d("p " + NAME + " : " + statement);
 		
 		this.logicalS = this.splitComman(statement);
@@ -25,11 +25,11 @@ public class FormulaOR extends Formula {
 			
 			if (result.compareTo(BigDecimal.ZERO) == 0) {
 				Log.d("r " + S_TRUE);
-				return S_TRUE;
+				return BigDecimal.ZERO;
 			}
 		}
 		
 		Log.d("r " + S_FALSE);
-		return S_FALSE;
+		return new BigDecimal(-1);
 	}
 }

@@ -36,7 +36,7 @@ public class TestClass {
 			
 				test.excelData.currentRow = i;
 				Log.d("index " + test.excelData.currentCol + "," + test.excelData.currentRow);
-				String result = test.calculator.parseStatement(statement);
+				BigDecimal result = test.calculator.parseStatement(statement);
 				test.excelData.table[test.excelData.currentCol][test.excelData.currentRow] = result;
 			}
 		}
@@ -50,9 +50,9 @@ public class TestClass {
 		for(int r = 0 ; r < test.excelData.rowCount ; r++) {
 			String s = "";
 			for(int c = 0 ; c < test.excelData.colCount ; c++) {
-				String result = test.excelData.table[c][r];
-				result = result.isEmpty() ? "" : new BigDecimal(result).setScale(0, BigDecimal.ROUND_HALF_UP).toString();
-				s += String.format("%10s", result) + (c == test.excelData.colCount - 1 ? "" : ",");
+				BigDecimal result = test.excelData.table[c][r];
+				s += String.format("%10s", result.setScale(0, BigDecimal.ROUND_HALF_UP).toString()) + (c == test.excelData.colCount - 1 ? "" : ",");
+//				s += String.format("%10s", result) + (c == test.excelData.colCount - 1 ? "" : ",");
 			}
 			Log.i(s);
 		}
@@ -109,6 +109,7 @@ public class TestClass {
 		int cols = statements.length;
 		int rows = 69 * 12 + 1  + 2;
 		rows = 51;
+		rows = 4;
 		
 		String name1 = "月化試算表(+1)";
 		BigDecimal[][] table1 = new BigDecimal[cols][rows];

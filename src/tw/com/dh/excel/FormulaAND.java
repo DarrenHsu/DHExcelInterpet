@@ -16,11 +16,11 @@ public class FormulaAND extends Formula {
 	}
 	
 	@Override
-	public String interpret(String statement) {
+	public BigDecimal interpret(String statement) {
 		Log.d("p " + NAME + " : " + statement);
 		this.logicals = this.splitComman(statement);
 		
-		String result = S_TRUE;
+		BigDecimal result = new BigDecimal(-1);
 		BigDecimal r = BigDecimal.ZERO;
 		
 		for(int i  = 0 ; i < this.logicals.length ; i++) {
@@ -30,7 +30,7 @@ public class FormulaAND extends Formula {
 			}
 			BigDecimal tmp = this.calPostfix(this.convertToPostfix(this.logicals[i]));
 			if (r.compareTo(tmp) != 0) {
-				result = S_FALSE;
+				result = new BigDecimal(-1);
 				break;
 			}else {
 				r = tmp;

@@ -127,6 +127,6 @@ public class ExcelData {
 	
 	public BigDecimal getColumnType(String column) {
 		int[] index = this.getColumnIndex(column);
-		return index != null ? this.table[index[0]][index[1]] : new BigDecimal(column);
+		return index != null ? this.table[index[0]][index[1]] : new BigDecimal(column.trim().equals("\"\"") ? "0" : column);
 	}
 }
