@@ -3,6 +3,8 @@ package tw.com.dh.excel;
 import tw.com.dhl.operator.Addtion;
 import tw.com.dhl.operator.Number;
 
+import java.math.BigDecimal;
+
 import tw.com.dh.utility.Log;
 
 public class FormulaSUM extends Formula {
@@ -20,7 +22,7 @@ public class FormulaSUM extends Formula {
 	public String interpret(String statement) {
 		Log.d("p " + NAME + " : " + statement);
 		
-		String result = "0";
+		BigDecimal result = BigDecimal.ZERO;
 		
 		if (statement.indexOf(":") >= 0) {
 			this.numbers = this.splitComman(statement, ":");
@@ -31,7 +33,7 @@ public class FormulaSUM extends Formula {
 
 				for(int i = index1[0] ; i <= index2[0] ; i++) {
 					for(int j = index1[1] ; j <= index2[1] ; j++) {
-						result = new Addtion(new Number(result), new Number(this.excelData.table[i][j].isEmpty() ? "0" : this.excelData.table[i][j])).interpret();
+						result = new Addtion(new Number(result), new Number(this.excelData.table[i][j])).interpret();
 					}
 				}
 			}
@@ -43,6 +45,6 @@ public class FormulaSUM extends Formula {
 		}
 		
 		Log.d("r " + result);
-		return result;
+		return result.stripTrailingZeros().toPlainString();
 	}
 }

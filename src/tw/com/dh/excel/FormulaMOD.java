@@ -20,7 +20,7 @@ public class FormulaMOD extends Formula {
 		Log.d("p " + NAME + " : " + statement);
 		
 		String[] statements = this.splitComman(statement);
-		String result = null;
+		BigDecimal result = BigDecimal.ZERO;
 		if (statements.length == 2) {
 			result = new Remainder(
 					new Number(this.calPostfix(this.convertToPostfix(statements[0]))),

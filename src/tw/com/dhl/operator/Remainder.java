@@ -16,10 +16,8 @@ public class Remainder extends Expression {
 	}
 	
 	@Override
-	public String interpret() {
+	public BigDecimal interpret() {
 		Log.d("cal: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
-		BigDecimal l = new BigDecimal(this.left.interpret());
-		BigDecimal r = new BigDecimal(this.right.interpret());
-		return l.remainder(r).setScale(0).toString();
+		return this.left.interpret().remainder(this.right.interpret()).setScale(0);
 	}
 }

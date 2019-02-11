@@ -24,11 +24,10 @@ public class FormulaROUND extends Formula {
 		this.number = statements[0];
 		this.digits = statements[1];
 		
-		BigDecimal n = new BigDecimal(this.calPostfix(this.convertToPostfix(this.number)));
-		int d = Integer.parseInt(this.calPostfix(this.convertToPostfix(this.digits)));
-		BigDecimal result = n.setScale(d, BigDecimal.ROUND_HALF_UP).stripTrailingZeros();
+		int d = this.calPostfix(this.convertToPostfix(this.digits)).intValue();
+		BigDecimal result = this.calPostfix(this.convertToPostfix(this.number)).setScale(d, BigDecimal.ROUND_HALF_UP).stripTrailingZeros();
 		
 		Log.d("r " + result.toPlainString());
-		return result.toPlainString();
+		return result.stripTrailingZeros().toPlainString();
 	}
 }

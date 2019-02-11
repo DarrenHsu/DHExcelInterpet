@@ -1,5 +1,7 @@
 package tw.com.dh.excel;
 
+import java.math.BigDecimal;
+
 import tw.com.dh.utility.Log;
 
 public class FormulaAND extends Formula {
@@ -19,15 +21,15 @@ public class FormulaAND extends Formula {
 		this.logicals = this.splitComman(statement);
 		
 		String result = S_TRUE;
-		String r = null;
+		BigDecimal r = BigDecimal.ZERO;
 		
 		for(int i  = 0 ; i < this.logicals.length ; i++) {
 			if (i == 0) {
 				r = this.calPostfix(this.convertToPostfix(this.logicals[i]));
 				continue;
 			}
-			String tmp = this.calPostfix(this.convertToPostfix(this.logicals[i]));
-			if (!r.equals(tmp)) {
+			BigDecimal tmp = this.calPostfix(this.convertToPostfix(this.logicals[i]));
+			if (r.compareTo(tmp) != 0) {
 				result = S_FALSE;
 				break;
 			}else {

@@ -85,7 +85,7 @@ public abstract class Formula {
 		}
 	}
 	
-	private String cal(String operator, String numA, String numB) {
+	private BigDecimal cal(String operator, String numA, String numB) {
 		BigDecimal A = this.excelData.getColumnType(numA);
 		BigDecimal B = this.excelData.getColumnType(numB);
 		
@@ -185,13 +185,13 @@ public abstract class Formula {
 		return opStack;
 	}
 	
-	protected String calPostfix(ArrayList<String> stack) {
+	protected BigDecimal calPostfix(ArrayList<String> stack) {
 		if (stack.size() < 3)
 			return this.excelData.getColumnType(stack.get(0));
 		
 		int numAIndex = 0, numBIndex = 0, opIndex = 0;
 		boolean isCalculator = false;
-		String result = null;
+		BigDecimal result = BigDecimal.ZERO;
 		for (int i = 0 ; i < stack.size() ; i++) {
 			String operator = stack.get(i);
 			if (this.isOperator(operator)) {
@@ -217,7 +217,7 @@ public abstract class Formula {
 			stack.remove(opIndex - 2);
 
 			if (result != null) 
-				stack.add(numAIndex, result);
+				stack.add(numAIndex, result.stripTrailingZeros().toPlainString());
 	    }
 		
 		return this.calPostfix(stack);

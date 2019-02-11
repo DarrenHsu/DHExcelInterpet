@@ -1,5 +1,7 @@
 package tw.com.dh.excel;
 
+import java.math.BigDecimal;
+
 import tw.com.dh.utility.Log;
 
 public class FormulaNone extends Formula {
@@ -12,9 +14,9 @@ public class FormulaNone extends Formula {
 	public String interpret(String statement) {
 		Log.d("p " + NAME + " : " + statement);
 			
-		String result = this.calPostfix(this.convertToPostfix(statement));
+		BigDecimal result = this.calPostfix(this.convertToPostfix(statement));
 
 		Log.d("r " + result);
-		return result;
+		return result.toString();
 	}
 }

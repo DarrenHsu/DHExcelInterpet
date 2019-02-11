@@ -17,10 +17,8 @@ public class DivisionInteger extends Expression {
 	}
 	
 	@Override
-	public String interpret() {
+	public BigDecimal interpret() {
 		Log.d("cal: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
-		BigDecimal l = new BigDecimal(this.left.interpret());
-		BigDecimal r = new BigDecimal(this.right.interpret());
-		return l.divide(r, 0, BigDecimal.ROUND_HALF_UP).toString();
+		return this.left.interpret().divide(this.right.interpret(), 0, BigDecimal.ROUND_HALF_UP);
 	}
 }

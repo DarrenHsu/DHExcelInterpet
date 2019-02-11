@@ -1,6 +1,7 @@
 package tw.com.dhl.operator;
 
-import tw.com.dh.excel.Formula;
+import java.math.BigDecimal;
+
 import tw.com.dh.utility.Log;
 
 public class Equal extends Expression {
@@ -16,9 +17,8 @@ public class Equal extends Expression {
 	}
 	
 	@Override
-	public String interpret() {
+	public BigDecimal interpret() {
 		Log.d("cal: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
-		String result = this.left.interpret().equals(this.right.interpret()) ? Formula.S_TRUE : Formula.S_FALSE;
-		return result;
+		return new BigDecimal(this.left.interpret().compareTo(this.right.interpret()));
 	}
 }

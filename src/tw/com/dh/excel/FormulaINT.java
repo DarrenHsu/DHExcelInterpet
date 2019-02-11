@@ -1,8 +1,5 @@
 package tw.com.dh.excel;
 
-import java.math.BigDecimal;
-import java.math.MathContext;
-
 import tw.com.dh.utility.Log;
 
 public class FormulaINT extends Formula {
@@ -17,7 +14,6 @@ public class FormulaINT extends Formula {
 	@Override
 	public String interpret(String statement) {
 		Log.d("p " + NAME + " : " + statement);
-		BigDecimal result = new BigDecimal(this.calPostfix(this.convertToPostfix(statement)));
-		return "" + result.intValue();
+		return "" + this.calPostfix(this.convertToPostfix(statement)).intValue();
 	}
 }

@@ -1,5 +1,7 @@
 package tw.com.dhl.operator;
 
+import java.math.BigDecimal;
+
 import tw.com.dh.excel.Formula;
 import tw.com.dh.utility.Log;
 
@@ -16,9 +18,8 @@ public class NotEqual extends Expression {
 	}
 	
 	@Override
-	public String interpret() {
+	public BigDecimal interpret() {
 		Log.d("cal: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
-		String result = this.left.interpret().equals(this.right.interpret()) ? Formula.S_FALSE : Formula.S_TRUE;
-		return result;
+		return new BigDecimal(this.left.interpret().compareTo(this.right.interpret()) != 0 ? 0 : -1);
 	}
 }

@@ -2,7 +2,6 @@ package tw.com.dhl.operator;
 
 import java.math.BigDecimal;
 
-import tw.com.dh.excel.Formula;
 import tw.com.dh.utility.Log;
 
 public class MoreThan extends Expression {
@@ -18,10 +17,8 @@ public class MoreThan extends Expression {
 	}
 	
 	@Override
-	public String interpret() {
+	public BigDecimal interpret() {
 		Log.d("cal: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
-		BigDecimal l = new BigDecimal(this.left.interpret());
-		BigDecimal r = new BigDecimal(this.right.interpret());
-		return l.compareTo(r) == 1 ? Formula.S_TRUE : Formula.S_FALSE;
+		return new BigDecimal(this.left.interpret().compareTo(this.right.interpret()) == 1 ? 0 : -1);
 	}
 }

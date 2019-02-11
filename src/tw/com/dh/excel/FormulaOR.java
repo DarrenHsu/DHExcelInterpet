@@ -1,5 +1,7 @@
 package tw.com.dh.excel;
 
+import java.math.BigDecimal;
+
 import tw.com.dh.utility.Log;
 
 public class FormulaOR extends Formula {
@@ -19,9 +21,9 @@ public class FormulaOR extends Formula {
 		
 		this.logicalS = this.splitComman(statement);
 		for(int i  = 0 ; i < this.logicalS.length ; i++) {
-			String result = this.calPostfix(this.convertToPostfix(this.logicalS[i]));
+			BigDecimal result = this.calPostfix(this.convertToPostfix(this.logicalS[i]));
 			
-			if (result.equals(S_TRUE)) {
+			if (result.compareTo(BigDecimal.ZERO) == 0) {
 				Log.d("r " + S_TRUE);
 				return S_TRUE;
 			}

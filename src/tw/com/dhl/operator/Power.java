@@ -19,10 +19,8 @@ public class Power extends Expression {
 	}
 	
 	@Override
-	public String interpret() {
+	public BigDecimal interpret() {
 		Log.d("cal: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
-		BigDecimal l = new BigDecimal(this.left.interpret());
-		BigDecimal r = new BigDecimal(this.right.interpret());
-		return BigDecimalMath.pow(l, r, new MathContext(10)).stripTrailingZeros().toPlainString();
+		return BigDecimalMath.pow(this.left.interpret(), this.right.interpret(), new MathContext(10));
 	}
 }
