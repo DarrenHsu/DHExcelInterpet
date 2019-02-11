@@ -51,11 +51,12 @@ public class TestClass {
 			String s = "";
 			for(int c = 0 ; c < test.excelData.colCount ; c++) {
 				BigDecimal result = test.excelData.table[c][r];
-				s += String.format("%10s", result.setScale(0, BigDecimal.ROUND_HALF_UP).toString()) + (c == test.excelData.colCount - 1 ? "" : ",");
+				s += String.format("%s", result.setScale(0, BigDecimal.ROUND_HALF_UP).toString()) + (c == test.excelData.colCount - 1 ? "" : ",");
 			}
 			Log.i(s);
 		}
 		Log.i("<================ table ====================>");
+		
 		Log.e(new Date().toString());
 	}
 	
