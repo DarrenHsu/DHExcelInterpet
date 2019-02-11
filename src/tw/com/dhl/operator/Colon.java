@@ -1,5 +1,7 @@
 package tw.com.dhl.operator;
 
+import java.math.BigDecimal;
+
 import tw.com.dh.utility.Log;
 
 public class Colon extends Expression {
@@ -15,8 +17,8 @@ public class Colon extends Expression {
 	}
 	
 	@Override
-	public String interpret() {
+	public BigDecimal interpret() {
 		Log.d("cal: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
-		return "ColonResult";
+		return this.left.interpret();
 	}
 }

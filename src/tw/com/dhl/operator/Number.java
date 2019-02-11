@@ -1,17 +1,17 @@
 package tw.com.dhl.operator;
 
+import java.math.BigDecimal;
+
 public class Number extends Expression {
 	
-	private String operand;
+	private BigDecimal operand;
 	
-	public Number(String operand) {
+	public Number(BigDecimal operand) {
 		this.operand = operand;
 	}
 	
 	@Override
-	public String interpret() {
-		this.operand = this.operand.replaceAll("\"", "");
-		
-		return operand.equals("") ? "0" : operand;
+	public BigDecimal interpret() {
+		return this.operand;
 	}
 }

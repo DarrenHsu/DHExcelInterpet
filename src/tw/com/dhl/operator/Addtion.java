@@ -17,10 +17,8 @@ public class Addtion extends Expression {
 	}
 	
 	@Override
-	public String interpret() {
+	public BigDecimal interpret() {
 		Log.d("cal: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
-		BigDecimal l = new BigDecimal(this.left.interpret());
-		BigDecimal r = new BigDecimal(this.right.interpret());
-		return l.add(r).stripTrailingZeros().toPlainString();
+		return this.left.interpret().add(this.right.interpret());
 	}
 }

@@ -1,5 +1,6 @@
 package tw.com.dh.excel;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,10 +17,10 @@ public class ExcelData {
 		ABSOLUTE_COLUMN		//ex: $A$3
 	}
 	
-	public HashMap<String, String[][]> sheets;
+	public HashMap<String, BigDecimal[][]> sheets;
 	
 	public String[] statements;
-	public String[][] table;
+	public BigDecimal[][] table;
 	
 	public int rowCount, colCount;
 	public int currentRow, currentCol;
@@ -27,7 +28,7 @@ public class ExcelData {
 	
 	public ExcelData() {}
 	
-	public ExcelData(HashMap<String, String[][]> sheet, String name, String[] statements, int currentCol, int currentRow) {
+	public ExcelData(HashMap<String, BigDecimal[][]> sheet, String name, String[] statements, int currentCol, int currentRow) {
 		this.statements = statements;
 		this.sheets = sheet;
 		this.table = this.sheets.get(name);
@@ -42,7 +43,7 @@ public class ExcelData {
 		this.firstRow = currentRow;
 	}
 	
-	public String[][] getTable(String sheetName) {
+	public BigDecimal[][] getTable(String sheetName) {
 		return this.sheets.get(sheetName);
 	}
 	
@@ -66,7 +67,6 @@ public class ExcelData {
 		Pattern p = Pattern.compile("-{0,1}\\d{1,3}");
 		Matcher m = p.matcher(column);
 		if (m.find()) {
-			String s = m.group();
 			return Integer.parseInt(m.group());
 		}
 		
@@ -125,8 +125,8 @@ public class ExcelData {
 		return null;
 	}
 	
-	public String getColumnType(String column) {
+	public BigDecimal getColumnType(String column) {
 		int[] index = this.getColumnIndex(column);
-		return index != null ? this.table[index[0]][index[1]].equals("") ? "0" : this.table[index[0]][index[1]] : column;
+		return index != null ? this.table[index[0]][index[1]] : new BigDecimal(column);
 	}
 }

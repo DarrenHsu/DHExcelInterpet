@@ -1,5 +1,6 @@
 package tw.com.dh.excel;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -85,38 +86,38 @@ public abstract class Formula {
 	}
 	
 	private String cal(String operator, String numA, String numB) {
-		numA = this.excelData.getColumnType(numA);
-		numB = this.excelData.getColumnType(numB);
+		BigDecimal A = this.excelData.getColumnType(numA);
+		BigDecimal B = this.excelData.getColumnType(numB);
 		
 		switch (operator) {
 		case Power.SYMBOL:
-			return new Power(new Number(numA), new Number(numB)).interpret();
+			return new Power(new Number(A), new Number(B)).interpret();
 		case Multiplication.SYMBOL:
-			return new Multiplication(new Number(numA), new Number(numB)).interpret();
+			return new Multiplication(new Number(A), new Number(B)).interpret();
 		case Division.SYMBOL:
-			return new Division(new Number(numA), new Number(numB)).interpret();
+			return new Division(new Number(A), new Number(B)).interpret();
 		case DivisionInteger.SYMBOL:
-			return new DivisionInteger(new Number(numA), new Number(numB)).interpret();
+			return new DivisionInteger(new Number(A), new Number(B)).interpret();
 		case Remainder.SYMBOL:
-			return new Remainder(new Number(numA), new Number(numB)).interpret();
+			return new Remainder(new Number(A), new Number(B)).interpret();
 		case Addtion.SYMBOL:
-			return new Addtion(new Number(numA), new Number(numB)).interpret();
+			return new Addtion(new Number(A), new Number(B)).interpret();
 		case Subtration.SYMBOL:
-			return new Subtration(new Number(numA), new Number(numB)).interpret();
+			return new Subtration(new Number(A), new Number(B)).interpret();
 		case Colon.SYMBOL:
-			return new Colon(new Number(numA), new Number(numB)).interpret();
+			return new Colon(new Number(A), new Number(B)).interpret();
 		case MoreThan.SYMBOL:
-			return new MoreThan(new Number(numA), new Number(numB)).interpret();
+			return new MoreThan(new Number(A), new Number(B)).interpret();
 		case LassThan.SYMBOL:
-			return new LassThan(new Number(numA), new Number(numB)).interpret();
+			return new LassThan(new Number(A), new Number(B)).interpret();
 		case MoreThanEqual.SYMBOL:
-			return new MoreThanEqual(new Number(numA), new Number(numB)).interpret();
+			return new MoreThanEqual(new Number(A), new Number(B)).interpret();
 		case LassThanEqual.SYMBOL:
-			return new LassThanEqual(new Number(numA), new Number(numB)).interpret();
+			return new LassThanEqual(new Number(A), new Number(B)).interpret();
 		case Equal.SYMBOL:
-			return new Equal(new Number(numA), new Number(numB)).interpret();
+			return new Equal(new Number(A), new Number(B)).interpret();
 		case NotEqual.SYMBOL:
-			return new NotEqual(new Number(numA), new Number(numB)).interpret();
+			return new NotEqual(new Number(A), new Number(B)).interpret();
 		default:
 			return null;
 		}
