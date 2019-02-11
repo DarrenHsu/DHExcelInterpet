@@ -17,9 +17,9 @@ public class TestClass {
 	public static void main(String[] args) {
 		TestClass test = new TestClass();
 		
-		Log.i(new Date().toString());
+		Log.e(new Date().toString());
 		
-//		test.calculator.parseStatement("SUM(100,9)");
+//		test.calculator.parseStatement("10-0.3333333333333333333333333333333333333333333");
 //		
 //		if (true) {
 //			return;
@@ -57,7 +57,7 @@ public class TestClass {
 			Log.i(s);
 		}
 		Log.i("<================ table ====================>");
-		Log.i(new Date().toString());
+		Log.e(new Date().toString());
 	}
 	
 	public TestClass() {
@@ -108,7 +108,7 @@ public class TestClass {
 		
 		int cols = statements.length;
 		int rows = 69 * 12 + 1  + 2;
-		rows = 51;
+//		rows = 51;
 		
 		String name1 = "月化試算表(+1)";
 		String[][] table1 = new String[cols][rows];
