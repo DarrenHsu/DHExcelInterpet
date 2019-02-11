@@ -2,6 +2,7 @@ package tw.com.dh;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Date;
 import java.util.HashMap;
 
 import tw.com.dh.excel.Calculator;
@@ -15,6 +16,8 @@ public class TestClass {
 	 
 	public static void main(String[] args) {
 		TestClass test = new TestClass();
+		
+		Log.i(new Date().toString());
 		
 //		test.calculator.parseStatement("SUM(100,9)");
 //		
@@ -42,7 +45,6 @@ public class TestClass {
 		String h = "";
 		for(int c = 0 ; c < test.excelData.colCount ; c++) {
 			h += String.format("%10s", "" + c) + (c == test.excelData.colCount - 1 ? "" : ",");
-//			h += String.format("%s", "" + c) + (c == test.excelData.colCount - 1 ? "" : ",");
 		}
 		Log.i(h);
 		for(int r = 0 ; r < test.excelData.rowCount ; r++) {
@@ -51,11 +53,11 @@ public class TestClass {
 				String result = test.excelData.table[c][r];
 				result = result.isEmpty() ? "" : new BigDecimal(result).setScale(0, BigDecimal.ROUND_HALF_UP).toString();
 				s += String.format("%10s", result) + (c == test.excelData.colCount - 1 ? "" : ",");
-//				s += String.format("%s", result) + (c == test.excelData.colCount - 1 ? "" : ",");
 			}
 			Log.i(s);
 		}
 		Log.i("<================ table ====================>");
+		Log.i(new Date().toString());
 	}
 	
 	public TestClass() {

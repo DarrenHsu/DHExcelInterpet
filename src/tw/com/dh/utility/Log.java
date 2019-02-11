@@ -1,5 +1,7 @@
 package tw.com.dh.utility;
 
+import java.util.Date;
+
 public class Log {
 	
 	public static void d(String msg) {

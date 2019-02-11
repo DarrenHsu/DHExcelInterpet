@@ -31,7 +31,6 @@ public class FormulaSUM extends Formula {
 
 				for(int i = index1[0] ; i <= index2[0] ; i++) {
 					for(int j = index1[1] ; j <= index2[1] ; j++) {
-						Log.d("SUM " + i + "," + j + " = " + this.excelData.table[i][j]);
 						result = new Addtion(new Number(result), new Number(this.excelData.table[i][j].isEmpty() ? "0" : this.excelData.table[i][j])).interpret();
 					}
 				}
@@ -40,7 +39,6 @@ public class FormulaSUM extends Formula {
 			this.numbers = this.splitComman(statement, ",");
 			for(int i = 0 ; i < this.numbers.length ; i++) {
 				result = new Addtion(new Number(result), new Number(this.calPostfix(this.convertToPostfix(this.numbers[i])))).interpret();
-				Log.d("SUM " + i + " = " + result);
 			}
 		}
 		

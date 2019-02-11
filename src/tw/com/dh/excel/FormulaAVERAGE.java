@@ -36,7 +36,6 @@ public class FormulaAVERAGE extends Formula {
 						String value = this.excelData.table[i][j];
 						result = new Addtion(new Number(result), new Number(value.isEmpty() ? "0" : value)).interpret();
 						count += 1;
-						Log.d("AVERAGE " + i + "," + j + " = " + value);
 					}
 				}
 				
@@ -46,7 +45,6 @@ public class FormulaAVERAGE extends Formula {
 			this.numbers = this.splitComman(statement, ",");
 			for(int i = 0 ; i < this.numbers.length ; i++) {
 				result = new Addtion(new Number(result), new Number(this.calPostfix(this.convertToPostfix(this.numbers[i])))).interpret();
-				Log.d("AVERAGE " + i + " = " + result);
 			}
 			
 			result = new Division(new Number(result), new Number("" + this.numbers.length)).interpret();
