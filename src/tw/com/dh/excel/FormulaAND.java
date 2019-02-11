@@ -20,24 +20,15 @@ public class FormulaAND extends Formula {
 		Log.d("p " + NAME + " : " + statement);
 		this.logicals = this.splitComman(statement);
 		
-		BigDecimal result = new BigDecimal(-1);
-		BigDecimal r = BigDecimal.ZERO;
-		
 		for(int i  = 0 ; i < this.logicals.length ; i++) {
-			if (i == 0) {
-				r = this.calPostfix(this.convertToPostfix(this.logicals[i]));
-				continue;
-			}
-			BigDecimal tmp = this.calPostfix(this.convertToPostfix(this.logicals[i]));
-			if (r.compareTo(tmp) != 0) {
-				result = new BigDecimal(-1);
-				break;
-			}else {
-				r = tmp;
+			BigDecimal result = this.calPostfix(this.convertToPostfix(this.logicals[i]));
+			if (result.compareTo(BigDecimal.ZERO) == 0) {
+				Log.d("r " + S_FALSE);
+				return BigDecimal.ZERO;
 			}
 		}
 
-		Log.d("r " + result);
-		return result;
+		Log.d("r " + S_TRUE);
+		return BigDecimal.ONE;
 	}
 }

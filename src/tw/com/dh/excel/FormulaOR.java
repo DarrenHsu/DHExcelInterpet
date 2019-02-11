@@ -22,14 +22,13 @@ public class FormulaOR extends Formula {
 		this.logicalS = this.splitComman(statement);
 		for(int i  = 0 ; i < this.logicalS.length ; i++) {
 			BigDecimal result = this.calPostfix(this.convertToPostfix(this.logicalS[i]));
-			
-			if (result.compareTo(BigDecimal.ZERO) == 0) {
+			if (result.compareTo(BigDecimal.ONE) == 0) {
 				Log.d("r " + S_TRUE);
-				return BigDecimal.ZERO;
+				return BigDecimal.ONE;
 			}
 		}
 		
 		Log.d("r " + S_FALSE);
-		return new BigDecimal(-1);
+		return BigDecimal.ZERO;
 	}
 }

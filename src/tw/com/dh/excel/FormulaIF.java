@@ -21,7 +21,7 @@ public class FormulaIF extends Formula {
 		BigDecimal result = null;
 		
 		if (statements.length == 3) {
-			if (this.calPostfix(this.convertToPostfix(statements[0])).compareTo(BigDecimal.ZERO) == 0) {
+			if (this.calPostfix(this.convertToPostfix(statements[0])).compareTo(BigDecimal.ONE) == 0) {
 				result = this.calPostfix(this.convertToPostfix(statements[1]));
 			}else {
 				result = this.calPostfix(this.convertToPostfix(statements[2]));

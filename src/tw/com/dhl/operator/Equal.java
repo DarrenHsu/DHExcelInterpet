@@ -19,6 +19,6 @@ public class Equal extends Expression {
 	@Override
 	public BigDecimal interpret() {
 		Log.d("cal: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
-		return new BigDecimal(this.left.interpret().compareTo(this.right.interpret()));
+		return new BigDecimal(this.left.interpret().compareTo(this.right.interpret()) == 0 ? 1 : 0);
 	}
 }

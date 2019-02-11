@@ -16,6 +16,6 @@ public class FormulaINT extends Formula {
 	@Override
 	public BigDecimal interpret(String statement) {
 		Log.d("p " + NAME + " : " + statement);
-		return this.calPostfix(this.convertToPostfix(statement));
+		return this.calPostfix(this.convertToPostfix(statement)).setScale(0, BigDecimal.ROUND_DOWN);
 	}
 }

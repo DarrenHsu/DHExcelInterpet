@@ -52,7 +52,6 @@ public class TestClass {
 			for(int c = 0 ; c < test.excelData.colCount ; c++) {
 				BigDecimal result = test.excelData.table[c][r];
 				s += String.format("%10s", result.setScale(0, BigDecimal.ROUND_HALF_UP).toString()) + (c == test.excelData.colCount - 1 ? "" : ",");
-//				s += String.format("%10s", result) + (c == test.excelData.colCount - 1 ? "" : ",");
 			}
 			Log.i(s);
 		}
@@ -108,8 +107,6 @@ public class TestClass {
 		
 		int cols = statements.length;
 		int rows = 69 * 12 + 1  + 2;
-		rows = 51;
-		rows = 4;
 		
 		String name1 = "月化試算表(+1)";
 		BigDecimal[][] table1 = new BigDecimal[cols][rows];

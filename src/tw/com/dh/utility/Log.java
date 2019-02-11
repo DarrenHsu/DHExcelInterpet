@@ -9,7 +9,6 @@ public class Log {
 	
 	public static void d(String msg) {
 //		System.out.println(sdf.format(new Date()) + " - " + msg);
-		System.out.println(msg);
 	}
 	
 	public static void e(String msg) {
@@ -17,6 +16,6 @@ public class Log {
 	}
 	
 	public static void i(String msg) {
-		System.out.println(msg);
+//		System.out.println(msg);
 	}
 }

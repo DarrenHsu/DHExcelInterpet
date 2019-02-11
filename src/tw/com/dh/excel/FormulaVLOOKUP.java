@@ -54,7 +54,7 @@ public class FormulaVLOOKUP extends Formula {
 					if (start.compareTo(value) <= 0 && end.compareTo(value) >= 0) 
 						return table[ciValue][j];
 				}else {
-					Log.d(lookUpValue + " -> " + table[i][j]);
+					Log.d(luValue + " -> " + table[i][j]);
 					if (luValue.compareTo(table[i][j]) == 0) 
 						return table[i + ciValue - 1][j];
 				}
