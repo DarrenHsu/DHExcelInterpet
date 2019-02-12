@@ -17,13 +17,13 @@ public class TestClass {
 	public static void main(String[] args) {
 		TestClass test = new TestClass();
 		
-		Log.e(new Date().toString());
-		
 //		test.calculator.parseStatement("10-0.3333333333333333333333333333333333333333333");
 //		
 //		if (true) {
 //			return;
 //		}
+		
+		Log.e("start");
 		
 		int[] cols = new int[]{1, 0, 2, 3, 4, 5, 6, 7, 8, 19, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20};
 		int row = test.excelData.currentRow;
@@ -57,7 +57,7 @@ public class TestClass {
 		}
 		Log.i("<================ table ====================>");
 		
-		Log.e(new Date().toString());
+		Log.e("end");
 	}
 	
 	public TestClass() {
