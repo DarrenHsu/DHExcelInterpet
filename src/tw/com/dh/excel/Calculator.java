@@ -10,6 +10,19 @@ public class Calculator {
 	
 	private ExcelData excelData;
 	
+	private String allFormulaString = "(" + 
+			FormulaIF.NAME + "|" +
+			FormulaAND.NAME + "|" +
+			FormulaMOD.NAME + "|" +
+			FormulaSUM.NAME + "|" +
+			FormulaOR.NAME + "|" +
+			FormulaROW.NAME + "|" +
+			FormulaROUND.NAME + "|" +
+			FormulaAVERAGE.NAME + "|" +
+			FormulaVLOOKUP.NAME + "|" +
+			FormulaINT.NAME + 
+			")\\(";
+	
 	public Calculator() {
 		this.excelData = new ExcelData();
 	}
@@ -31,30 +44,15 @@ public class Calculator {
 		return result;
 	}
 	
-	private String getAllFormulaString() {
-		return "(" + 
-				FormulaIF.NAME + "|" +
-				FormulaAND.NAME + "|" +
-				FormulaMOD.NAME + "|" +
-				FormulaSUM.NAME + "|" +
-				FormulaOR.NAME + "|" +
-				FormulaROW.NAME + "|" +
-				FormulaROUND.NAME + "|" +
-				FormulaAVERAGE.NAME + "|" +
-				FormulaVLOOKUP.NAME + "|" +
-				FormulaINT.NAME + 
-				")\\(";
-	}
-	
 	private boolean isHasFormula(StatementData sr) {
-		String regex = this.getAllFormulaString();
+		String regex = this.allFormulaString;
 		Pattern p = Pattern.compile(regex);
 		Matcher m = p.matcher(sr.getStatement());
 		return m.find();
 	}
 	
 	private String getFormula(StatementData sr) {
-		String regex = this.getAllFormulaString();
+		String regex = this.allFormulaString;
 		Pattern p = Pattern.compile(regex);
 		Matcher m = p.matcher(sr.getStatement());
 		if (m.find()) {
@@ -154,6 +152,7 @@ public class Calculator {
 			String statement = sr.getStatement().substring(m.end());
 			
 			char[] cs = statement.toCharArray();
+			System.out.println(statement);
 			int openParenthesis = 0, closeParenthesis = 0;
 			for(int i  = 0 ; i  < cs.length ; i++) {
 				switch (cs[i]) {
