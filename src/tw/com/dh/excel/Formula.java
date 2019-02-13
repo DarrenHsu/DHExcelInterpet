@@ -26,6 +26,10 @@ public abstract class Formula {
 	
 	public static final String S_TRUE = "TRUE";
 	public static final String S_FALSE = "FALSE";
+	
+	public static final BigDecimal S_TRUE_VALUE = BigDecimal.ONE;
+	public static final BigDecimal S_FALSE_VALUE = BigDecimal.ZERO;
+	
 	public static final String S_LEFT_PARENTHESIS	= "(";
 	public static final String S_RIGHT_PARENTHESIS	= ")";
 	

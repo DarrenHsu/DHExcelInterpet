@@ -42,14 +42,14 @@ public class TestClass {
 		Log.i("\n<================ table ====================>");
 		String h = "";
 		for(int c = 0 ; c < test.excelData.colCount ; c++) {
-			h += String.format("%s", "" + c) + (c == test.excelData.colCount - 1 ? "" : ",");
+			h += String.format("%2s", "" + c) + (c == test.excelData.colCount - 1 ? "" : ",");
 		}
 		Log.i(h);
 		for(int r = 0 ; r < test.excelData.rowCount ; r++) {
 			String s = "";
 			for(int c = 0 ; c < test.excelData.colCount ; c++) {
 				BigDecimal result = test.excelData.table[c][r];
-				s += String.format("%s", result.setScale(0, BigDecimal.ROUND_HALF_UP).toString()) + (c == test.excelData.colCount - 1 ? "" : ",");
+				s += String.format("%2s", result.setScale(0, BigDecimal.ROUND_HALF_UP).toString()) + (c == test.excelData.colCount - 1 ? "" : ",");
 			}
 			Log.i(s);
 		}

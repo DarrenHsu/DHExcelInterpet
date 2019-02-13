@@ -23,13 +23,13 @@ public class FormulaAND extends Formula {
 		
 		for(int i  = 0 ; i < this.logicals.length ; i++) {
 			BigDecimal result = this.calPostfix(this.convertToPostfix(this.logicals[i]));
-			if (result.compareTo(BigDecimal.ZERO) == 0) {
+			if (result.equals(S_FALSE_VALUE)) {
 				Log.d("r " + S_FALSE);
-				return BigDecimal.ZERO;
+				return S_FALSE_VALUE;
 			}
 		}
 
 		Log.d("r " + S_TRUE);
-		return BigDecimal.ONE;
+		return S_TRUE_VALUE;
 	}
 }

@@ -20,7 +20,7 @@ public class FormulaIF extends Formula {
 		String[] statements = this.splitComman(statement);
 		BigDecimal result = null;
 		
-		if (this.calPostfix(this.convertToPostfix(statements[0])).compareTo(BigDecimal.ONE) == 0) 
+		if (this.calPostfix(this.convertToPostfix(statements[0])).equals(S_TRUE_VALUE)) 
 			result = this.calPostfix(this.convertToPostfix(statements[1]));
 		else 
 			result = this.calPostfix(this.convertToPostfix(statements[2]));
