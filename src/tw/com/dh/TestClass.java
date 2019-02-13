@@ -33,11 +33,9 @@ public class TestClass {
 			for (int c = 0 ; c < cols.length ; c++) {
 				String statement = test.excelData.statements[cols[c]];
 				test.excelData.currentCol = cols[c];
-			
 				test.excelData.currentRow = i;
 				Log.d("index " + test.excelData.currentCol + "," + test.excelData.currentRow);
-				BigDecimal result = test.calculator.parseStatement(statement);
-				test.excelData.table[test.excelData.currentCol][test.excelData.currentRow] = result;
+				test.excelData.table[test.excelData.currentCol][test.excelData.currentRow] = test.calculator.parseStatement(statement);
 			}
 		}
 		
@@ -113,7 +111,7 @@ public class TestClass {
 		
 		int cols = statements.length;
 		int rows = 69 * 12 + 1  + 2;
-		rows = 51;
+//		rows = 51;
 
 		String name1 = "月化試算表(+1)";
 		BigDecimal[][] table1 = new BigDecimal[cols][rows];
