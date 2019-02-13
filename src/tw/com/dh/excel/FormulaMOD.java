@@ -20,13 +20,10 @@ public class FormulaMOD extends Formula {
 		Log.d("p " + NAME + " : " + statement);
 		
 		String[] statements = this.splitComman(statement);
-		BigDecimal result = BigDecimal.ZERO;
-		if (statements.length == 2) {
-			result = new Remainder(
-					new Number(this.calPostfix(this.convertToPostfix(statements[0]))),
-					new Number(this.calPostfix(this.convertToPostfix(statements[1])))
-					).interpret();
-		}
+		BigDecimal result = new Remainder(
+				new Number(this.calPostfix(this.convertToPostfix(statements[0]))),
+				new Number(this.calPostfix(this.convertToPostfix(statements[1])))
+				).interpret();
 		Log.d("r " + result);
 		return result;
 	}

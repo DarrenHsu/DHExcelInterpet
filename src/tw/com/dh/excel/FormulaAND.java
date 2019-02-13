@@ -18,6 +18,7 @@ public class FormulaAND extends Formula {
 	@Override
 	public BigDecimal interpret(String statement) {
 		Log.d("p " + NAME + " : " + statement);
+		
 		this.logicals = this.splitComman(statement);
 		
 		for(int i  = 0 ; i < this.logicals.length ; i++) {

@@ -20,13 +20,10 @@ public class FormulaIF extends Formula {
 		String[] statements = this.splitComman(statement);
 		BigDecimal result = null;
 		
-		if (statements.length == 3) {
-			if (this.calPostfix(this.convertToPostfix(statements[0])).compareTo(BigDecimal.ONE) == 0) {
-				result = this.calPostfix(this.convertToPostfix(statements[1]));
-			}else {
-				result = this.calPostfix(this.convertToPostfix(statements[2]));
-			}
-		}
+		if (this.calPostfix(this.convertToPostfix(statements[0])).compareTo(BigDecimal.ONE) == 0) 
+			result = this.calPostfix(this.convertToPostfix(statements[1]));
+		else 
+			result = this.calPostfix(this.convertToPostfix(statements[2]));
 		
 		Log.d("r " + result);
 		return result;

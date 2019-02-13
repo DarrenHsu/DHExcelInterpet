@@ -16,7 +16,9 @@ public class FormulaROW extends Formula {
 	@Override
 	public BigDecimal interpret(String statement) {
 		Log.d("p " + NAME + " : " + statement);
+		
 		int result = this.excelData.currentRow + 1;
+		
 		Log.d("r " + result);
 		return new BigDecimal(result);
 	}

@@ -136,28 +136,24 @@ public abstract class Formula {
 		while (m.find()) {
 			String operand = statement.substring(start, m.start()).trim();
 			if (!operand.isEmpty()) { 
-//				Log.d("operand:" + operand);
 				opStack.add(operand);
 			}
 			
 			String operator = m.group().trim();
-//			Log.d("operator:" + operator);
 			switch(operator) {
 			case toStack: {
 				stack.add(operator);
 			} break;
 			case toOutput: {
 				while(stack.size() != 0 && !stack.get(stack.size() - 1).equals(toStack)) {
-					String lastObj = stack.get(stack.size() - 1);
-					opStack.add(lastObj);
+					opStack.add(stack.get(stack.size() - 1));
 					stack.remove(stack.size() - 1);
 				}
 				stack.remove(stack.size() - 1);
 			} break;
 			default: {
 				while(stack.size() != 0 && this.getExpressionOperatorPriority(stack.get(stack.size() - 1)) <= this.getExpressionOperatorPriority(operator)) {
-					String lastObj = stack.get(stack.size() - 1);
-					opStack.add(lastObj);
+					opStack.add(stack.get(stack.size() - 1));
 					stack.remove(stack.size() - 1);
 				}
 				stack.add(operator);
@@ -168,15 +164,12 @@ public abstract class Formula {
 			end = m.end();
 		}
 		
-		if (end < statement.length()) {
-			String operand = statement.substring(end).trim();
-//			Log.d("operand:" + operand);
-			opStack.add(operand);
-		}
+		if (end < statement.length()) 
+			opStack.add(statement.substring(end).trim());
+		
 		
 		while(stack.size() != 0) {
-			String lastObj = stack.get(stack.size() - 1);
-			opStack.add(lastObj);
+			opStack.add(stack.get(stack.size() - 1));
 			stack.remove(stack.size() - 1);
 		}
 		
@@ -201,10 +194,7 @@ public abstract class Formula {
 	            numAIndex = i - 2;
 	            numBIndex = i - 1;
 	            
-	            String numA = stack.get(i - 2);
-	            String numB = stack.get(i - 1);
-	            
-	            result = this.cal(operator, numA, numB);
+	            result = this.cal(operator, stack.get(i - 2), stack.get(i - 1));
 	            
 	            isCalculator = true;
 	            break;

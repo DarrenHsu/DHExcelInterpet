@@ -94,7 +94,6 @@ public class Calculator {
 	
 	private BigDecimal process(StatementData sr) {
 		String op = sr.getLastOperator();
-		
 		if (op == null) 
 			return new FormulaNone(this.excelData).interpret(sr.getStatement());
 		
@@ -127,14 +126,11 @@ public class Calculator {
 	private BigDecimal interpretFormula(StatementData sr) {
 		String formula = this.getFormula(sr);
 		if (formula != null && !formula.isEmpty()) {
-			String regex = this.convertToRegex(formula);
-			this.interpret(sr, regex);
+			this.interpret(sr, this.convertToRegex(formula));
 			return this.interpretFormula(sr);
 		} else {
-			String lastOperator = sr.getLastOperator();
-			if (lastOperator == null) {
+			if (sr.getLastOperator() == null) 
 				return this.process(sr);
-			}
 			
 			String lastFullStepment = sr.getLastFullStatement();
 			BigDecimal result = this.process(sr);
@@ -160,10 +156,14 @@ public class Calculator {
 			char[] cs = statement.toCharArray();
 			int openParenthesis = 0, closeParenthesis = 0;
 			for(int i  = 0 ; i  < cs.length ; i++) {
-				if (cs[i] == '(') 
+				switch (cs[i]) {
+				case '(':
 					openParenthesis += 1;
-				else if(cs[i] == ')') 
+					break;
+				case ')':
 					closeParenthesis += 1;
+					break;
+				}
 				
 				if (closeParenthesis > openParenthesis) {
 					statement = statement.substring(0, i);

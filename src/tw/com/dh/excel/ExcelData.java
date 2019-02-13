@@ -66,9 +66,8 @@ public class ExcelData {
 	public int getRow(String column) {
 		Pattern p = Pattern.compile("-{0,1}\\d{1,3}");
 		Matcher m = p.matcher(column);
-		if (m.find()) {
+		if (m.find()) 
 			return Integer.parseInt(m.group());
-		}
 		
 		return -1;
 	}

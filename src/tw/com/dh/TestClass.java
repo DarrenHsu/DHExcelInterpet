@@ -2,6 +2,7 @@ package tw.com.dh;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -31,7 +32,6 @@ public class TestClass {
 		for (int i = row ; i < test.excelData.rowCount ; i++) {
 			for (int c = 0 ; c < cols.length ; c++) {
 				String statement = test.excelData.statements[cols[c]];
-				statement = test.replaceNumber(statement);
 				test.excelData.currentCol = cols[c];
 			
 				test.excelData.currentRow = i;
@@ -51,7 +51,7 @@ public class TestClass {
 			String s = "";
 			for(int c = 0 ; c < test.excelData.colCount ; c++) {
 				BigDecimal result = test.excelData.table[c][r];
-				s += String.format("%s", result.setScale(0, BigDecimal.ROUND_HALF_UP).toString()) + (c == test.excelData.colCount - 1 ? "" : ",");
+				s += String.format("%10s", result.setScale(0, BigDecimal.ROUND_HALF_UP).toString()) + (c == test.excelData.colCount - 1 ? "" : ",");
 			}
 			Log.i(s);
 		}
@@ -106,9 +106,15 @@ public class TestClass {
 				/* U 20 */ "IF(B3<>\"\",IF((J3-$K3-M3)*(1+R$1)^(1/12)<0,0,(J3-$K3-M3)*(1+R$1)^(1/12)-O3),\"\")"
 		};
 		
+		ArrayList<String> ss = new ArrayList<>();
+		for (String s : statements) {
+			ss.add(this.replaceNumber(s));
+		}
+		
 		int cols = statements.length;
 		int rows = 69 * 12 + 1  + 2;
-		
+		rows = 51;
+
 		String name1 = "月化試算表(+1)";
 		BigDecimal[][] table1 = new BigDecimal[cols][rows];
 		
@@ -160,7 +166,7 @@ public class TestClass {
 		sheet.put(name1, table1);
 		sheet.put(name2, table2);
 		
-		this.excelData = new ExcelData(sheet, name1, statements, 0, 2);
+		this.excelData = new ExcelData(sheet, name1, ss.toArray(new String[ss.size()]), 0, 2);
 		this.calculator = new Calculator(this.excelData);
 	}
 	
