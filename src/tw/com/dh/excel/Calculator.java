@@ -32,7 +32,7 @@ public class Calculator {
 	}
 	
 	public BigDecimal parseStatement(String statement) {
-		StatementData sr = new StatementData(statement);
+		StatementData sr = new StatementData(statement.replace(" ", ""));
 
 		Log.d(statement);
 		Log.d("------------- interpreter start -------------");

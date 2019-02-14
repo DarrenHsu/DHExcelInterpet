@@ -42,7 +42,7 @@ public abstract class Formula {
 			"\\" + Division.SYMBOL + "|" +
 			"\\" + Remainder.SYMBOL + "|" +
 			"\\" + Addtion.SYMBOL + "|" +
-			"[^\\" + Power.SYMBOL + "\\" + Multiplication.SYMBOL + "\\" + DivisionInteger.SYMBOL + "\\" + Division.SYMBOL + "\\" + Remainder.SYMBOL + "\\" + Addtion.SYMBOL   + "]\\" + Subtration.SYMBOL + "|" +
+			"\\" + Subtration.SYMBOL + "|" +
 			"\\" + Colon.SYMBOL + "|" +
 			"\\" + S_LEFT_PARENTHESIS + "|" +
 			"\\" + S_RIGHT_PARENTHESIS + "|" +
@@ -136,11 +136,28 @@ public abstract class Formula {
 		final String toStack = "(", toOutput = ")";
 		int start = 0, end = 0;
 		while (m.find()) {
-			Log.d("m " + m.group());
 			String operand = statement.substring(start, m.start()).trim();
-			if (!operand.isEmpty()) { 
-				opStack.add(operand);
+			String preOperator = m.start() - 1 > 0 ? statement.substring(end, m.start()) : "";
+			
+			if (m.group().equals(Subtration.SYMBOL) &&
+					(m.start() == 0 ||
+					(m.start() != 0 && !statement.substring(m.start() - 1, m.start()).equals(S_RIGHT_PARENTHESIS)) && 
+					(preOperator.isEmpty() ||
+					 preOperator.equals(Power.SYMBOL) ||
+					 preOperator.equals(Multiplication.SYMBOL) ||
+					 preOperator.equals(Division.SYMBOL) ||
+					 preOperator.equals(Remainder.SYMBOL) ||
+					 preOperator.equals(Addtion.SYMBOL) ||
+					 preOperator.equals(Subtration.SYMBOL) ||
+					 preOperator.equals(Equal.SYMBOL) || 
+					 preOperator.equals(LassThan.SYMBOL) ||
+					 preOperator.equals(MoreThan.SYMBOL))) &&
+					operand.isEmpty()) {
+				continue;
 			}
+			
+			if (!operand.isEmpty()) 
+				opStack.add(operand);
 			
 			String operator = m.group().trim();
 			switch(operator) {
@@ -169,7 +186,6 @@ public abstract class Formula {
 		
 		if (end < statement.length()) 
 			opStack.add(statement.substring(end).trim());
-		
 		
 		while(stack.size() != 0) {
 			opStack.add(stack.get(stack.size() - 1));

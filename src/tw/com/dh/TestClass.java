@@ -18,9 +18,9 @@ public class TestClass {
 	public static void main(String[] args) {
 		TestClass test = new TestClass();
 		
-		BigDecimal testResult = test.calculator.parseStatement("1-1*-6");
-		Log.e(testResult.toString());
-		if (true) return; 
+//		BigDecimal testResult = test.calculator.parseStatement("1+-3");x
+//		Log.e(testResult.toString());
+//		if (true) return; 
 		
 		Log.e("start");
 		
@@ -109,6 +109,7 @@ public class TestClass {
 		
 		int cols = statements.length;
 		int rows = 69 * 12 + 1  + 2;
+//		rows = 51;
 		
 		String name1 = "月化試算表(+1)";
 		BigDecimal[][] table1 = new BigDecimal[cols][rows];
