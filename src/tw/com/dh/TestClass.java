@@ -18,6 +18,10 @@ public class TestClass {
 	public static void main(String[] args) {
 		TestClass test = new TestClass();
 		
+		BigDecimal testResult = test.calculator.parseStatement("1-1*-6");
+		Log.e(testResult.toString());
+		if (true) return; 
+		
 		Log.e("start");
 		
 		int[] cols = new int[]{1, 0, 2, 3, 4, 5, 6, 7, 8, 19, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20};
@@ -36,14 +40,14 @@ public class TestClass {
 		Log.i("\n<================ table ====================>");
 		String h = "";
 		for(int c = 0 ; c < test.excelData.colCount ; c++) {
-			h += String.format("%s", "" + c) + (c == test.excelData.colCount - 1 ? "" : ",");
+			h += String.format("%6s", "" + c) + (c == test.excelData.colCount - 1 ? "" : ",");
 		}
 		Log.i(h);
 		for(int r = 0 ; r < test.excelData.rowCount ; r++) {
 			String s = "";
 			for(int c = 0 ; c < test.excelData.colCount ; c++) {
 				BigDecimal result = test.excelData.table[c][r];//				s += String.format("%s", result.setScale(0, BigDecimal.ROUND_HALF_UP).toString()) + (c == test.excelData.colCount - 1 ? "" : ",");
-				s += String.format("%s", result.setScale(0, BigDecimal.ROUND_HALF_UP).toString()) + (c == test.excelData.colCount - 1 ? "" : ",");
+				s += String.format("%6s", result.setScale(0, BigDecimal.ROUND_HALF_UP).toString()) + (c == test.excelData.colCount - 1 ? "" : ",");
 			}
 			Log.i(s);
 		}

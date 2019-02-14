@@ -36,6 +36,21 @@ public abstract class Formula {
 	public static String FORMULA_REGEX = "";
 	public static String NAME = "";
 	
+	private String expressionOperatorRegex = "(\\" + Power.SYMBOL + "|" +
+			"\\" + Multiplication.SYMBOL + "|" +
+			"\\" + DivisionInteger.SYMBOL + "|" +
+			"\\" + Division.SYMBOL + "|" +
+			"\\" + Remainder.SYMBOL + "|" +
+			"\\" + Addtion.SYMBOL + "|" +
+			"[^\\" + Power.SYMBOL + "\\" + Multiplication.SYMBOL + "\\" + DivisionInteger.SYMBOL + "\\" + Division.SYMBOL + "\\" + Remainder.SYMBOL + "\\" + Addtion.SYMBOL   + "]\\" + Subtration.SYMBOL + "|" +
+			"\\" + Colon.SYMBOL + "|" +
+			"\\" + S_LEFT_PARENTHESIS + "|" +
+			"\\" + S_RIGHT_PARENTHESIS + "|" +
+			NotEqual.SYMBOL + "|" +
+			MoreThanEqual.SYMBOL + "|" + LassThanEqual.SYMBOL + "|" +
+			MoreThan.SYMBOL + "|" + LassThan.SYMBOL +  "|" +
+			Equal.SYMBOL + ")";
+	
 	protected ExcelData excelData;
 	
 	public abstract BigDecimal interpret(String statement);
@@ -49,23 +64,6 @@ public abstract class Formula {
 		return splitStr;
 	}
 	
-	protected String getExpressionOperatorRegex() {
-		return "(\\" + Power.SYMBOL + "|" +
-				"\\" + Multiplication.SYMBOL + "|" +
-				"\\" + DivisionInteger.SYMBOL + "|" +
-				"\\" + Division.SYMBOL + "|" +
-				"\\" + Remainder.SYMBOL + "|" +
-				"\\" + Addtion.SYMBOL + "|" +
-				"\\" + Subtration.SYMBOL + "|" +
-				"\\" + Colon.SYMBOL + "|" +
-				"\\" + S_LEFT_PARENTHESIS + "|" +
-				"\\" + S_RIGHT_PARENTHESIS + "|" +
-				NotEqual.SYMBOL + "|" +
-				MoreThanEqual.SYMBOL + "|" + LassThanEqual.SYMBOL + "|" +
-				MoreThan.SYMBOL + "|" + LassThan.SYMBOL +  "|" +
-				Equal.SYMBOL + ")";
-	}
-
 	protected int getExpressionOperatorPriority(String c) {
 		switch (c) {
 		case Power.SYMBOL:
@@ -132,12 +130,13 @@ public abstract class Formula {
 	}
 	
 	protected ArrayList<String> convertToPostfix(String statement) {
-		Pattern p = Pattern.compile(this.getExpressionOperatorRegex());
+		Pattern p = Pattern.compile(this.expressionOperatorRegex);
 		Matcher m = p.matcher(statement);
 		ArrayList<String> opStack = new ArrayList<>(), stack = new ArrayList<>();
 		final String toStack = "(", toOutput = ")";
 		int start = 0, end = 0;
 		while (m.find()) {
+			Log.d("m " + m.group());
 			String operand = statement.substring(start, m.start()).trim();
 			if (!operand.isEmpty()) { 
 				opStack.add(operand);
