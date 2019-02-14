@@ -18,12 +18,6 @@ public class TestClass {
 	public static void main(String[] args) {
 		TestClass test = new TestClass();
 		
-//		test.calculator.parseStatement("10-0.3333333333333333333333333333333333333333333");
-//		
-//		if (true) {
-//			return;
-//		}
-		
 		Log.e("start");
 		
 		int[] cols = new int[]{1, 0, 2, 3, 4, 5, 6, 7, 8, 19, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20};
@@ -42,14 +36,14 @@ public class TestClass {
 		Log.i("\n<================ table ====================>");
 		String h = "";
 		for(int c = 0 ; c < test.excelData.colCount ; c++) {
-			h += String.format("%2s", "" + c) + (c == test.excelData.colCount - 1 ? "" : ",");
+			h += String.format("%s", "" + c) + (c == test.excelData.colCount - 1 ? "" : ",");
 		}
 		Log.i(h);
 		for(int r = 0 ; r < test.excelData.rowCount ; r++) {
 			String s = "";
 			for(int c = 0 ; c < test.excelData.colCount ; c++) {
-				BigDecimal result = test.excelData.table[c][r];
-				s += String.format("%2s", result.setScale(0, BigDecimal.ROUND_HALF_UP).toString()) + (c == test.excelData.colCount - 1 ? "" : ",");
+				BigDecimal result = test.excelData.table[c][r];//				s += String.format("%s", result.setScale(0, BigDecimal.ROUND_HALF_UP).toString()) + (c == test.excelData.colCount - 1 ? "" : ",");
+				s += String.format("%s", result.setScale(0, BigDecimal.ROUND_HALF_UP).toString()) + (c == test.excelData.colCount - 1 ? "" : ",");
 			}
 			Log.i(s);
 		}
@@ -111,8 +105,7 @@ public class TestClass {
 		
 		int cols = statements.length;
 		int rows = 69 * 12 + 1  + 2;
-//		rows = 51;
-
+		
 		String name1 = "月化試算表(+1)";
 		BigDecimal[][] table1 = new BigDecimal[cols][rows];
 		
@@ -171,6 +164,7 @@ public class TestClass {
 	public String replaceNumber(String statement) {
 		for(String key : this.map.keySet()) 
 			statement = statement.replace(key, this.map.get(key));
+		
 		return statement;
 	}
 }
