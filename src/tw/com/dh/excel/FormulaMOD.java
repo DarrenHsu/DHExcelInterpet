@@ -3,8 +3,8 @@ package tw.com.dh.excel;
 import java.math.BigDecimal;
 
 import tw.com.dh.utility.Log;
-import tw.com.dhl.operator.Remainder;
 import tw.com.dhl.operator.Number;
+import tw.com.dhl.operator.Remainder;
 
 public class FormulaMOD extends Formula {
 	

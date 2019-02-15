@@ -1,11 +1,10 @@
 package tw.com.dh.excel;
 
-import tw.com.dhl.operator.Addtion;
-import tw.com.dhl.operator.Number;
-
 import java.math.BigDecimal;
 
 import tw.com.dh.utility.Log;
+import tw.com.dhl.operator.Addtion;
+import tw.com.dhl.operator.Number;
 
 public class FormulaSUM extends Formula {
 	
