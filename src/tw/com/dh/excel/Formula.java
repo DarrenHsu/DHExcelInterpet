@@ -24,6 +24,8 @@ import tw.com.dhl.operator.Subtration;
 
 public abstract class Formula {
 	
+	public static final int S_PRECISION = 15;
+	
 	public static final String S_TRUE = "TRUE";
 	public static final String S_FALSE = "FALSE";
 	

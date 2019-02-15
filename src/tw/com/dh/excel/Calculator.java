@@ -132,7 +132,7 @@ public class Calculator {
 			
 			String lastFullStepment = sr.getLastFullStatement();
 			BigDecimal result = this.process(sr);
-			String orignalStatement = sr.getOrignalStatement().replace(lastFullStepment, result.setScale(15, BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
+			String orignalStatement = sr.getOrignalStatement().replace(lastFullStepment, result.setScale(Formula.S_PRECISION, BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
 			
 			sr = new StatementData(orignalStatement);
 			if (this.isHasFormula(sr)) {

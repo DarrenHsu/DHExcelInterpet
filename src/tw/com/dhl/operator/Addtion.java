@@ -1,7 +1,9 @@
 package tw.com.dhl.operator;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 
+import tw.com.dh.excel.Formula;
 import tw.com.dh.utility.Log;
 
 public class Addtion extends Expression {
@@ -19,6 +21,6 @@ public class Addtion extends Expression {
 	@Override
 	public BigDecimal interpret() {
 		Log.d("cal: " + this.left.interpret() + " " + SYMBOL + " " + this.right.interpret());
-		return this.left.interpret().add(this.right.interpret());
+		return this.left.interpret().add(this.right.interpret(), new MathContext(Formula.S_PRECISION));
 	}
 }
