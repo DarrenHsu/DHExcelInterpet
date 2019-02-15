@@ -20,7 +20,7 @@ public class TestClass {
 		
 //		BigDecimal testResult = test.calculator.parseStatement("1+-3");x
 //		Log.e(testResult.toString());
-//		if (true) return; 
+//		if (true) return;
 		
 		Log.e("start");
 		
@@ -109,7 +109,7 @@ public class TestClass {
 		
 		int cols = statements.length;
 		int rows = 69 * 12 + 1  + 2;
-//		rows = 51;
+		rows = 51;
 		
 		String name1 = "月化試算表(+1)";
 		BigDecimal[][] table1 = new BigDecimal[cols][rows];
@@ -118,45 +118,45 @@ public class TestClass {
 			for(int j = 0 ; j < table1[i].length ; j ++) 
 				table1[i][j] = BigDecimal.ZERO;
 		
-		table1[17][0] = new BigDecimal("0.01");
+		table1[17][0] = new BigDecimal(0.01);
 		
 		String name2 = "費用表";
 		BigDecimal[][] table2 = new BigDecimal[11][13];
-		table2[6][1]  = new BigDecimal("1");
-		table2[6][2]  = new BigDecimal("2");
-		table2[6][3]  = new BigDecimal("3");
-		table2[6][4]  = new BigDecimal("4");
-		table2[6][5]  = new BigDecimal("5");
+		table2[6][1]  = new BigDecimal(1);
+		table2[6][2]  = new BigDecimal(2);
+		table2[6][3]  = new BigDecimal(3);
+		table2[6][4]  = new BigDecimal(4);
+		table2[6][5]  = new BigDecimal(5);
 		
-		table2[7][1]  = new BigDecimal("0.07");
-		table2[7][2]  = new BigDecimal("0.06");
-		table2[7][3]  = new BigDecimal("0.05");
-		table2[7][4]  = new BigDecimal("0.03");
-		table2[7][5]  = new BigDecimal("0.02");
+		table2[7][1]  = new BigDecimal(0.07);
+		table2[7][2]  = new BigDecimal(0.06);
+		table2[7][3]  = new BigDecimal(0.05);
+		table2[7][4]  = new BigDecimal(0.03);
+		table2[7][5]  = new BigDecimal(0.02);
 		
-		table2[9][2]  = new BigDecimal("1");
-		table2[9][3]  = new BigDecimal("2");
-		table2[9][4]  = new BigDecimal("3");
-		table2[9][5]  = new BigDecimal("4");
-		table2[9][6]  = new BigDecimal("5");
-		table2[9][7]  = new BigDecimal("6");
-		table2[9][8]  = new BigDecimal("7");
-		table2[9][9]  = new BigDecimal("8");
-		table2[9][10] = new BigDecimal("9");
-		table2[9][11] = new BigDecimal("10");
-		table2[9][12] = new BigDecimal("11");
+		table2[9][2]  = new BigDecimal(1);
+		table2[9][3]  = new BigDecimal(2);
+		table2[9][4]  = new BigDecimal(3);
+		table2[9][5]  = new BigDecimal(4);
+		table2[9][6]  = new BigDecimal(5);
+		table2[9][7]  = new BigDecimal(6);
+		table2[9][8]  = new BigDecimal(7);
+		table2[9][9]  = new BigDecimal(8);
+		table2[9][10] = new BigDecimal(9);
+		table2[9][11] = new BigDecimal(10);
+		table2[9][12] = new BigDecimal(11);
 		
-		table2[10][2]  = new BigDecimal("0");
-		table2[10][3]  = new BigDecimal("0");
-		table2[10][4]  = new BigDecimal("0");
-		table2[10][5]  = new BigDecimal("0.006");
-		table2[10][6]  = new BigDecimal("0.006");
-		table2[10][7]  = new BigDecimal("0.006");
-		table2[10][8]  = new BigDecimal("0.006");
-		table2[10][9]  = new BigDecimal("0.006");
-		table2[10][10] = new BigDecimal("0.006");
-		table2[10][11] = new BigDecimal("0.006");
-		table2[10][12] = new BigDecimal("0.006");	
+		table2[10][2]  = new BigDecimal(0);
+		table2[10][3]  = new BigDecimal(0);
+		table2[10][4]  = new BigDecimal(0);
+		table2[10][5]  = new BigDecimal(0.006);
+		table2[10][6]  = new BigDecimal(0.006);
+		table2[10][7]  = new BigDecimal(0.006);
+		table2[10][8]  = new BigDecimal(0.006);
+		table2[10][9]  = new BigDecimal(0.006);
+		table2[10][10] = new BigDecimal(0.006);
+		table2[10][11] = new BigDecimal(0.006);
+		table2[10][12] = new BigDecimal(0.006);	
 		
 		HashMap<String, BigDecimal[][]> sheet = new HashMap<>();
 		sheet.put(name1, table1);
