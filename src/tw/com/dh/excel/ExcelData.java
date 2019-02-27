@@ -28,6 +28,29 @@ public class ExcelData {
 	
 	public ExcelData() {}
 	
+	public ExcelData(String name, int cols, int rows, String[] statements, int firstCol, int firstRow) {
+		HashMap<String, BigDecimal[][]> sheet = new HashMap<>();
+		this.table = new BigDecimal[cols][rows];
+		
+		for(int i = 0 ; i < this.table.length ; i++)
+			for(int j = 0 ; j < this.table[i].length ; j ++)
+				this.table[i][j] = BigDecimal.ZERO;
+		
+		sheet.put(name, this.table);
+		this.statements = statements;
+		this.sheets = sheet;
+		this.table = this.sheets.get(name);
+		
+		this.colCount = table.length;
+		this.rowCount = table[0].length;
+		
+		this.currentCol = firstCol;
+		this.currentRow = firstRow;
+		
+		this.firstCol = firstCol;
+		this.firstRow = firstRow;
+	}
+	
 	public ExcelData(HashMap<String, BigDecimal[][]> sheet, String name, String[] statements, int currentCol, int currentRow) {
 		this.statements = statements;
 		this.sheets = sheet;
