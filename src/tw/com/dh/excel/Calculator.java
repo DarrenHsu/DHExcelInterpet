@@ -9,6 +9,7 @@ import tw.com.dh.utility.Log;
 public class Calculator {
 	
 	private ExcelData excelData;
+	private StatementData statementData;
 	
 	private String allFormulaString = "(" + 
 			FormulaIF.NAME + "|" +
@@ -32,15 +33,34 @@ public class Calculator {
 	}
 	
 	public BigDecimal parseStatement(String statement) {
-		StatementData sr = new StatementData(statement.replace(" ", ""));
-
 		Log.d(statement);
-		Log.d("------------- interpreter start -------------");
-		
-		BigDecimal result = this.interpretFormula(sr);
+
+		BigDecimal result = BigDecimal.ZERO;
+		this.statementData = new StatementData(statement.replace(" ", ""));
+		while (this.isHasFormula(this.statementData)) {
+			Log.d("------------- interpreter start -------------");
+			result = this.interpretFormula();
+		}
 		
 		Log.d("Final Result: " + result + "\n");
 		
+		return result;
+	}
+	
+	private BigDecimal interpretFormula() {
+		String formula = this.getFormula(this.statementData);
+		while(formula != null && !formula.isEmpty()) {
+			this.interpret(this.statementData, this.convertToRegex(formula));
+			formula = this.getFormula(this.statementData);
+		}
+		
+		if (this.statementData.getLastOperator() == null)  
+			return this.process(this.statementData);
+		
+		String lastFullStepment = this.statementData.getLastFullStatement();
+		BigDecimal result = this.process(this.statementData);
+		String orignalStatement = this.statementData.getOrignalStatement().replace(lastFullStepment, result.setScale(Formula.S_PRECISION, BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
+		this.statementData = new StatementData(orignalStatement);
 		return result;
 	}
 	
@@ -121,30 +141,7 @@ public class Calculator {
 		}
 	}
 	
-	private BigDecimal interpretFormula(StatementData sr) {
-		String formula = this.getFormula(sr);
-		if (formula != null && !formula.isEmpty()) {
-			this.interpret(sr, this.convertToRegex(formula));
-			return this.interpretFormula(sr);
-		} else {
-			if (sr.getLastOperator() == null) 
-				return this.process(sr);
-			
-			String lastFullStepment = sr.getLastFullStatement();
-			BigDecimal result = this.process(sr);
-			String orignalStatement = sr.getOrignalStatement().replace(lastFullStepment, result.setScale(Formula.S_PRECISION, BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString());
-			
-			sr = new StatementData(orignalStatement);
-			if (this.isHasFormula(sr)) {
-				Log.d("------------- interpreter start --------------");
-				return this.interpretFormula(sr);
-			}
-			
-			return result;
-		}
-	}
-	
-	private StatementData interpret(StatementData sr, String regex) {
+	private void interpret(StatementData sr, String regex) {
 		Pattern p = Pattern.compile(regex);
 		Matcher m = p.matcher(sr.getStatement());
 		if (m.find()) {
@@ -172,6 +169,5 @@ public class Calculator {
 			sr.setOperatorAndStatement(operator, statement);
 			sr.setStatement(statement);
 		}
-		return sr;
 	}
 }

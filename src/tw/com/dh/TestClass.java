@@ -107,7 +107,6 @@ public class TestClass {
 		
 		int cols = statements.length;
 		int rows = 69 * 12 + 1  + 2;
-//		rows = 51;
 		
 		String name1 = "月化試算表(+1)";
 		BigDecimal[][] table1 = new BigDecimal[cols][rows];
