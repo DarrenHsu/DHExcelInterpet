@@ -66,6 +66,17 @@ public class ExcelData {
 		this.firstRow = currentRow;
 	}
 	
+	public void setSheet(String name, BigDecimal[][] table) {
+		this.sheets.put(name, table);
+	}
+	
+	public void setValue(String sheetName, int col, int row, BigDecimal value) {
+		BigDecimal[][] table = this.sheets.get(sheetName);
+		if (table != null) {
+			table[col][row] = value;
+		}
+	}
+	
 	public BigDecimal[][] getTable(String sheetName) {
 		return this.sheets.get(sheetName);
 	}

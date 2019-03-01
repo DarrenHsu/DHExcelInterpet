@@ -105,19 +105,6 @@ public class TestClass {
 			ss.add(this.replaceNumber(s));
 		}
 		
-		int cols = statements.length;
-		int rows = 69 * 12 + 1  + 2;
-		
-		String name1 = "月化試算表(+1)";
-		BigDecimal[][] table1 = new BigDecimal[cols][rows];
-		
-		for(int i = 0 ; i < table1.length ; i++)
-			for(int j = 0 ; j < table1[i].length ; j ++) 
-				table1[i][j] = BigDecimal.ZERO;
-		
-		table1[17][0] = new BigDecimal(0.01);
-		
-		String name2 = "費用表";
 		BigDecimal[][] table2 = new BigDecimal[11][13];
 		table2[6][1]  = new BigDecimal(1);
 		table2[6][2]  = new BigDecimal(2);
@@ -155,11 +142,10 @@ public class TestClass {
 		table2[10][11] = new BigDecimal(0.006);
 		table2[10][12] = new BigDecimal(0.006);	
 		
-		HashMap<String, BigDecimal[][]> sheet = new HashMap<>();
-		sheet.put(name1, table1);
-		sheet.put(name2, table2);
+		this.excelData = new ExcelData("月化試算表", statements.length, 69 * 12 + 1  + 2, ss.toArray(new String[ss.size()]), 0, 2);
+		this.excelData.setSheet("費用表", table2);
+		this.excelData.setValue("月化試算表", 17, 0, new BigDecimal(0.01));
 		
-		this.excelData = new ExcelData(sheet, name1, ss.toArray(new String[ss.size()]), 0, 2);
 		this.calculator = new Calculator(this.excelData);
 	}
 	

@@ -200,37 +200,36 @@ public abstract class Formula {
 	}
 	
 	protected BigDecimal calPostfix(ArrayList<String> stack) {
-		if (stack.size() < 3)
-			return this.excelData.getColumnType(stack.get(0));
-		
-		int numAIndex = 0, numBIndex = 0, opIndex = 0;
-		boolean isCalculator = false;
-		BigDecimal result = BigDecimal.ZERO;
-		for (int i = 0 ; i < stack.size() ; i++) {
-			String operator = stack.get(i);
-			if (this.isOperator(operator)) {
-				if (i < 2) return null;
-				
-				opIndex = i;
-	            numAIndex = i - 2;
-	            numBIndex = i - 1;
-	            
-	            result = this.cal(operator, stack.get(i - 2), stack.get(i - 1));
-	            
-	            isCalculator = true;
-	            break;
+		while (stack.size() >= 3) {
+			int numAIndex = 0, numBIndex = 0, opIndex = 0;
+			boolean isCalculator = false;
+			BigDecimal result = BigDecimal.ZERO;
+			for (int i = 0 ; i < stack.size() ; i++) {
+				String operator = stack.get(i);
+				if (this.isOperator(operator)) {
+					if (i < 2) return null;
+					
+					opIndex = i;
+		            numAIndex = i - 2;
+		            numBIndex = i - 1;
+		            
+		            result = this.cal(operator, stack.get(i - 2), stack.get(i - 1));
+		            
+		            isCalculator = true;
+		            break;
+				}
 			}
+			
+			if (isCalculator) {
+				stack.remove(numAIndex);
+				stack.remove(numBIndex - 1);
+				stack.remove(opIndex - 2);
+
+				if (result != null) 
+					stack.add(numAIndex, result.stripTrailingZeros().toPlainString());
+		    }
 		}
 		
-		if (isCalculator) {
-			stack.remove(numAIndex);
-			stack.remove(numBIndex - 1);
-			stack.remove(opIndex - 2);
-
-			if (result != null) 
-				stack.add(numAIndex, result.stripTrailingZeros().toPlainString());
-	    }
-		
-		return this.calPostfix(stack);
+		return this.excelData.getColumnType(stack.get(0));
 	}
 }
