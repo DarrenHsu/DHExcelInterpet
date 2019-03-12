@@ -2,6 +2,8 @@ package tw.com.dh;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.TreeMap;
 
 import tw.com.dh.excel.Calculator;
@@ -12,18 +14,18 @@ public class TestClass2 {
 	
 	Calculator calculator;
 	ExcelData excelData;
-	TreeMap<String, String> map;
+	ArrayList<String[]> array;
 	 
 	public static void main(String[] args) {
 		TestClass2 test = new TestClass2();
 
-		BigDecimal testResult = test.calculator.parseStatement("SUM(AB3, AC2)");
-		Log.e(testResult.toString());
-		if (true) return;
+//		BigDecimal testResult = test.calculator.parseStatement("SUM(AB3, AC2)	");
+//		Log.e(testResult.toString());
+//		if (true) return;
 		
 		Log.e("start");
 		
-		int[] cols = new int[]{1, 0, 2, 3};
+		int[] cols = new int[]{1, 0, 2, 3, 5};
 		int row = test.excelData.currentRow;
 		
 		for (int i = row ; i < test.excelData.rowCount ; i++) {
@@ -56,27 +58,26 @@ public class TestClass2 {
 	}
 	
 	public TestClass2() {
-		map = new TreeMap<>();
-		map.put("投保年齡", "30");
-		map.put("基本資料輸入介面!$C$39", "0");
-		map.put("基本資料輸入介面!$E$39", "0");
-		map.put("基本保費繳交年限", "1");
-		map.put("基本保費", "800");
-		map.put("繳法別", "1");
-		map.put("不定期增額保費", "9200");
-		map.put("增額定期繳交年限", "0");
-		map.put("定期增額保費", "0");
-		map.put("弱體加費", "0");
-		map.put("弱體加費", "0");
-		map.put("保費費用率", "費用表!$D$2:$G$7");
-		map.put("保額變更年度", "1");
-		map.put("變更後保額", "5");
-		map.put("保險金額", "5");
-		map.put("性別", "1");
-		map.put("費用表!$B$3", "80000");
-		map.put("提領年度", "0");
-		map.put("結束提領年度", "0");
-		map.put("部分提領", "0");
+		array = new ArrayList<>();
+		array.add(new String[] {"投保年齡", "30"});
+		array.add(new String[] {"基本資料輸入介面!$C$39", "0"});
+		array.add(new String[] {"基本資料輸入介面!$E$39", "0"});
+		array.add(new String[] {"基本保費繳交年限", "1"});
+		array.add(new String[] {"基本保費", "800"});
+		array.add(new String[] {"繳法別", "1"});
+		array.add(new String[] {"增額定期繳交年限", "0"});
+		array.add(new String[] {"不定期增額保費", "9200"});
+		array.add(new String[] {"定期增額保費", "0"});
+		array.add(new String[] {"弱體加費", "0"});
+		array.add(new String[] {"保費費用率", "費用表!$D$2:$G$7"});
+		array.add(new String[] {"保額變更年度", "1"});
+		array.add(new String[] {"變更後保額", "5"});
+		array.add(new String[] {"保險金額", "5"});
+		array.add(new String[] {"性別", "1"});
+		array.add(new String[] {"費用表!$B$3", "80000"});
+		array.add(new String[] {"提領年度", "0"});
+		array.add(new String[] {"結束提領年度", "0"});
+		array.add(new String[] {"部分提領", "0"});
 		
 		String[] statements = new String[]{
 				/* A 0  */ "IF(B3<>\"\",INT((B3-1)/12)+1,\"\")",
@@ -339,7 +340,7 @@ public class TestClass2 {
 		rate[9][98] = new BigDecimal(98); rate[10][98] = new BigDecimal(0); rate[12][98] = new BigDecimal(98); rate[13][98] = new BigDecimal(0); 
 		rate[9][99] = new BigDecimal(99); rate[10][99] = new BigDecimal(0); rate[12][99] = new BigDecimal(99); rate[13][99] = new BigDecimal(0); 
 		
-		this.excelData = new ExcelData("月化試算表", statements.length, 70 * 12 + 1  + 2, ss.toArray(new String[ss.size()]), 0, 2);
+		this.excelData = new ExcelData("月化試算表", statements.length, 1  + 2, ss.toArray(new String[ss.size()]), 0, 2);
 		this.excelData.setSheet("費用表", rate);
 		this.excelData.setValue("月化試算表", 26, 0, new BigDecimal(0.06));
 		this.excelData.setValue("月化試算表", 27, 2, new BigDecimal(3));
@@ -349,8 +350,8 @@ public class TestClass2 {
 	}
 
 	public String replaceNumber(String statement) {
-		for(String key : this.map.keySet()) 
-			statement = statement.replace(key, this.map.get(key));
+		for(String[] s : this.array)
+			statement = statement.replace(s[0], s[1]);
 		
 		return statement;
 	}

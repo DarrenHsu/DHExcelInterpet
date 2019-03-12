@@ -12,7 +12,7 @@ public class TestClass {
 	
 	Calculator calculator;
 	ExcelData excelData;
-	HashMap<String, String> map;
+	ArrayList<String[]> array;
 	 
 	public static void main(String[] args) {
 		TestClass test = new TestClass();
@@ -56,26 +56,26 @@ public class TestClass {
 	}
 	
 	public TestClass() {
-		map = new HashMap<>();
-		map.put("投保年齡", "1");
-		map.put("年金給付年齡", "70");
-		map.put("保險費", "300000");
-		map.put("繳交年限", "5000");
-		map.put("繳法別", "12");
-		map.put("定期定額續期保險費", "1");
-		map.put("費用表!$D$2", "500000");
-		map.put("費用表!$E$2", "0");
-		map.put("費用表!$D$3", "5000000");
-		map.put("費用表!$E$3", "0");
-		map.put("費用表!$E$4", "0");
-		map.put("費用表!$B$3", "3000000");
-		map.put("費用表!$B$2", "0");
-		map.put("費用表!$B$4", "0.001");
-		map.put("提領年度", "1");
-		map.put("結束提領年度", "30");
-		map.put("部分提領", "5000");
-		map.put("費用表!$H$1", "5");
-		map.put("加值給付開始年度", "5");
+		array = new ArrayList<>();
+		array.add(new String[] {"投保年齡", "1"});
+		array.add(new String[] {"年金給付年齡", "70"});
+		array.add(new String[] {"保險費", "300000"});
+		array.add(new String[] {"繳交年限", "5000"});
+		array.add(new String[] {"繳法別", "12"});
+		array.add(new String[] {"定期定額續期保險費", "1"});
+		array.add(new String[] {"費用表!$D$2", "500000"});
+		array.add(new String[] {"費用表!$E$2", "0"});
+		array.add(new String[] {"費用表!$D$3", "5000000"});
+		array.add(new String[] {"費用表!$E$3", "0"});
+		array.add(new String[] {"費用表!$E$4", "0"});
+		array.add(new String[] {"費用表!$B$3", "3000000"});
+		array.add(new String[] {"費用表!$B$2", "0"});
+		array.add(new String[] {"費用表!$B$4", "0.001"});
+		array.add(new String[] {"結束提領年度", "30"});
+		array.add(new String[] {"提領年度", "1"});
+		array.add(new String[] {"部分提領", "5000"});
+		array.add(new String[] {"費用表!$H$1", "5"});
+		array.add(new String[] {"加值給付開始年度", "5"});
 		
 		String[] statements = new String[]{
 				/* A 0  */ "IF(B3<>\"\",INT((B3-1)/12)+1,\"\")",
@@ -149,11 +149,11 @@ public class TestClass {
 		
 		this.calculator = new Calculator(this.excelData);
 	}
-	
-	public String replaceNumber(String statement) {
-		for(String key : this.map.keySet()) 
-			statement = statement.replace(key, this.map.get(key));
 		
+	public String replaceNumber(String statement) {
+		for(String[] s : this.array)
+			statement = statement.replace(s[0], s[1]);
+			
 		return statement;
 	}
 }
