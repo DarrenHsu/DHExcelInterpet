@@ -21,7 +21,9 @@ public class Calculator {
 			FormulaROUND.NAME + "|" +
 			FormulaAVERAGE.NAME + "|" +
 			FormulaVLOOKUP.NAME + "|" +
-			FormulaINT.NAME + 
+			FormulaINT.NAME + "|" +
+			FormulaMAX.NAME + "|" +
+			FormulaMIN.NAME + "|" +
 			")\\(";
 	
 	public Calculator() {
@@ -105,6 +107,10 @@ public class Calculator {
 			return FormulaVLOOKUP.FORMULA_REGEX;
 		case FormulaINT.NAME:
 			return FormulaINT.FORMULA_REGEX;
+		case FormulaMAX.NAME:
+			return FormulaMAX.FORMULA_REGEX;
+		case FormulaMIN.NAME:
+			return FormulaMIN.FORMULA_REGEX;
 		default:
 			return formula;
 		}
@@ -136,6 +142,10 @@ public class Calculator {
 			return new FormulaVLOOKUP(this.excelData).interpret(sr.getStatement());
 		case FormulaINT.NAME:
 			return new FormulaINT(this.excelData).interpret(sr.getStatement());
+		case FormulaMAX.NAME:
+			return new FormulaMAX(this.excelData).interpret(sr.getStatement());
+		case FormulaMIN.NAME:
+			return new FormulaMIN(this.excelData).interpret(sr.getStatement());
 		default:
 			return BigDecimal.ZERO;
 		}

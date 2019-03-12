@@ -77,6 +77,15 @@ public class ExcelData {
 		}
 	}
 	
+	public BigDecimal getValue(String sheetName, int col, int row) {
+		BigDecimal[][] table = this.sheets.get(sheetName);
+		try {
+			return table[col][row];
+		} catch (Exception ex) {
+			return BigDecimal.ZERO;
+		}
+	}
+	
 	public BigDecimal[][] getTable(String sheetName) {
 		return this.sheets.get(sheetName);
 	}

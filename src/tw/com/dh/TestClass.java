@@ -9,6 +9,7 @@ import tw.com.dh.excel.ExcelData;
 import tw.com.dh.utility.Log;
 
 public class TestClass {
+	
 	Calculator calculator;
 	ExcelData excelData;
 	HashMap<String, String> map;
@@ -16,9 +17,9 @@ public class TestClass {
 	public static void main(String[] args) {
 		TestClass test = new TestClass();
 		
-//		BigDecimal testResult = test.calculator.parseStatement("1+-3");x
-//		Log.e(testResult.toString());
-//		if (true) return;
+		BigDecimal testResult = test.calculator.parseStatement("1+-3");
+		Log.e(testResult.toString());
+		if (true) return;
 		
 		Log.e("start");
 		
