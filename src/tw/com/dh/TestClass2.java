@@ -17,7 +17,7 @@ public class TestClass2 {
 	public static void main(String[] args) {
 		TestClass2 test = new TestClass2();
 
-		BigDecimal testResult = test.calculator.parseStatement("1+2");
+		BigDecimal testResult = test.calculator.parseStatement("SUM(AB3, AC2)");
 		Log.e(testResult.toString());
 		if (true) return;
 		

@@ -39,10 +39,10 @@ public class Calculator {
 
 		BigDecimal result = BigDecimal.ZERO;
 		this.statementData = new StatementData(statement.replace(" ", ""));
-		while (this.isHasFormula(this.statementData)) {
+		do {
 			Log.d("------------- interpreter start -------------");
 			result = this.interpretFormula();
-		}
+		} while(this.isHasFormula(this.statementData));
 		
 		Log.d("Final Result: " + result + "\n");
 		
