@@ -19,6 +19,7 @@ public class Calculator {
 			FormulaOR.NAME + "|" +
 			FormulaROW.NAME + "|" +
 			FormulaROUND.NAME + "|" +
+			FormulaROUNDUP.NAME + "|" +
 			FormulaAVERAGE.NAME + "|" +
 			FormulaVLOOKUP.NAME + "|" +
 			FormulaINT.NAME + "|" +
@@ -101,6 +102,8 @@ public class Calculator {
 			return FormulaROW.FORMULA_REGEX;
 		case FormulaROUND.NAME:
 			return FormulaROUND.FORMULA_REGEX;
+		case FormulaROUNDUP.NAME:
+			return FormulaROUNDUP.FORMULA_REGEX;
 		case FormulaAVERAGE.NAME:
 			return FormulaAVERAGE.FORMULA_REGEX;
 		case FormulaVLOOKUP.NAME:
@@ -136,6 +139,8 @@ public class Calculator {
 			return new FormulaROW(this.excelData).interpret(sr.getStatement());
 		case FormulaROUND.NAME:
 			return new FormulaROUND(this.excelData).interpret(sr.getStatement());
+		case FormulaROUNDUP.NAME:
+			return new FormulaROUNDUP(this.excelData).interpret(sr.getStatement());
 		case FormulaAVERAGE.NAME:
 			return new FormulaAVERAGE(this.excelData).interpret(sr.getStatement());
 		case FormulaVLOOKUP.NAME:
