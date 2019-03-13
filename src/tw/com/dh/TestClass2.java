@@ -2,9 +2,6 @@ package tw.com.dh;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
 
 import tw.com.dh.excel.Calculator;
 import tw.com.dh.excel.ExcelData;
@@ -19,13 +16,13 @@ public class TestClass2 {
 	public static void main(String[] args) {
 		TestClass2 test = new TestClass2();
 
-//		BigDecimal testResult = test.calculator.parseStatement("SUM(AB3, AC2)	");
+//		BigDecimal testResult = test.calculator.parseStatement("AND(G3<>0,Z2+G3*(1-VLOOKUP(A3,費用表!$D$2:$G$7,2))+H3*(1-VLOOKUP(A3,費用表!$D$2:$G$7,3))<=S3*10000/(D3-1))");
 //		Log.e(testResult.toString());
 //		if (true) return;
 		
 		Log.e("start");
 		
-		int[] cols = new int[]{1, 0, 2, 3, 5};
+		int[] cols = new int[]{1, 0, 2, 3, 5, 7, 18, 20, 21, 6, 8};
 		int row = test.excelData.currentRow;
 		
 		for (int i = row ; i < test.excelData.rowCount ; i++) {
@@ -78,17 +75,18 @@ public class TestClass2 {
 		array.add(new String[] {"提領年度", "0"});
 		array.add(new String[] {"結束提領年度", "0"});
 		array.add(new String[] {"部分提領", "0"});
+		array.add(new String[] {"100%", "1"});
 		
 		String[] statements = new String[]{
-				/* A 0  */ "IF(B3<>\"\",INT((B3-1)/12)+1,\"\")",
-				/* B 1  */ "IF(ROW()=3,1,IF(OR(B2=\"\",B2>12*(100-投保年齡)),\"\",B2+1))",
-				/* C 2  */ "IF(A3<>\"\",投保年齡+A3-1,\"\")",
-				/* D 3  */ "IF(B3<=基本資料輸入介面!$C$39*12+基本資料輸入介面!$E$39,1,IF(C3<41,1.3,IF(C3<71,1.15,1.01)))",
+				/*.A 0  */ "IF(B3<>\"\",INT((B3-1)/12)+1,\"\")",
+				/*.B 1  */ "IF(ROW()=3,1,IF(OR(B2=\"\",B2>12*(100-投保年齡)),\"\",B2+1))",
+				/*.C 2  */ "IF(A3<>\"\",投保年齡+A3-1,\"\")",
+				/*.D 3  */ "IF(B3<=基本資料輸入介面!$C$39*12+基本資料輸入介面!$E$39,1,IF(C3<41,1.3,IF(C3<71,1.15,1.01)))",
 				/* E 4  */ "IF(G3=0,E2,IF(B3<=基本資料輸入介面!$C$39*12+基本資料輸入介面!$E$39,Q3/Q3,(T3*10000+Q3)/Q3))",
-				/* F 5  */ "IF(AND(B3<>1,Z2=0),0,IF(B3=1,基本保費,IF(Z2<0,0,IF(AND(A3<=基本保費繳交年限,MOD(B3,12/繳法別)=1),基本保費,0))))",
-				/* G 6  */ "IF(OR(IF(B3<基本資料輸入介面!$C$39*12+基本資料輸入介面!$E$39,L2+基本保費>30000000,L2+基本保費+S3*10000>60000000),AND(B3<>1,Z2=0)),0,F3)",
-				/* H 7  */ "IF(AND(B3<>1,Z2=0),0,IF(AND(A3=1,B3=1),不定期增額保費,IF(A3<=增額定期繳交年限,IF(MOD(B3,12/繳法別)=1,定期增額保費,0),0)))",
-				/* I 8  */ "IF(OR(IF(B3<基本資料輸入介面!$C$39*12+基本資料輸入介面!$E$39,L2+G3+定期增額保費>30000000,L2+G3+定期增額保費+S3*10000>60000000),AND(B3<>1,Z2=0)),0,IF(B3=1,H3,IF(AND(B3>=基本資料輸入介面!$C$39*12+基本資料輸入介面!$E$39,弱體加費=0),H3,IF(B3<基本資料輸入介面!$C$39*12+基本資料輸入介面!$E$39,H3,IF(AND(G3<>0,Z2+G3*(1-VLOOKUP(A3,保費費用率,2))+H3*(1-VLOOKUP(A3,保費費用率,3))<=S3*10000/(D3-1)),H3,0)))))",
+				/*.F 5  */ "IF(AND(B3<>1,Z2=0),0,IF(B3=1,基本保費,IF(Z2<0,0,IF(AND(A3<=基本保費繳交年限,MOD(B3,12/繳法別)=1),基本保費,0))))",
+				/*.G 6  */ "IF(OR(IF(B3<基本資料輸入介面!$C$39*12+基本資料輸入介面!$E$39,L2+基本保費>30000000,L2+基本保費+S3*10000>60000000),AND(B3<>1,Z2=0)),0,F3)",
+				/*.H 7  */ "IF(AND(B3<>1,Z2=0),0,IF(AND(A3=1,B3=1),不定期增額保費,IF(A3<=增額定期繳交年限,IF(MOD(B3,12/繳法別)=1,定期增額保費,0),0)))",
+				/*.I 8  */ "IF(OR(IF(B3<基本資料輸入介面!$C$39*12+基本資料輸入介面!$E$39,L2+G3+定期增額保費>30000000,L2+G3+定期增額保費+S3*10000>60000000),AND(B3<>1,Z2=0)),0,IF(B3=1,H3,IF(AND(B3>=基本資料輸入介面!$C$39*12+基本資料輸入介面!$E$39,弱體加費=0),H3,IF(B3<基本資料輸入介面!$C$39*12+基本資料輸入介面!$E$39,H3,IF(AND(G3<>0,Z2+G3*(1-VLOOKUP(A3,保費費用率,2))+H3*(1-VLOOKUP(A3,保費費用率,3))<=S3*10000/(D3-1)),H3,0)))))",
 				/* J 9  */ "SUM($G$3:G3)",
 				/* K 10 */ "SUM($I$3:$I3)",
 				/* L 11 */ "SUM($G$3:G3,$I$3:I3)",
@@ -98,10 +96,10 @@ public class TestClass2 {
 				/* P 15 */ "SUM($O$3:O3)",
 				/* Q 16 */ "IF(AND(B3<>1,Z2=0),0,IF(B3=1,ROUND(O3,2),IF(OR(Z2<0,Q2=0),0,ROUND(Z2+O3,2))))",
 				/* R 17 */ "IF(D3=100%,0,IF(AND(B3<>1,Z2=0),0,IF(OR(B3=基本資料輸入介面!$C$39*12+基本資料輸入介面!$E$39+1,B3=1),S3,IF(OR(O3<>0,B3=(保額變更年度-1)*12+1),AG3,AF2))))",
-				/* S 18 */ "IF(AND(B3<>1,Z2=0),0,IF(A3>=保額變更年度,變更後保額,保險金額))",
+				/*.S 18 */ "IF(AND(B3<>1,Z2=0),0,IF(A3>=保額變更年度,變更後保額,保險金額))",
 				/* T 19 */ "IF(AND(B3<>1,Z2=0),0,IF(B3<=(基本資料輸入介面!$C$39*12+基本資料輸入介面!$E$39),0,IF(弱體加費=0,MAX((MAX(R3,S3)*10000-Q3)/10000,0),MAX((S3*10000-Q3)/10000,0))))",
-				/* U 20 */ "ROUND(T3*VLOOKUP(C3,費用表!$A$12:$E$122,IF(性別=1,3,5))*(1+弱體加費),2)",
-				/* V 21 */ "V2+U3",
+				/*.U 20 */ "ROUND(T3*VLOOKUP(C3,費用表!$A$12:$E$122,IF(性別=1,3,5))*(1+弱體加費),2)",
+				/*.V 21 */ "V2+U3",
 				/* W 22 */ "IF(AND(B3<>1,Z2=0),0,IF((L3-AD3)>=費用表!$B$3,0,費用表!$B$2))",
 				/* X 23 */ "X2+W3",
 				/* Y 24 */ "IF(AND(B3<>1,Z2=0),0,IF(AND(A3>=提領年度,A3<=結束提領年度,B3=12*A3,(Q3-U3-$W3)*(1+AA$1)^(1/12)-部分提領>0),部分提領,0))",

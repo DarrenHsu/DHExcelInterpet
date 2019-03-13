@@ -2,7 +2,6 @@ package tw.com.dh;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import tw.com.dh.excel.Calculator;
 import tw.com.dh.excel.ExcelData;

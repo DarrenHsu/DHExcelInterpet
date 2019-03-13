@@ -23,7 +23,7 @@ public class Calculator {
 			FormulaVLOOKUP.NAME + "|" +
 			FormulaINT.NAME + "|" +
 			FormulaMAX.NAME + "|" +
-			FormulaMIN.NAME + "|" +
+			FormulaMIN.NAME +
 			")\\(";
 	
 	public Calculator() {

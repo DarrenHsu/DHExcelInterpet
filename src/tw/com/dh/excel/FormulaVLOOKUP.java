@@ -29,7 +29,8 @@ public class FormulaVLOOKUP extends Formula {
 		this.sheet = statements[1].substring(0, statements[1].indexOf("!"));
 		this.tableArray = statements[1].substring(statements[1].indexOf("!") + 1);
 		this.colIndex = statements[2];
-		this.rangeLookup = statements[3];
+		if (statement.length() == 4) 
+			this.rangeLookup = statements[3];
 		
 		BigDecimal luValue = this.calPostfix(this.convertToPostfix(this.lookUpValue));
 		int ciValue = this.calPostfix(this.convertToPostfix(this.colIndex)).intValue();
@@ -46,17 +47,17 @@ public class FormulaVLOOKUP extends Formula {
 				
 				if(i != sindex[0]) continue;
 					
-				if (this.rangeLookup.equals("1") || this.rangeLookup.equals("TRUE")) {
+				if (this.rangeLookup != null && (this.rangeLookup.equals("1") || this.rangeLookup.equals("TRUE"))) {
 					BigDecimal start = table[i][j];
 					BigDecimal end = table[i == eindex[0] ? i : i + 1][j];
 					BigDecimal value = luValue;
 					Log.d(start + " ~ " + end + " -> " + value);
 					if (start.compareTo(value) <= 0 && end.compareTo(value) >= 0) 
-						return table[ciValue][j];
+						return table[ciValue][j] == null ? BigDecimal.ZERO : table[ciValue][j];
 				}else {
 					Log.d(luValue + " -> " + table[i][j]);
 					if (luValue.compareTo(table[i][j]) == 0) 
-						return table[i + ciValue - 1][j];
+						return table[i + ciValue - 1][j] == null ? BigDecimal.ZERO : table[i + ciValue - 1][j];
 				}
 			}
 		}
