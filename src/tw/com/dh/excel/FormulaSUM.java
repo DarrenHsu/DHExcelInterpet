@@ -23,12 +23,32 @@ public class FormulaSUM extends Formula {
 		
 		BigDecimal result = BigDecimal.ZERO;
 		
+		if(statement.indexOf(",") >= 0) {
+			this.numbers = this.splitComman(statement, ",");
+			for(int i = 0 ; i < this.numbers.length ; i++) {
+				if (this.numbers[i].indexOf(":") >= 0) {
+					result = new Addtion(new Number(result), new Number(this.process(this.numbers[i]))).interpret();
+				}else {
+					result = new Addtion(new Number(result), new Number(this.calPostfix(this.convertToPostfix(this.numbers[i])))).interpret();
+				}
+			}
+		}else {
+			result = this.process(statement);			
+		}
+		
+		Log.d("r " + result);
+		return result;
+	}
+	
+	private BigDecimal process(String statement) {
+		BigDecimal result = BigDecimal.ZERO;
+		
 		if (statement.indexOf(":") >= 0) {
-			this.numbers = this.splitComman(statement, ":");
+			String[] numbers = this.splitComman(statement, ":");
 			
-			if (this.numbers.length == 2) {
-				int[] index1 = this.excelData.getColumnIndex(this.numbers[0]);
-				int[] index2 = this.excelData.getColumnIndex(this.numbers[1]);
+			if (numbers.length == 2) {
+				int[] index1 = this.excelData.getColumnIndex(numbers[0]);
+				int[] index2 = this.excelData.getColumnIndex(numbers[1]);
 
 				for(int i = index1[0] ; i <= index2[0] ; i++) {
 					for(int j = index1[1] ; j <= index2[1] ; j++) {
@@ -36,14 +56,7 @@ public class FormulaSUM extends Formula {
 					}
 				}
 			}
-		}else if(statement.indexOf(",") >= 0) {
-			this.numbers = this.splitComman(statement, ",");
-			for(int i = 0 ; i < this.numbers.length ; i++) {
-				result = new Addtion(new Number(result), new Number(this.calPostfix(this.convertToPostfix(this.numbers[i])))).interpret();
-			}
 		}
-		
-		Log.d("r " + result);
 		return result;
 	}
 }

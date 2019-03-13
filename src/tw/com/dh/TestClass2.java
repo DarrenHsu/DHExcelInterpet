@@ -16,13 +16,13 @@ public class TestClass2 {
 	public static void main(String[] args) {
 		TestClass2 test = new TestClass2();
 
-//		BigDecimal testResult = test.calculator.parseStatement("AND(G3<>0,Z2+G3*(1-VLOOKUP(A3,費用表!$D$2:$G$7,2))+H3*(1-VLOOKUP(A3,費用表!$D$2:$G$7,3))<=S3*10000/(D3-1))");
+//		BigDecimal testResult = test.calculator.parseStatement("SUM($AA$3,$AA$3)");
 //		Log.e(testResult.toString());
 //		if (true) return;
 		
 		Log.e("start");
 		
-		int[] cols = new int[]{1, 0, 2, 3, 5, 7, 18, 20, 21, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 27, 28, 32, 17, 19, 4};
+		int[] cols = new int[]{1, 0, 2, 3, 5, 7, 18, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 27, 28, 32, 17, 19, 20, 21, 4, 29, 22, 23, 24, 25, 26, 30, 31};
 		int row = test.excelData.currentRow;
 		
 		for (int i = row ; i < test.excelData.rowCount ; i++) {
@@ -38,14 +38,14 @@ public class TestClass2 {
 		Log.i("\n<================ table ====================>");
 		String h = "";
 		for(int c = 0 ; c < test.excelData.colCount ; c++) {
-			h += String.format("%6s", "" + c) + (c == test.excelData.colCount - 1 ? "" : ",");
+			h += String.format("%9s", "" + c) + (c == test.excelData.colCount - 1 ? "" : ",");
 		}
 		Log.i(h);
 		for(int r = 0 ; r < test.excelData.rowCount ; r++) {
 			String s = "";
 			for(int c = 0 ; c < test.excelData.colCount ; c++) {
 				BigDecimal result = test.excelData.table[c][r];
-				s += String.format("%6s", result.setScale(0, BigDecimal.ROUND_HALF_UP).toString()) + (c == test.excelData.colCount - 1 ? "" : ",");
+				s += String.format("%9s", result.setScale(2, BigDecimal.ROUND_HALF_UP).toString()) + (c == test.excelData.colCount - 1 ? "" : ",");
 			}
 			Log.i(s);
 		}
@@ -72,8 +72,9 @@ public class TestClass2 {
 		array.add(new String[] {"保險金額", "5"});
 		array.add(new String[] {"性別", "1"});
 		array.add(new String[] {"費用表!$B$3", "80000"});
-		array.add(new String[] {"提領年度", "0"});
+		array.add(new String[] {"費用表!$B$2", "3"});
 		array.add(new String[] {"結束提領年度", "0"});
+		array.add(new String[] {"提領年度", "0"});
 		array.add(new String[] {"部分提領", "0"});
 		array.add(new String[] {"100%", "1"});
 		
@@ -100,16 +101,16 @@ public class TestClass2 {
 				/*.T 19 */ "IF(AND(B3<>1,Z2=0),0,IF(B3<=(基本資料輸入介面!$C$39*12+基本資料輸入介面!$E$39),0,IF(弱體加費=0,MAX((MAX(R3,S3)*10000-Q3)/10000,0),MAX((S3*10000-Q3)/10000,0))))",
 				/*.U 20 */ "ROUND(T3*VLOOKUP(C3,費用表!$A$12:$E$122,IF(性別=1,3,5))*(1+弱體加費),2)",
 				/*.V 21 */ "V2+U3",
-				/* W 22 */ "IF(AND(B3<>1,Z2=0),0,IF((L3-AD3)>=費用表!$B$3,0,費用表!$B$2))",
-				/* X 23 */ "X2+W3",
-				/* Y 24 */ "IF(AND(B3<>1,Z2=0),0,IF(AND(A3>=提領年度,A3<=結束提領年度,B3=12*A3,(Q3-U3-$W3)*(1+AA$1)^(1/12)-部分提領>0),部分提領,0))",
-				/* Z 25 */ "IF((Q3-U3-$W3-AB3)*(1+AA$1)^(1/12)<0,0,(Q3-U3-$W3-AB3)*(1+AA$1)^(1/12)-Y3)",
-				/* AA26 */ "IF(Z3>0,Q3+T3*10000,0)",
+				/*,W 22 */ "IF(AND(B3<>1,Z2=0),0,IF((L3-AD3)>=費用表!$B$3,0,費用表!$B$2))",
+				/*,X 23 */ "X2+W3",
+				/*,Y 24 */ "IF(AND(B3<>1,Z2=0),0,IF(AND(A3>=提領年度,A3<=結束提領年度,B3=12*A3,(Q3-U3-$W3)*(1+AA$1)^(1/12)-部分提領>0),部分提領,0))",
+				/*,Z 25 */ "IF((Q3-U3-$W3-AB3)*(1+AA$1)^(1/12)<0,0,(Q3-U3-$W3-AB3)*(1+AA$1)^(1/12)-Y3)",
+				/*,AA26 */ "IF(Z3>0,Q3+T3*10000,0)",
 				/*.AB27 */ "IF(AND(B3<>1,Z2=0),0,VLOOKUP(A3,費用表!$J$2:$K$100,2)*Q3)",
 				/*.AC28 */ "AB3+AC2",
-				/* AD29 */ "Y3+AD2",
-				/* AE30 */ "IF(AND(B3<>1,Z2=0),0,Y3*VLOOKUP(A3,費用表!M$2:N$100,2))",
-				/* AF31 */ "ROUNDUP(IF(AND(T3>0,Y3>0),(R3*10000-Y3)/10000,IF(AND(T3=0,Y3>0),MIN(Z3,S3*10000)/10000,R3)),1)",
+				/*,AD29 */ "Y3+AD2",
+				/*,AE30 */ "IF(AND(B3<>1,Z2=0),0,Y3*VLOOKUP(A3,費用表!M$2:N$100,2))",
+				/*,AF31 */ "ROUNDUP(IF(AND(T3>0,Y3>0),(R3*10000-Y3)/10000,IF(AND(T3=0,Y3>0),MIN(Z3,S3*10000)/10000,R3)),1)",
 				/*.AG32 */ "ROUNDUP((O3)*D3/10000,1)"
 		};
 		
@@ -338,11 +339,9 @@ public class TestClass2 {
 		rate[9][98] = new BigDecimal(98); rate[10][98] = new BigDecimal(0); rate[12][98] = new BigDecimal(98); rate[13][98] = new BigDecimal(0); 
 		rate[9][99] = new BigDecimal(99); rate[10][99] = new BigDecimal(0); rate[12][99] = new BigDecimal(99); rate[13][99] = new BigDecimal(0); 
 		
-		this.excelData = new ExcelData("月化試算表", statements.length, 1  + 2, ss.toArray(new String[ss.size()]), 0, 2);
+		this.excelData = new ExcelData("月化試算表", statements.length, 70 * 12 + 1  + 2, ss.toArray(new String[ss.size()]), 0, 2);
 		this.excelData.setSheet("費用表", rate);
 		this.excelData.setValue("月化試算表", 26, 0, new BigDecimal(0.06));
-		this.excelData.setValue("月化試算表", 27, 2, new BigDecimal(3));
-		this.excelData.setValue("月化試算表", 28, 1, new BigDecimal(5));
 		
 		this.calculator = new Calculator(this.excelData);
 	}
