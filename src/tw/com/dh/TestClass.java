@@ -142,7 +142,7 @@ public class TestClass {
 		table2[10][11] = new BigDecimal(0.006);
 		table2[10][12] = new BigDecimal(0.006);	
 		
-		this.excelData = new ExcelData("月化試算表", statements.length, 69 * 12 + 1  + 2, ss.toArray(new String[ss.size()]), 0, 2);
+		this.excelData = new ExcelData("月化試算表", statements.length, 69 * 12 + 1 + 2, ss.toArray(new String[ss.size()]), 0, 2);
 		this.excelData.setSheet("費用表", table2);
 		this.excelData.setValue("月化試算表", 17, 0, new BigDecimal(0.01));
 		

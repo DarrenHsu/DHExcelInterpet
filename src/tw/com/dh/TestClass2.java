@@ -339,7 +339,7 @@ public class TestClass2 {
 		rate[9][98] = new BigDecimal(98); rate[10][98] = new BigDecimal(0); rate[12][98] = new BigDecimal(98); rate[13][98] = new BigDecimal(0); 
 		rate[9][99] = new BigDecimal(99); rate[10][99] = new BigDecimal(0); rate[12][99] = new BigDecimal(99); rate[13][99] = new BigDecimal(0); 
 		
-		this.excelData = new ExcelData("月化試算表", statements.length, 70 * 12 + 1  + 2, ss.toArray(new String[ss.size()]), 0, 2);
+		this.excelData = new ExcelData("月化試算表", statements.length, 9 * 12 + 2, ss.toArray(new String[ss.size()]), 0, 2);
 		this.excelData.setSheet("費用表", rate);
 		this.excelData.setValue("月化試算表", 26, 0, new BigDecimal(0.06));
 		
