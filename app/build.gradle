@@ -1,19 +1,19 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.novoda.bintray-release'
 
 //publish {
 //
 //    def groupProjectID = 'tw.com.dh.dhexcelinterpet'
 //    def artifactProjectID = 'DHExcelInterpet'
-//    def publishVersionID = 'library_version_code'
+//    def publishVersionID = '1.0.0'
 //
 //    userOrg = 'chungen720'
 //    repoName = 'DHExcelInterpet'
 //    groupId = groupProjectID
 //    artifactId = artifactProjectID
 //    publishVersion = publishVersionID
-//    desc = '{library description}'
-//    website = '{github_url}
-//
+//    desc = 'This is a library that facilitates the processing of Excel. It can simulate the result of excel in the program and easily handle the operands in excel.'
+//    website = 'https://github.com/DarrenHsu/DHExcelInterpet'
 //}
 
 android {
@@ -40,4 +40,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    implementation "android.arch.work:work-runtime:1.0.1"
 }
